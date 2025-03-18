@@ -9,8 +9,9 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": "build"
+        "buildCommand": "CI=false npm run build",
+        "outputDirectory": "build",
+        "devCommand": "npm run dev"
       }
     }
   ],
@@ -20,8 +21,23 @@
       "dest": "server.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/build/$1"
+      "src": "^/static/(.*)",
+      "dest": "/build/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/build/favicon.ico"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/build/manifest.json"
+    },
+    {
+      "src": "^/.*",
+      "dest": "/build/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 } 
