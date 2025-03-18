@@ -18,9 +18,9 @@ app.use(session({
 
 app.use(express.json());
 
-// Serve static files from the React app
+// Serve static files
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('/songs', express.static(path.join(__dirname, 'public/songs')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to check session
 const checkSession = (req, res, next) => {

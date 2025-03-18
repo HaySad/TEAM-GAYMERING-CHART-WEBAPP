@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Login';
 import MainPage from './MainPage';
 import './App.css';
@@ -65,31 +66,29 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {!isLoggedIn ? (
-        <Login onLogin={handleLogin} />
-      ) : (
-        <div>
-          <div style={styles.navbar}>
-            <div style={styles.userInfo}>
-              <span>Welcome, {username}!</span>
-              {sessionExpiry && (
-                <span style={styles.sessionTimer}>
-                  Session expires: {sessionExpiry.toLocaleTimeString()}
-                </span>
-              )}
-            </div>
-            <button 
-              style={styles.logoutButton}
-              onClick={handleLogout}
-            >
-              ออกจากระบบ / Logout
-            </button>
-          </div>
-          <MainPage />
-        </div>
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/login" element={
+            !isLoggedIn ? (
+              <Login onLogin={handleLogin} />
+            ) : (
+              <Navigate to="/Discord-Competition IV" replace />
+            )
+          } />
+          <Route path="/Discord-Competition IV" element={
+            isLoggedIn ? (
+              <MainPage />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+          <Route path="/" element={
+            <Navigate to={isLoggedIn ? "/Discord-Competition IV" : "/login"} replace />
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
