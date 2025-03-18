@@ -6,8 +6,8 @@ import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [sessionExpiry, setSessionExpiry] = useState<Date | null>(null);
+  const [, setUsername] = useState('');
+  const [, setSessionExpiry] = useState<Date | null>(null);
   const [sessionCheckInterval, setSessionCheckInterval] = useState<NodeJS.Timeout | null>(null);
 
   // Check session status on component mount
@@ -91,34 +91,5 @@ function App() {
     </Router>
   );
 }
-
-const styles = {
-  navbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem 2rem',
-    backgroundColor: '#f8f9fa',
-    borderBottom: '1px solid #dee2e6',
-  },
-  userInfo: {
-    display: 'flex',
-    gap: '1rem',
-    alignItems: 'center',
-  },
-  sessionTimer: {
-    fontSize: '0.9rem',
-    color: '#666',
-  },
-  logoutButton: {
-    padding: '0.5rem 1rem',
-    backgroundColor: '#dc3545',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-  },
-};
 
 export default App;

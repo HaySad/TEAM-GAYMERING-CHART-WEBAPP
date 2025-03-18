@@ -57,7 +57,7 @@ const MainPage: React.FC = () => {
       
       // Only remove characters that are invalid in filenames
       const sanitizedName = songName
-        .replace(/[<>:"/\\|?*\x00-\x1f]/g, '') // Remove invalid filename characters
+        .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename characters
         .trim();
       
       // Create an anchor element and trigger download
