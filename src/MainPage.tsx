@@ -18,7 +18,12 @@ interface TierData {
   songs: Song[];
 }
 
-const MainPage: React.FC = () => {
+interface MainPageProps {
+  username: string;
+  sessionExpiry: Date | null;
+}
+
+const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
   const [tiers, setTiers] = useState<TierData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
