@@ -108,7 +108,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
     <div style={styles.pageWrapper}>
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
-          <span style={styles.welcomeText}>Welcome, HaySad!</span>
+          <span style={styles.welcomeText}>Welcome</span>
           <button style={styles.logoutButton} onClick={handleLogout}>
             ออกจากระบบ / Logout
           </button>

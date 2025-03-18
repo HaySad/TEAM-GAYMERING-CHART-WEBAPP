@@ -11,10 +11,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!username.trim()) {
-      setMessage('กรุณาใส่ชื่อผู้ใช้ / Please enter a username');
-      return;
-    }
+    // if (!username.trim()) {
+    //   setMessage('กรุณาใส่ชื่อผู้ใช้ / Please enter a username');
+    //   return;
+    // }
 
     try {
       const response = await fetch('/api/login', {

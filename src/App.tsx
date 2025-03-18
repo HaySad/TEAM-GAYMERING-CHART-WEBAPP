@@ -8,44 +8,63 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [sessionExpiry, setSessionExpiry] = useState<Date | null>(null);
-  const [sessionCheckInterval, setSessionCheckInterval] = useState<NodeJS.Timeout | null>(null);
+  // const [sessionCheckInterval, setSessionCheckInterval] = useState<NodeJS.Timeout | null>(null);
 
   // Check session status on component mount
   useEffect(() => {
-    checkSession();
-  }, []);
-
-  // Setup session check interval when logged in
-  useEffect(() => {
-    if (isLoggedIn) {
-      const interval = setInterval(checkSession, 60000); // Check every minute
-      setSessionCheckInterval(interval);
-      return () => {
-        if (interval) clearInterval(interval);
-      };
-    } else if (sessionCheckInterval) {
-      clearInterval(sessionCheckInterval);
-      setSessionCheckInterval(null);
-    }
-  }, [isLoggedIn]);
-
-  const checkSession = async () => {
-    try {
-      const response = await fetch('/api/session');
-      const data = await response.json();
-      
-      if (data.isValid) {
-        setIsLoggedIn(true);
-        setUsername(data.user.username);
-        setSessionExpiry(new Date(data.sessionExpiry));
-      } else {
+    const checkSession = async () => {
+      try {
+        const response = await fetch('/api/session');
+        const data = await response.json();
+        
+        if (data.isValid) {
+          setIsLoggedIn(true);
+          setUsername(data.user.username);
+          setSessionExpiry(new Date(data.sessionExpiry));
+        } else {
+          handleLogout();
+        }
+      } catch (error) {
+        console.error('Session check error:', error);
         handleLogout();
       }
-    } catch (error) {
-      console.error('Session check error:', error);
-      handleLogout();
-    }
-  };
+    };
+    checkSession();
+  }, []);
+  
+  // const checkSession = async () => {
+  //   try {
+  //     const response = await fetch('/api/session');
+  //     const data = await response.json();
+      
+  //     if (data.isValid) {
+  //       setIsLoggedIn(true);
+  //       setUsername(data.user.username);
+  //       setSessionExpiry(new Date(data.sessionExpiry));
+  //     } else {
+  //       handleLogout();
+  //     }
+  //   } catch (error) {
+  //     console.error('Session check error:', error);
+  //     handleLogout();
+  //   }
+  // };
+
+  // // Setup session check interval when logged in
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     const interval = setInterval(checkSession, 60000); // Check every minute
+  //     setSessionCheckInterval(interval);
+  //     return () => {
+  //       if (interval) clearInterval(interval);
+  //     };
+  //   } else if (sessionCheckInterval) {
+  //     clearInterval(sessionCheckInterval);
+  //     setSessionCheckInterval(null);
+  //   }
+  // }, [isLoggedIn]);
+
+ 
 
   const handleLogin = (username: string, expiry: Date) => {
     setIsLoggedIn(true);
@@ -84,7 +103,7 @@ function App() {
             )
           } />
           <Route path="/" element={
-            <Navigate to={isLoggedIn ? "/discord-competition-4" : "/login"} replace />
+            <Navigate to="/discord-competition-4" replace />
           } />
         </Routes>
       </div>
