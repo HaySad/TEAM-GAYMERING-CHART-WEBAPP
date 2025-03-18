@@ -18,8 +18,10 @@ app.use(session({
 
 app.use(express.json());
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve static files only in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to check session
@@ -137,8 +139,12 @@ app.get('/api/tiers', checkSession, async (req, res) => {
 });
 
 // Catch all other routes and return the index.html file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get('*', (req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  } else {
+    next();
+  }
 });
 
 const PORT = process.env.PORT || 3001;
