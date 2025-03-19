@@ -90,8 +90,34 @@ export const maiChartData: Song[] = [
     chartDesigner: "Happy&Sad",
     artist: "seatrus"
   },
+  {
+    id: "10",
+    name: "Inverted World",
+    level: 14.7,
+    image: "/songs/all/inverted/bg.jpg",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1iThGdfHu6aEaKO4gyykKWjR26I8H4jOt",
+    chartDesigner: "1V MELT",
+    artist: "ARForest"
+  },
+  {
+    id: "11",
+    name: "MEGALOVANIA (Camellia Remix)",
+    level: 15.0,
+    image: "/songs/all/megalovania/bg.jpg",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
+    chartDesigner: "P4P1N002 Vs Levelast",
+    artist: "Toby Fox (Remixed by Camellia)"
+  },
+  {
+    id: "12",
+    name: "KOCMOC UNLEASHED", 
+    level: 16.0,
+    image: "/songs/all/kocmoc-unleashed/bg.jpg",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1xuELQh3erQF5M1Sd-IgUCaUAeGkmo2JV",
+    chartDesigner: "Levelast the NULL",
+    artist: "G2961 (SLEEPING HUMMINGBIRD - LONDON REMIX)"
+  },
   
-
 
   // เพิ่มเพลงอื่นๆ ตามต้องการ
 ]; 
