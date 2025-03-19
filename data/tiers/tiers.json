@@ -40,38 +40,38 @@
     },
     {
       "level": 2,
-      "life": 4,
+      "life": 200,
       "minusX": 2,
       "minusY": 3,
-      "minusZ": 4,
-      "addLife": 10,
+      "minusZ": 5,
+      "addLife": 30,
       "songs": [
         {
           "id": "2-1",
-          "name": "Song Name 5",
-          "level": 2.0,
+          "name": "ツユ - Dämonisch",
+          "level": 13.4,
           "image": "songs/2-1/bg.jpg",
           "downloadUrl": "/api/songs/2-1/download"
         },
         {
           "id": "2-2",
-          "name": "Song Name 6",
-          "level": 2.2,
-          "image": "/songs/2-2/cover.jpg",
+          "name": "ハッピーエンドのイントロが聴こえる",
+          "level": 13.0,
+          "image": "/songs/2-2/bg.jpg",
           "downloadUrl": "/api/songs/2-2/download"
         },
         {
           "id": "2-3",
-          "name": "Song Name 7",
-          "level": 2.5,
-          "image": "/songs/2-3/cover.jpg",
+          "name": "Angels of Death - Ending  Pray",
+          "level": 13.1,
+          "image": "/songs/2-3/bg.jpg",
           "downloadUrl": "/api/songs/2-3/download"
         },
         {
           "id": "2-4",
-          "name": "Song Name 8",
-          "level": 2.8,
-          "image": "/songs/2-4/cover.jpg",
+          "name": "Tears",
+          "level": 13.0,
+          "image": "/songs/2-4/bg.jpg",
           "downloadUrl": "/api/songs/2-4/download"
         }
       ]
