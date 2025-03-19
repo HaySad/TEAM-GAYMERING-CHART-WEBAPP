@@ -17,6 +17,10 @@
   ],
   "routes": [
     {
+      "src": "/api/login",
+      "dest": "server.js"
+    },
+    {
       "src": "/api/tiers",
       "dest": "server.js"
     },
