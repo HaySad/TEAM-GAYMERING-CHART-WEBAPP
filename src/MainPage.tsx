@@ -33,18 +33,8 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
 
   const handleDownload = async (downloadUrl: string, songName: string) => {
     try {
-      const songId = downloadUrl.split('/').pop();
-      const directUrl = `/songs/${songId}/song.zip`;
-      const sanitizedName = songName
-        .replace(/[<>:"/\\|?*]/g, '')
-        .trim();
-      
-      const a = document.createElement('a');
-      a.href = directUrl;
-      a.download = `${sanitizedName}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // Redirect to Google Drive download URL directly
+      window.open(downloadUrl, '_blank');
     } catch (error) {
       console.error('Download error:', error);
       alert('ไม่สามารถดาวน์โหลดไฟล์ได้ / Download failed');
