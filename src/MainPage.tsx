@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { tiersData } from './data/tiers';
 
 interface Song {
   id: string;
@@ -24,56 +25,23 @@ interface MainPageProps {
 }
 
 const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
-  const [tiers, setTiers] = useState<TierData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchTiers = async () => {
-      try {
-        const response = await fetch('/api/tiers', {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch tiers data');
-        }
-        const data = await response.json();
-        setTiers(data);
-      } catch (err) {
-        setError('ไม่สามารถโหลดข้อมูลได้ / Failed to load data');
-        console.error('Error fetching tiers:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTiers();
-  }, []);
+  const [tiers] = useState<TierData[]>(tiersData);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = '/placeholder.png'; // ใช้รูปภาพ placeholder เมื่อโหลดรูปไม่สำเร็จ
+    e.currentTarget.src = '/placeholder.png';
   };
 
   const handleDownload = async (downloadUrl: string, songName: string) => {
     try {
-      // Get the song ID from the URL (e.g., "1-1" from "/api/songs/1-1/download")
       const songId = downloadUrl.split('/').pop();
-      
-      // Create direct path to the file in public folder
       const directUrl = `/songs/${songId}/song.zip`;
-      
-      // Only remove characters that are invalid in filenames
       const sanitizedName = songName
-        .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename characters
+        .replace(/[<>:"/\\|?*]/g, '')
         .trim();
       
-      // Create an anchor element and trigger download
       const a = document.createElement('a');
       a.href = directUrl;
-      a.download = `${sanitizedName}.zip`; // Use song name with special characters
+      a.download = `${sanitizedName}.zip`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -83,46 +51,26 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-      
-      if (response.ok) {
-        window.location.href = '/login';
-      } else {
-        throw new Error('Logout failed');
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
-      alert('ไม่สามารถออกจากระบบได้ / Logout failed');
-    }
+  const handleLogout = () => {
+    window.location.href = '/login';
   };
-
-  if (loading) {
-    return <div style={styles.loading}>กำลังโหลด... / Loading...</div>;
-  }
-
-  if (error) {
-    return <div style={styles.error}>{error}</div>;
-  }
 
   return (
     <div style={styles.pageWrapper}>
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
-          <span style={styles.welcomeText}>Welcome</span>
+          <div style={styles.userInfo}>
+            <span style={styles.welcomeText}>Welcome, {username}!</span>
+            {sessionExpiry && (
+              <span style={styles.sessionTimer}>
+                Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
+              </span>
+            )}
+          </div>
           <button style={styles.logoutButton} onClick={handleLogout}>
             ออกจากระบบ / Logout
           </button>
         </div>
-      </div>
-      <div style={styles.starsContainer}>
-        <div style={styles.stars1}></div>
-        <div style={styles.stars2}></div>
-        <div style={styles.stars3}></div>
       </div>
       <div style={styles.container}>
         <h1 style={styles.header}>段位認定- Discord-Competition IV</h1>
@@ -158,7 +106,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                       style={styles.downloadButton}
                       onClick={() => handleDownload(song.downloadUrl, song.name)}
                     >
-                      Download ⬇️
+                      ดาวน์โหลด / Download ⬇️
                     </button>
                   </div>
                 </div>
@@ -218,88 +166,14 @@ const styles = {
       boxShadow: '0 0 15px rgba(255, 107, 107, 0.2)',
     },
   },
-  starsContainer: {
-    position: 'fixed' as const,
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    pointerEvents: 'none' as const,
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '0.5rem',
   },
-  stars1: {
-    position: 'absolute' as const,
-    width: '1px',
-    height: '1px',
-    background: 'transparent',
-    boxShadow: `${Array.from({ length: 50 }, () => {
-      const x = Math.floor(Math.random() * 2000);
-      const y = Math.floor(Math.random() * 2000);
-      return `${x}px ${y}px #fff`;
-    }).join(', ')}`,
-    animation: 'animateStars 50s linear infinite',
-    '&:after': {
-      content: '" "',
-      position: 'absolute',
-      top: '2000px',
-      width: '1px',
-      height: '1px',
-      background: 'transparent',
-      boxShadow: `${Array.from({ length: 50 }, () => {
-        const x = Math.floor(Math.random() * 2000);
-        const y = Math.floor(Math.random() * 2000);
-        return `${x}px ${y}px #fff`;
-      }).join(', ')}`,
-    },
-  },
-  stars2: {
-    position: 'absolute' as const,
-    width: '2px',
-    height: '2px',
-    background: 'transparent',
-    boxShadow: `${Array.from({ length: 30 }, () => {
-      const x = Math.floor(Math.random() * 2000);
-      const y = Math.floor(Math.random() * 2000);
-      return `${x}px ${y}px #fff`;
-    }).join(', ')}`,
-    animation: 'animateStars 100s linear infinite',
-    '&:after': {
-      content: '" "',
-      position: 'absolute',
-      top: '2000px',
-      width: '2px',
-      height: '2px',
-      background: 'transparent',
-      boxShadow: `${Array.from({ length: 30 }, () => {
-        const x = Math.floor(Math.random() * 2000);
-        const y = Math.floor(Math.random() * 2000);
-        return `${x}px ${y}px #fff`;
-      }).join(', ')}`,
-    },
-  },
-  stars3: {
-    position: 'absolute' as const,
-    width: '3px',
-    height: '3px',
-    background: 'transparent',
-    boxShadow: `${Array.from({ length: 20 }, () => {
-      const x = Math.floor(Math.random() * 2000);
-      const y = Math.floor(Math.random() * 2000);
-      return `${x}px ${y}px #fff`;
-    }).join(', ')}`,
-    animation: 'animateStars 150s linear infinite',
-    '&:after': {
-      content: '" "',
-      position: 'absolute',
-      top: '2000px',
-      width: '3px',
-      height: '3px',
-      background: 'transparent',
-      boxShadow: `${Array.from({ length: 20 }, () => {
-        const x = Math.floor(Math.random() * 2000);
-        const y = Math.floor(Math.random() * 2000);
-        return `${x}px ${y}px #fff`;
-      }).join(', ')}`,
-    },
+  sessionTimer: {
+    color: '#888',
+    fontSize: '0.9rem',
   },
   container: {
     padding: '1rem',
@@ -430,18 +304,6 @@ const styles = {
   songLevel: {
     fontSize: '0.9rem',
     color: '#888',
-  },
-  loading: {
-    textAlign: 'center' as const,
-    padding: '2rem',
-    fontSize: '1.2rem',
-    color: '#4ECDC4',
-  },
-  error: {
-    textAlign: 'center' as const,
-    padding: '2rem',
-    color: '#FF6B6B',
-    fontSize: '1.2rem',
   },
   downloadButton: {
     backgroundColor: 'rgba(78, 205, 196, 0.15)',

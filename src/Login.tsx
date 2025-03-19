@@ -6,33 +6,13 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
-  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // if (!username.trim()) {
-    //   setMessage('กรุณาใส่ชื่อผู้ใช้ / Please enter a username');
-    //   return;
-    // }
-
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: username.trim() }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        onLogin(data.username, new Date(data.sessionExpiry));
-      } else {
-        setMessage('เกิดข้อผิดพลาด กรุณาลองใหม่ / Error occurred, please try again');
-      }
-    } catch (error) {
-      setMessage('เกิดข้อผิดพลาด กรุณาลองใหม่ / Error occurred, please try again');
+    if (username.trim()) {
+      // Set session expiry to 1 hour from now
+      const sessionExpiry = new Date(Date.now() + 60 * 60 * 1000);
+      onLogin(username.trim(), sessionExpiry);
     }
   };
 
@@ -40,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     <div style={styles.container}>
       <div style={styles.loginBox}>
         <h2 style={styles.title}>เข้าสู่ระบบ / Login</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
+        <form onSubmit={onSubmit} style={styles.form}>
           <input
             type="text"
             value={username}
@@ -52,7 +32,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             เข้าสู่ระบบ / Login
           </button>
         </form>
-        {message && <p style={styles.message}>{message}</p>}
       </div>
     </div>
   );
@@ -101,12 +80,7 @@ const styles = {
     ':hover': {
       backgroundColor: '#0056b3',
     },
-  },
-  message: {
-    textAlign: 'center' as const,
-    marginTop: '1rem',
-    color: '#dc3545',
-  },
+  }
 };
 
 export default Login; 
