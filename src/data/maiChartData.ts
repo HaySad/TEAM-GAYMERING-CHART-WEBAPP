@@ -1,8 +1,13 @@
+export interface DifficultyLevel {
+  level: string;
+  levelValue: number;
+  levelType: 'Re:MASTER' | 'MASTER' | 'EXPERT' | 'ADVANCED' | 'BASIC';
+}
+
 export interface Song {
   id: string;
   name: string;
-  level: string;
-  levelValue: number;
+  difficulties: DifficultyLevel[];
   image: string;
   downloadUrl: string;
   chartDesigner: string;
@@ -14,12 +19,42 @@ export interface Song {
   };
 }
 
+// id: "1",
+// name: "Daytime EP",
+// difficulties: [
+//   {
+//     level: "14+",
+//     levelValue: 14.9,
+//     levelType: "Re:MASTER"
+//   },
+//   {
+//     level: "13.5",
+//     levelValue: 13.5,
+//     levelType: "MASTER"
+//   },
+//   {
+//     level: "12.0",
+//     levelValue: 12.0,
+//     levelType: "EXPERT"
+//   }
+// ],
+// image: "/songs/all/daytime/bg.jpg",
+// downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
+// chartDesigner: "H&S",
+// artist: "Seatrus",
+// },
+
 export const maiChartData: Song[] = [
   {
     id: "1",
     name: "Daytime EP",
-    level: "14.9",
-    levelValue: 14.9,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.9,
+        levelType: "MASTER"
+      },
+    ],
     image: "/songs/all/daytime/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
     chartDesigner: "H&S",
@@ -28,8 +63,13 @@ export const maiChartData: Song[] = [
   {
     id: "2",
     name: "メクルメ",
-    level: "14.4",
-    levelValue: 14.4,
+    difficulties: [
+      {
+        level: "14",
+        levelValue: 14.4,
+        levelType: "Re:MASTER"
+      }
+    ],
     image: "/songs/all/mekuru/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1TbL6UV0L1KOhwH1DJsUrEloVERNKFc4w",
     chartDesigner: "Happy VS H&S VS 8bit ft. The doop",
@@ -38,8 +78,19 @@ export const maiChartData: Song[] = [
   {
     id: "3",
     name: "DiSANiMATE",
-    level: "15.6",
-    levelValue: 15.6,
+    difficulties: [
+      {
+        level: "15+",
+        levelValue: 15.6,
+        levelType: "Re:MASTER"
+      },
+      {
+        level: "15",
+        levelValue: 15.1,
+        levelType: "MASTER"
+      }
+
+    ],
     image: "/songs/all/DiSANiMATE/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1SREIp3OaxcZC6QVOdisIF2XUxen9elea",
     chartDesigner: "Happy & Sad",
@@ -48,8 +99,13 @@ export const maiChartData: Song[] = [
   {
     id: "4",
     name: "刹那の誓い",
-    level: "13.8",
-    levelValue: 13.8,
+    difficulties: [
+      {
+        level: "13+",
+        levelValue: 13.8,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/chikai/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1l1s9u742XDG5nl43stQ2wCIqXqwI79iQ",
     chartDesigner: "Happy And Sad!!",
@@ -57,9 +113,14 @@ export const maiChartData: Song[] = [
   },
   {
     id: "5",
-    name: "STIGMA",  
-    level: "14.1",
-    levelValue: 14.1,
+    name: "STIGMA",
+    difficulties: [
+      {
+        level: "14",
+        levelValue: 14.1,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/stigma/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1oNP12jv0SbJ7IxsP589XplYGvKDUsvRl",
     chartDesigner: "HaySad Vs S0Time",
@@ -68,8 +129,13 @@ export const maiChartData: Song[] = [
   {
     id: "6",
     name: "SUPERNOVA",
-    level: "14.9",
-    levelValue: 14.9,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.9,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/supernova/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1_mkivuAdyWRfaZsV4xTzj0YYVqC1Ynz6",
     chartDesigner: "8 bit",
@@ -78,8 +144,13 @@ export const maiChartData: Song[] = [
   {
     id: "7",
     name: "Aether Crest: Celestial",
-    level: "14.8",
-    levelValue: 14.8,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.8,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/aether/bg.png",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1UGZATTON26LO3xF7dQuo_iGyw4u--RpQ",
     chartDesigner: "HaySad vs Levelast [ChuniMai]",
@@ -88,8 +159,13 @@ export const maiChartData: Song[] = [
   {
     id: "8",
     name: "Designant.",
-    level: "15.3",
-    levelValue: 15.3,
+    difficulties: [
+      {
+        level: "15",
+        levelValue: 15.3,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/designant/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1R7un6B-RTF_VdIlar3AwyoOZCZIyyKM_",
     chartDesigner: "Happy To THE GoD VS LevelMAX",
@@ -98,8 +174,13 @@ export const maiChartData: Song[] = [
   {
     id: "9",
     name: "EXXTRA JUDGEMENT",
-    level: "14.7",
-    levelValue: 14.7,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.8,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/extra/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1tKdMcXKzu05L4-TGqEKf-FDKRiMeZpoj",
     chartDesigner: "Happy&Sad",
@@ -108,8 +189,13 @@ export const maiChartData: Song[] = [
   {
     id: "10",
     name: "Inverted World",
-    level: "14.7",
-    levelValue: 14.7,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.8,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/inverted/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1iThGdfHu6aEaKO4gyykKWjR26I8H4jOt",
     chartDesigner: "1V MELT",
@@ -118,8 +204,13 @@ export const maiChartData: Song[] = [
   {
     id: "11",
     name: "MEGALOVANIA (Camellia Remix)",
-    level: "15.0",
-    levelValue: 15.0,
+    difficulties: [
+      {
+        level: "15",
+        levelValue: 15.0,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/megalovania/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
     chartDesigner: "P4P1N002 Vs Levelast",
@@ -127,9 +218,14 @@ export const maiChartData: Song[] = [
   },
   {
     id: "12",
-    name: "KOCMOC UNLEASHED", 
-    level: "16.0",
-    levelValue: 16.0,
+    name: "KOCMOC UNLEASHED",
+    difficulties: [
+      {
+        level: "16.0",
+        levelValue: 16.0,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/kocmoc-unleashed/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1xuELQh3erQF5M1Sd-IgUCaUAeGkmo2JV",
     chartDesigner: "Levelast the NULL",
@@ -138,8 +234,13 @@ export const maiChartData: Song[] = [
   {
     id: "13",
     name: "The Daybreak Will Never Come Again.",
-    level: "15.0",
-    levelValue: 15.0,
+    difficulties: [
+      {
+        level: "??",
+        levelValue: 0,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/daybreak/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
     chartDesigner: "HaySad VS ???",
@@ -156,8 +257,13 @@ export const maiChartData: Song[] = [
   {
     id: "14",
     name: "Moonlight Sonata 3rd Movement (Cut Ver.)",
-    level: "14.7",
-    levelValue: 14.7,
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.7,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/moonlight-sonata/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
     chartDesigner: "Beamthoven",
@@ -166,8 +272,13 @@ export const maiChartData: Song[] = [
   {
     id: "15",
     name: "SuddeNDeath",
-    level: "15.0",
-    levelValue: 15.0,
+    difficulties: [
+      {
+        level: "15",
+        levelValue: 15.0,
+        levelType: "MASTER"
+      }
+    ],
     image: "/songs/all/sudden-death/bg.jpg",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
     chartDesigner: "HaySad",

@@ -53,7 +53,10 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
 
     const sortedSongs = [...songs].sort((a: Song, b: Song) => {
       if (field === 'level') {
-        return sortOrder === 'asc' ? a.levelValue - b.levelValue : b.levelValue - a.levelValue;
+        // Get the highest level value from difficulties
+        const aMaxLevel = Math.max(...a.difficulties.map(d => d.levelValue));
+        const bMaxLevel = Math.max(...b.difficulties.map(d => d.levelValue));
+        return sortOrder === 'asc' ? aMaxLevel - bMaxLevel : bMaxLevel - aMaxLevel;
       } else {
         return sortOrder === 'asc' 
           ? a[field].localeCompare(b[field])
@@ -199,6 +202,23 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                       🔒
                     </div>
                   )}
+                  <div style={styles.levelBadgesContainer}>
+                    {song.difficulties.map((diff, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          ...styles.levelBadge,
+                          ...(diff.levelType === 'Re:MASTER' && styles.levelBadgeReMaster),
+                          ...(diff.levelType === 'MASTER' && styles.levelBadgeMaster),
+                          ...(diff.levelType === 'EXPERT' && styles.levelBadgeExpert),
+                          ...(diff.levelType === 'ADVANCED' && styles.levelBadgeAdvanced),
+                          ...(diff.levelType === 'BASIC' && styles.levelBadgeBasic),
+                        }}
+                      >
+                        {diff.levelType} {diff.level}
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div style={{
                   ...styles.songInfo,
@@ -211,7 +231,9 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                     {song.name}
                     {isBossSong && <span style={styles.bossTag}>BOSS</span>}
                   </div>
-                  <div style={styles.songLevel}>Level: {song.level}</div>
+                  <div style={styles.songLevel}>
+                    Level: {Math.max(...song.difficulties.map(d => d.levelValue))}
+                  </div>
                   <div style={styles.songDetails}>
                     <div style={styles.detailItem}>
                       <span style={styles.detailLabel}>🎵 Artist</span>
@@ -527,6 +549,43 @@ const styles = {
     ':hover': {
       transform: 'scale(1.1)',
     },
+  },
+  levelBadgesContainer: {
+    position: 'absolute' as const,
+    bottom: '10px',
+    right: '10px',
+    display: 'flex',
+    gap: '8px',
+    flexWrap: 'wrap' as const,
+    justifyContent: 'flex-end',
+    zIndex: 2,
+  },
+  levelBadge: {
+    padding: '4px 12px',
+    borderRadius: '15px',
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    color: '#ffffff',
+    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    whiteSpace: 'nowrap' as const,
+  },
+  levelBadgeReMaster: {
+    backgroundColor: 'rgba(135, 206, 235, 0.9)', // Light blue
+  },
+  levelBadgeMaster: {
+    backgroundColor: 'rgba(0, 0, 255, 0.9)', // Blue
+  },
+  levelBadgeExpert: {
+    backgroundColor: 'rgba(255, 0, 0, 0.9)', // Red
+  },
+  levelBadgeAdvanced: {
+    backgroundColor: 'rgba(255, 165, 0, 0.9)', // Orange
+  },
+  levelBadgeBasic: {
+    backgroundColor: 'rgba(0, 255, 0, 0.9)', // Green
   },
 };
 
