@@ -111,6 +111,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
               )}
             </div>
             
+            
             <div style={styles.songsGrid}>
               {tier.songs.map((song) => (
                 <div key={song.id} style={styles.songCard}>
