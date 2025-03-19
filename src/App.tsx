@@ -4,6 +4,7 @@ import Login from './Login';
 import MainPage from './MainPage';
 import MaiChart from './MaiChart';
 import './App.css';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -65,6 +66,7 @@ function App() {
               <Navigate to="/discord-competition-4" replace />
             )
           } />
+          <SpeedInsights/>
           <Route path="/discord-competition-4" element={
             <MainPage username={username} sessionExpiry={sessionExpiry} />
           } />
