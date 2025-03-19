@@ -19,21 +19,21 @@ export const tiersData = [
             "name": "主人公になろう！",
             "level": 12.6,
             "image": "/songs/1-2/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_1_2"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1TbM_JuhoWsJKaLbl9cYT-NCQU8MOe2FV"
           },
           {
             "id": "1-3",
             "name": "WyvernP - Clock Paradox [Phigros]",
             "level": 12.7,
             "image": "/songs/1-3/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_1_3"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1WmJloTODioo0iR0yFC2Ok6JUJaVCcPP1"
           },
           {
             "id": "1-4",
             "name": "甘神さんちの縁結び - Pray Pray Pray",
             "level": 12.9,
             "image": "/songs/1-4/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_1_4"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1XuoIfJvWYrKe6csbEoRnrm0lLTzQHStv"
           }
         ]
       },
@@ -50,28 +50,28 @@ export const tiersData = [
             "name": "ツユ - Dämonisch",
             "level": 13.4,
             "image": "/songs/2-1/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_2_1"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1qNMi727k24I_T5rY4oHWshkWt1zex-zH"
           },
           {
             "id": "2-2",
             "name": "ハッピーエンドのイントロが聴こえる",
             "level": 13.0,
             "image": "/songs/2-2/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_2_2"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1qIA3yd_aHb0gs2DVZQ6iy-5sffGjUlH9"
           },
           {
             "id": "2-3",
             "name": "Angels of Death - Ending  Pray",
             "level": 13.1,
             "image": "/songs/2-3/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_2_3"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1o7VMJf1e43rOxMVmYcPht7-jYDQd-xfR"
           },
           {
             "id": "2-4",
             "name": "Tears",
             "level": 13.0,
             "image": "/songs/2-4/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_2_4"
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1wWhYiwWhb7u86ZVkn7L7fgSbXZ8q1Iez"
           }
         ]
       }
