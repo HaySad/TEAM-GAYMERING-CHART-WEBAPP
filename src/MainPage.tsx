@@ -7,9 +7,11 @@ interface Song {
   level: number;
   image: string;
   downloadUrl: string;
+  chartDesigner: string;
+  artist: string;
 }
 
-interface TierData {
+interface Tier {
   level: number;
   life: number;
   minusX: number;
@@ -17,6 +19,7 @@ interface TierData {
   minusZ: number;
   addLife: number;
   songs: Song[];
+  allSongsDownloadUrl?: string;
 }
 
 interface MainPageProps {
@@ -25,7 +28,7 @@ interface MainPageProps {
 }
 
 const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
-  const [tiers] = useState<TierData[]>(tiersData);
+  const [tiers] = useState<Tier[]>(tiersData);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = '/placeholder.png';
@@ -42,7 +45,15 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
   };
 
   const handleLogout = () => {
-    window.location.href = '/login';
+    // Clear all cookies
+    document.cookie.split(";").forEach((c) => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+    // Redirect to root path
+    window.location.href = '/';
   };
 
   return (
@@ -76,6 +87,14 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                 <span style={styles.statItem}>Miss - {tier.minusZ} <span style={styles.heart}>❤️</span></span>
                 <span style={styles.statItem}>Add Life - {tier.addLife} <span style={styles.heart}>❤️</span></span>
               </div>
+              {tier.allSongsDownloadUrl && (
+                <button
+                  style={styles.downloadAllButton}
+                  onClick={() => tier.allSongsDownloadUrl && handleDownload(tier.allSongsDownloadUrl, `Tier${tier.level}_All_Songs`)}
+                >
+                  Download All Songs in Tier {tier.level}
+                </button>
+              )}
             </div>
             
             <div style={styles.songsGrid}>
@@ -92,6 +111,16 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                   <div style={styles.songInfo}>
                     <div style={styles.songName}>{song.name}</div>
                     <div style={styles.songLevel}>Level: {song.level.toFixed(1)}</div>
+                    <div style={styles.songDetails}>
+                      <div style={styles.detailItem}>
+                        <span style={styles.detailLabel}>🎵 Artist </span>
+                        <span style={styles.detailValue}>{song.artist}</span>
+                      </div>
+                      <div style={styles.detailItem}>
+                        <span style={styles.detailLabel}>🎮 Chart by </span>
+                        <span style={styles.detailValue}>{song.chartDesigner}</span>
+                      </div>
+                    </div>
                     <button 
                       style={styles.downloadButton}
                       onClick={() => handleDownload(song.downloadUrl, song.name)}
@@ -309,6 +338,46 @@ const styles = {
     ':hover': {
       backgroundColor: 'rgba(78, 205, 196, 0.25)',
     },
+  },
+  downloadAllButton: {
+    backgroundColor: 'rgba(78, 205, 196, 0.15)',
+    color: '#4ECDC4',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    width: '100%',
+    marginTop: '0.5rem',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      backgroundColor: 'rgba(78, 205, 196, 0.25)',
+    },
+  },
+  songDetails: {
+    fontSize: '0.9rem',
+    color: '#aaa',
+    marginTop: '0.8rem',
+    marginBottom: '0.8rem',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '0.5rem',
+  },
+  detailItem: {
+    margin: '0.15rem 0',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    gap: '0.2rem',
+  },
+  detailLabel: {
+    color: '#4ECDC4',
+    fontSize: '0.85rem',
+    fontWeight: 'bold',
+  },
+  detailValue: {
+    color: '#fff',
+    fontSize: '0.9rem',
   },
 };
 
