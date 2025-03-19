@@ -17,7 +17,19 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/api/tiers",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/session",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/logout",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/songs/(.*)/download",
       "dest": "server.js"
     },
     {
