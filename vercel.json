@@ -17,52 +17,15 @@
   ],
   "routes": [
     {
-      "src": "/api/login",
+      "src": "/api/(.*)",
       "dest": "server.js"
     },
     {
-      "src": "/api/tiers",
-      "dest": "server.js"
+      "handle": "filesystem"
     },
     {
-      "src": "/api/session",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/logout",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/songs/(.*)/download",
-      "dest": "server.js"
-    },
-    {
-      "src": "^/static/(.*)",
-      "dest": "/build/static/$1"
-    },
-    {
-      "src": "^/favicon.ico",
-      "dest": "/build/favicon.ico"
-    },
-    {
-      "src": "^/manifest.json",
-      "dest": "/build/manifest.json"
-    },
-    {
-      "src": "^/discord-competition-4",
-      "dest": "/build/index.html"
-    },
-    {
-      "src": "^/login",
-      "dest": "/build/index.html"
-    },
-    {
-      "src": "^/mai-chart",
-      "dest": "/build/index.html"
-    },
-    {
-      "src": "^/.*",
-      "dest": "/build/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
   "env": {
