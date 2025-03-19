@@ -60,17 +60,31 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
     <div style={styles.pageWrapper}>
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
+          <div style={styles.navLinks}>
+            <a href="/discord-competition-4" style={{...styles.navLink, color: '#4ECDC4'}}>Discord Competition</a>
+            <a href="/mai-chart" style={styles.navLink}>Mai Chart</a>
+          </div>
           <div style={styles.userInfo}>
-            <span style={styles.welcomeText}>Welcome, {username}!</span>
-            {sessionExpiry && (
-              <span style={styles.sessionTimer}>
-                Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
-              </span>
+            {username ? (
+              <>
+                <span style={styles.welcomeText}>Welcome, {username}!</span>
+                {sessionExpiry && (
+                  <span style={styles.sessionTimer}>
+                    Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
+                  </span>
+                )}
+              </>
+            ) : (
+              <a href="/login" style={styles.loginButton}>
+                เข้าสู่ระบบ / Login
+              </a>
             )}
           </div>
-          <button style={styles.logoutButton} onClick={handleLogout}>
-            ออกจากระบบ / Logout
-          </button>
+          {username && (
+            <button style={styles.logoutButton} onClick={handleLogout}>
+              ออกจากระบบ / Logout
+            </button>
+          )}
         </div>
       </div>
       <div style={styles.container}>
@@ -163,6 +177,20 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '2rem',
+  },
+  navLink: {
+    color: '#888',
+    textDecoration: 'none',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    transition: 'color 0.3s ease',
+    ':hover': {
+      color: '#4ECDC4',
+    },
   },
   welcomeText: {
     color: '#4ECDC4',
@@ -378,6 +406,20 @@ const styles = {
   detailValue: {
     color: '#fff',
     fontSize: '0.9rem',
+  },
+  loginButton: {
+    backgroundColor: 'rgba(78, 205, 196, 0.15)',
+    color: '#4ECDC4',
+    border: 'none',
+    padding: '0.5rem 1.2rem',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    textDecoration: 'none',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      backgroundColor: 'rgba(78, 205, 196, 0.25)',
+    },
   },
 };
 
