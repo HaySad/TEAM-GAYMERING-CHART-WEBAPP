@@ -30,4 +30,87 @@
 
 .main-download-button:hover {
   background-color: rgba(78, 205, 196, 0.25) !important;
+}
+
+.requirements-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.requirements-modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  color: white;
+  box-shadow: 0 8px 32px rgba(78, 205, 196, 0.3);
+  border: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.requirements-modal h3 {
+  color: #4ECDC4;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.requirements-modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.requirements-modal li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+  color: #fff;
+}
+
+.requirements-modal li:last-child {
+  border-bottom: none;
+}
+
+.requirements-modal button {
+  background-color: rgba(78, 205, 196, 0.15);
+  color: #4ECDC4;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.requirements-modal button:hover {
+  background-color: rgba(78, 205, 196, 0.25);
+}
+
+.locked-image {
+  filter: blur(3px) brightness(0.7);
+}
+
+.locked-card:hover .locked-image {
+  filter: blur(2px) brightness(0.8);
+}
+
+.download-button-locked {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+.download-button-locked::after {
+  content: "🔒";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 } 

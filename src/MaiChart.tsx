@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
-import { maiChartData } from './data/maiChartData';
+import { maiChartData, Song } from './data/maiChartData';
 import './styles/MaiChart.css';
-
-interface Song {
-  id: string;
-  name: string;
-  level: number;
-  image: string;
-  downloadUrl: string;
-  chartDesigner: string;
-  artist: string;
-}
 
 interface MaiChartProps {
   username: string | null;
   sessionExpiry: Date | null;
 }
+
+interface RequirementsModalProps {
+  requirements: {
+    description: string;
+    conditions: string[];
+  };
+  onClose: () => void;
+}
+
+const RequirementsModal: React.FC<RequirementsModalProps> = ({ requirements, onClose }) => (
+  <div className="requirements-modal-overlay" onClick={onClose}>
+    <div className="requirements-modal" onClick={e => e.stopPropagation()}>
+      <h3>{requirements.description}</h3>
+      <ul>
+        {requirements.conditions.map((condition, index) => (
+          <li key={index}>{condition}</li>
+        ))}
+      </ul>
+      <button onClick={onClose}>Close</button>
+    </div>
+  </div>
+);
 
 const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpiry }) => {
   const [songs, setSongs] = useState<Song[]>(maiChartData);
@@ -23,6 +35,10 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
   const [sortBy, setSortBy] = useState<'chartDesigner' | 'name' | 'level'>('chartDesigner');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [selectedDesigner, setSelectedDesigner] = useState<string>('all');
+  const [selectedRequirements, setSelectedRequirements] = useState<{
+    description: string;
+    conditions: string[];
+  } | null>(null);
 
   // Get unique chart designers using Array.from
   const chartDesigners = ['all', ...Array.from(new Set(songs.map((song: Song) => song.chartDesigner)))];
@@ -37,7 +53,7 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
 
     const sortedSongs = [...songs].sort((a: Song, b: Song) => {
       if (field === 'level') {
-        return sortOrder === 'asc' ? a.level - b.level : b.level - a.level;
+        return sortOrder === 'asc' ? a.levelValue - b.levelValue : b.levelValue - a.levelValue;
       } else {
         return sortOrder === 'asc' 
           ? a[field].localeCompare(b[field])
@@ -157,19 +173,32 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
         <div style={styles.songsGrid}>
           {songs.map((song) => {
             const isBossSong = song.id === "3-3" || song.id === "3-4";
+            const isLocked = song.requirements?.isLocked;
             return (
               <div 
                 key={song.id} 
                 style={isBossSong ? styles.bossSongCard : styles.songCard}
-                className={isBossSong ? 'boss-song-card' : 'song-card'}
+                className={`${isBossSong ? 'boss-song-card' : 'song-card'} ${isLocked ? 'locked-card' : ''}`}
               >
                 <div style={styles.imageContainer}>
                   <img 
                     src={song.image} 
                     alt={song.name}
                     style={styles.songImage}
+                    className={isLocked ? 'locked-image' : ''}
                     onError={handleImageError}
                   />
+                  {isLocked && (
+                    <div 
+                      style={styles.lockIcon}
+                      onClick={() => song.requirements && setSelectedRequirements({
+                        description: song.requirements.description,
+                        conditions: song.requirements.conditions
+                      })}
+                    >
+                      🔒
+                    </div>
+                  )}
                 </div>
                 <div style={{
                   ...styles.songInfo,
@@ -182,7 +211,7 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                     {song.name}
                     {isBossSong && <span style={styles.bossTag}>BOSS</span>}
                   </div>
-                  <div style={styles.songLevel}>Level: {song.level.toFixed(1)}</div>
+                  <div style={styles.songLevel}>Level: {song.level}</div>
                   <div style={styles.songDetails}>
                     <div style={styles.detailItem}>
                       <span style={styles.detailLabel}>🎵 Artist</span>
@@ -199,16 +228,24 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                       backgroundColor: isBossSong ? 'rgba(255, 59, 59, 0.15)' : 'rgba(78, 205, 196, 0.15)',
                       color: isBossSong ? '#ff3b3b' : '#4ECDC4',
                     }}
-                    className={isBossSong ? 'boss-download-button' : 'normal-download-button'}
-                    onClick={() => handleDownload(song.downloadUrl, song.name)}
+                    className={`${isBossSong ? 'boss-download-button' : 'normal-download-button'} ${isLocked ? 'download-button-locked' : ''}`}
+                    onClick={() => !isLocked && handleDownload(song.downloadUrl, song.name)}
+                    disabled={isLocked}
                   >
-                    ดาวน์โหลด / Download ⬇️
+                    {isLocked ? 'Locked' : 'ดาวน์โหลด / Download ⬇️'}
                   </button>
                 </div>
               </div>
             );
           })}
         </div>
+
+        {selectedRequirements && (
+          <RequirementsModal 
+            requirements={selectedRequirements}
+            onClose={() => setSelectedRequirements(null)}
+          />
+        )}
       </div>
     </div>
   );
@@ -471,6 +508,25 @@ const styles = {
     fontSize: '0.8rem',
     marginLeft: '8px',
     fontWeight: 'bold',
+  },
+  lockIcon: {
+    position: 'absolute' as const,
+    top: '10px',
+    right: '10px',
+    fontSize: '24px',
+    cursor: 'pointer',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: '50%',
+    padding: '5px',
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'transform 0.3s ease',
+    ':hover': {
+      transform: 'scale(1.1)',
+    },
   },
 };
 
