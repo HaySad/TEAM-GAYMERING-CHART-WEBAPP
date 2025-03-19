@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { maiChartData } from './data/maiChartData';
+import './styles/MaiChart.css';
 
 interface Song {
   id: string;
@@ -154,38 +155,59 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
         </div>
 
         <div style={styles.songsGrid}>
-          {songs.map((song) => (
-            <div key={song.id} style={styles.songCard}>
-              <div style={styles.imageContainer}>
-                <img 
-                  src={song.image} 
-                  alt={song.name}
-                  style={styles.songImage}
-                  onError={handleImageError}
-                />
-              </div>
-              <div style={styles.songInfo}>
-                <div style={styles.songName}>{song.name}</div>
-                <div style={styles.songLevel}>Level: {song.level.toFixed(1)}</div>
-                <div style={styles.songDetails}>
-                  <div style={styles.detailItem}>
-                    <span style={styles.detailLabel}>🎵 Artist</span>
-                    <span style={styles.detailValue}>{song.artist}</span>
-                  </div>
-                  <div style={styles.detailItem}>
-                    <span style={styles.detailLabel}>🎮 Chart by</span>
-                    <span style={styles.detailValue}>{song.chartDesigner}</span>
-                  </div>
+          {songs.map((song) => {
+            const isBossSong = song.id === "3-3" || song.id === "3-4";
+            return (
+              <div 
+                key={song.id} 
+                style={isBossSong ? styles.bossSongCard : styles.songCard}
+                className={isBossSong ? 'boss-song-card' : 'song-card'}
+              >
+                <div style={styles.imageContainer}>
+                  <img 
+                    src={song.image} 
+                    alt={song.name}
+                    style={styles.songImage}
+                    onError={handleImageError}
+                  />
                 </div>
-                <button 
-                  style={styles.downloadButton}
-                  onClick={() => handleDownload(song.downloadUrl, song.name)}
-                >
-                  ดาวน์โหลด / Download ⬇️
-                </button>
+                <div style={{
+                  ...styles.songInfo,
+                  backgroundColor: isBossSong ? 'rgba(50, 20, 20, 0.8)' : 'rgba(30, 30, 30, 0.8)'
+                }}>
+                  <div style={{
+                    ...styles.songName,
+                    color: isBossSong ? '#ff3b3b' : '#4ECDC4'
+                  }}>
+                    {song.name}
+                    {isBossSong && <span style={styles.bossTag}>BOSS</span>}
+                  </div>
+                  <div style={styles.songLevel}>Level: {song.level.toFixed(1)}</div>
+                  <div style={styles.songDetails}>
+                    <div style={styles.detailItem}>
+                      <span style={styles.detailLabel}>🎵 Artist</span>
+                      <span style={styles.detailValue}>{song.artist}</span>
+                    </div>
+                    <div style={styles.detailItem}>
+                      <span style={styles.detailLabel}>🎮 Chart by</span>
+                      <span style={styles.detailValue}>{song.chartDesigner}</span>
+                    </div>
+                  </div>
+                  <button 
+                    style={{
+                      ...styles.downloadButton,
+                      backgroundColor: isBossSong ? 'rgba(255, 59, 59, 0.15)' : 'rgba(78, 205, 196, 0.15)',
+                      color: isBossSong ? '#ff3b3b' : '#4ECDC4',
+                    }}
+                    className={isBossSong ? 'boss-download-button' : 'normal-download-button'}
+                    onClick={() => handleDownload(song.downloadUrl, song.name)}
+                  >
+                    ดาวน์โหลด / Download ⬇️
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -314,12 +336,17 @@ const styles = {
     maxWidth: '300px',
     width: '100%',
     position: 'relative' as const,
-    ':hover': {
-      transform: 'scale(1.5)',
-      boxShadow: '0 8px 32px rgba(78, 205, 196, 0.3)',
-      border: '1px solid rgba(78, 205, 196, 0.5)',
-      zIndex: 2,
-    },
+  },
+  bossSongCard: {
+    backgroundColor: 'rgba(37, 37, 37, 0.9)',
+    backdropFilter: 'blur(5px)',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    transition: 'all 0.3s ease',
+    border: '2px solid rgba(255, 59, 59, 0.5)',
+    maxWidth: '300px',
+    width: '100%',
+    position: 'relative' as const,
   },
   imageContainer: {
     width: '100%',
@@ -341,13 +368,11 @@ const styles = {
   songInfo: {
     padding: '1.2rem',
     textAlign: 'center' as const,
-    backgroundColor: 'rgba(30, 30, 30, 0.8)',
   },
   songName: {
     fontSize: 'clamp(0.9rem, 3vw, 1.1rem)',
     fontWeight: 'bold',
     marginBottom: '0.5rem',
-    color: '#4ECDC4',
   },
   songLevel: {
     fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)',
@@ -379,8 +404,6 @@ const styles = {
     fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)',
   },
   downloadButton: {
-    backgroundColor: 'rgba(78, 205, 196, 0.15)',
-    color: '#4ECDC4',
     border: 'none',
     padding: '0.5rem 1rem',
     borderRadius: '20px',
@@ -390,9 +413,6 @@ const styles = {
     maxWidth: '250px',
     margin: '0.5rem auto 0',
     transition: 'all 0.3s ease',
-    ':hover': {
-      backgroundColor: 'rgba(78, 205, 196, 0.25)',
-    },
   },
   sortControls: {
     display: 'flex',
@@ -442,6 +462,15 @@ const styles = {
     ':hover': {
       backgroundColor: 'rgba(78, 205, 196, 0.25)',
     },
+  },
+  bossTag: {
+    backgroundColor: 'rgba(255, 59, 59, 0.2)',
+    color: '#ff3b3b',
+    padding: '2px 8px',
+    borderRadius: '12px',
+    fontSize: '0.8rem',
+    marginLeft: '8px',
+    fontWeight: 'bold',
   },
 };
 

@@ -90,7 +90,54 @@ export const tiersData = [
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1wWhYiwWhb7u86ZVkn7L7fgSbXZ8q1Iez",
             "artist": "4EVE",
             "chartDesigner": "M4cTh30ne"
-          }
+          },
         ]
-      }
+      },
+      {
+        "level": 3,
+        "life": 700,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 50,
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=1Vzk9yQh8lBs7UmlMvW9DMnldrgNIQrGr",
+        "songs": [
+          {
+            "id": "3-1",
+            "name": "Shelter",
+            "level": 13.8,
+            "image": "/songs/3-1/bg.png",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1FAHii1e48PdaTBrmtZgC_eIs6cFOMLZv",
+            "artist": "Porter Robinson & Madeon",
+            "chartDesigner": "TEAM GAYMERING"
+          },
+          {
+            "id": "3-2",
+            "name": "刹那の誓い",
+            "level": 13.8,
+            "image": "/songs/3-2/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1gVqfQAfOUisGMhl8ifwhUEVfZ0bdKaX1",
+            "artist": "ネコハッカー feat.由崎司",
+            "chartDesigner": "Happy And Sad!!"
+          },
+          {
+            "id": "3-3",
+            "name": "メクルメ",
+            "level": 14.4,
+            "image": "/songs/3-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1351K8EjwH38e8zeuawg4CWe7G-AExxlf",
+            "artist": "初星学園",
+            "chartDesigner": "Happy VS H&S VS 8bit ft. The doop"
+          },
+          {
+            "id": "3-4",
+            "name": "甘神さんちの縁結び - 神様の言うとーり！",
+            "level": 14.2,
+            "image": "/songs/3-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1GTGl2dIaiu5O4Z5YABloIY2owImbzMCX",
+            "artist": "≠ME",
+            "chartDesigner": "Levelast"
+          },
+        ]
+      },
 ]; 
