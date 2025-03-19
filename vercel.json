@@ -57,15 +57,15 @@
       "dest": "/build/index.html"
     },
     {
+      "src": "^/mai-chart",
+      "dest": "/build/index.html"
+    },
+    {
       "src": "^/.*",
       "dest": "/build/index.html"
     }
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  }
 } 
