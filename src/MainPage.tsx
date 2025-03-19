@@ -31,7 +31,12 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
   useEffect(() => {
     const fetchTiers = async () => {
       try {
-        const response = await fetch('/api/tiers');
+        const response = await fetch('/api/tiers', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch tiers data');
         }
@@ -153,7 +158,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                       style={styles.downloadButton}
                       onClick={() => handleDownload(song.downloadUrl, song.name)}
                     >
-                      ดาวน์โหลด / Download ⬇️
+                      Download ⬇️
                     </button>
                   </div>
                 </div>

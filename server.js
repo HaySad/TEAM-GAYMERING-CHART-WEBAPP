@@ -3,7 +3,16 @@ const fs = require('fs').promises;
 const path = require('path');
 const session = require('express-session');
 const db = require('./database');
+const cors = require('cors');
 const app = express();
+
+// CORS configuration
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://discord-competition.vercel.app'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Session configuration
 app.use(session({
