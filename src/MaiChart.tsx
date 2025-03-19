@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { maiChartData, Song } from './data/maiChartData';
 import './styles/MaiChart.css';
 
@@ -30,6 +31,7 @@ const RequirementsModal: React.FC<RequirementsModalProps> = ({ requirements, onC
 );
 
 const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpiry }) => {
+  const navigate = useNavigate();
   const [songs, setSongs] = useState<Song[]>(maiChartData);
   const [username] = useState(() => propUsername || localStorage.getItem('username') || 'Guest');
   const [sortBy, setSortBy] = useState<'chartDesigner' | 'name' | 'level'>('chartDesigner');
@@ -100,6 +102,11 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
       localStorage.removeItem('username');
       window.location.href = '/';
     }
+  };
+
+  const handleCardClick = (songId: string) => {
+    sessionStorage.setItem('maiChartScrollPosition', window.scrollY.toString());
+    navigate(`/song/${songId}`);
   };
 
   return (
@@ -180,8 +187,12 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
             return (
               <div 
                 key={song.id} 
-                style={isBossSong ? styles.bossSongCard : styles.songCard}
+                style={{
+                  ...(isBossSong ? styles.bossSongCard : styles.songCard),
+                  cursor: 'pointer',
+                }}
                 className={`${isBossSong ? 'boss-song-card' : 'song-card'} ${isLocked ? 'locked-card' : ''}`}
+                onClick={() => handleCardClick(song.id)}
               >
                 <div style={styles.imageContainer}>
                   <img 
@@ -194,10 +205,13 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                   {isLocked && (
                     <div 
                       style={styles.lockIcon}
-                      onClick={() => song.requirements && setSelectedRequirements({
-                        description: song.requirements.description,
-                        conditions: song.requirements.conditions
-                      })}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        song.requirements && setSelectedRequirements({
+                          description: song.requirements.description,
+                          conditions: song.requirements.conditions
+                        });
+                      }}
                     >
                       🔒
                     </div>
@@ -251,7 +265,10 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
                       color: isBossSong ? '#ff3b3b' : '#4ECDC4',
                     }}
                     className={`${isBossSong ? 'boss-download-button' : 'normal-download-button'} ${isLocked ? 'download-button-locked' : ''}`}
-                    onClick={() => !isLocked && handleDownload(song.downloadUrl, song.name)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      !isLocked && handleDownload(song.downloadUrl, song.name);
+                    }}
                     disabled={isLocked}
                   >
                     {isLocked ? 'Locked' : 'ดาวน์โหลด / Download ⬇️'}

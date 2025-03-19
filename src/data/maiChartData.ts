@@ -4,14 +4,26 @@ export interface DifficultyLevel {
   levelType: 'Re:MASTER' | 'MASTER' | 'EXPERT' | 'ADVANCED' | 'BASIC';
 }
 
+export interface ChartStats {
+  bpm: number;
+  totalNotes: number;
+  taps: number;
+  holds: number;
+  slides: number;
+  touches: number;
+  breaks: number;
+}
+
 export interface Song {
   id: string;
   name: string;
   difficulties: DifficultyLevel[];
   image: string;
+  maidata: string;
   downloadUrl: string;
   chartDesigner: string;
   artist: string;
+  chartStats: ChartStats | 'None';
   requirements?: {
     description: string;
     conditions: string[];
@@ -42,7 +54,6 @@ export interface Song {
 // downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
 // chartDesigner: "H&S",
 // artist: "Seatrus",
-// },
 
 export const maiChartData: Song[] = [
   {
@@ -56,9 +67,19 @@ export const maiChartData: Song[] = [
       },
     ],
     image: "/songs/all/daytime/bg.jpg",
+    maidata: "/songs/all/daytime/maidata.txt", 
     downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
     chartDesigner: "H&S",
     artist: "Seatrus",
+    chartStats: {
+      bpm: 140,
+      totalNotes: 5854,
+      taps: 3425,
+      holds: 421,
+      slides: 395,
+      touches: 828,
+      breaks: 785
+    }
   },
   {
     id: "2",
@@ -71,9 +92,19 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/mekuru/bg.jpg",
+    maidata: "/songs/all/mekuru/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1TbL6UV0L1KOhwH1DJsUrEloVERNKFc4w",
     chartDesigner: "Happy VS H&S VS 8bit ft. The doop",
-    artist: "初星学園"
+    artist: "初星学園",
+    chartStats: {
+      bpm: 160,
+      totalNotes: 1048,
+      taps: 581,
+      holds: 67,
+      slides: 137,
+      touches: 95,
+      breaks: 168
+    }
   },
   {
     id: "3",
@@ -92,13 +123,15 @@ export const maiChartData: Song[] = [
 
     ],
     image: "/songs/all/DiSANiMATE/bg.jpg",
+    maidata: "/songs/all/DiSANiMATE/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1SREIp3OaxcZC6QVOdisIF2XUxen9elea",
     chartDesigner: "Happy & Sad",
-    artist: "Seatrus"
+    artist: "Seatrus",
+    chartStats: "None"
   },
   {
     id: "4",
-    name: "刹那の誓い",
+    name: "刹那の誓い", 
     difficulties: [
       {
         level: "13+",
@@ -107,9 +140,19 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/chikai/bg.jpg",
+    maidata: "/songs/all/chikai/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1l1s9u742XDG5nl43stQ2wCIqXqwI79iQ",
     chartDesigner: "Happy And Sad!!",
-    artist: "ネコハッカー feat.由崎司"
+    artist: "ネコハッカー feat.由崎司",
+    chartStats: {
+      bpm: 200,
+      totalNotes: 1083,
+      taps: 612,
+      holds: 65,
+      slides: 140,
+      touches: 224,
+      breaks: 42
+    }
   },
   {
     id: "5",
@@ -122,13 +165,15 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/stigma/bg.jpg",
+    maidata: "/songs/all/stigma/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1oNP12jv0SbJ7IxsP589XplYGvKDUsvRl",
     chartDesigner: "HaySad Vs S0Time",
-    artist: "U-ske feat. 棗いつき"
+    artist: "U-ske feat. 棗いつき",
+    chartStats: "None"
   },
   {
     id: "6",
-    name: "SUPERNOVA",
+    name: "SUPERNOVA", 
     difficulties: [
       {
         level: "14+",
@@ -137,9 +182,19 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/supernova/bg.jpg",
+    maidata: "/songs/all/supernova/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1_mkivuAdyWRfaZsV4xTzj0YYVqC1Ynz6",
     chartDesigner: "8 bit",
-    artist: "Kyotsugyon"
+    artist: "Kyotsugyon",
+    chartStats: {
+      bpm: 252,
+      totalNotes: 1395,
+      taps: 914,
+      holds: 105,
+      slides: 128,
+      touches: 107,
+      breaks: 141
+    }
   },
   {
     id: "7",
@@ -152,9 +207,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/aether/bg.png",
+    maidata: "/songs/all/aether/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1UGZATTON26LO3xF7dQuo_iGyw4u--RpQ",
     chartDesigner: "HaySad vs Levelast [ChuniMai]",
-    artist: "void (Mournfinale) x 水野健治"
+    artist: "void (Mournfinale) x 水野健治",
+    chartStats: "None"
   },
   {
     id: "8",
@@ -167,9 +224,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/designant/bg.jpg",
+    maidata: "/songs/all/designant/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1R7un6B-RTF_VdIlar3AwyoOZCZIyyKM_",
     chartDesigner: "Happy To THE GoD VS LevelMAX",
-    artist: "Designant."
+    artist: "Designant.",
+    chartStats: "None"
   },
   {
     id: "9",
@@ -182,9 +241,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/extra/bg.jpg",
+    maidata: "/songs/all/extra/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1tKdMcXKzu05L4-TGqEKf-FDKRiMeZpoj",
     chartDesigner: "Happy&Sad",
-    artist: "seatrus"
+    artist: "seatrus",
+    chartStats: "None"
   },
   {
     id: "10",
@@ -197,9 +258,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/inverted/bg.jpg",
+    maidata: "/songs/all/inverted/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1iThGdfHu6aEaKO4gyykKWjR26I8H4jOt",
     chartDesigner: "1V MELT",
-    artist: "ARForest"
+    artist: "ARForest",
+    chartStats: "None"
   },
   {
     id: "11",
@@ -212,9 +275,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/megalovania/bg.jpg",
+    maidata: "/songs/all/megalovania/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
     chartDesigner: "P4P1N002 Vs Levelast",
-    artist: "Toby Fox (Remixed by Camellia)"
+    artist: "Toby Fox (Remixed by Camellia)",
+    chartStats: "None"
   },
   {
     id: "12",
@@ -227,9 +292,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/kocmoc-unleashed/bg.jpg",
+    maidata: "/songs/all/kocmoc-unleashed/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1xuELQh3erQF5M1Sd-IgUCaUAeGkmo2JV",
     chartDesigner: "Levelast the NULL",
-    artist: "G2961 (SLEEPING HUMMINGBIRD - LONDON REMIX)"
+    artist: "G2961 (SLEEPING HUMMINGBIRD - LONDON REMIX)",
+    chartStats: "None"
   },
   {
     id: "13",
@@ -242,9 +309,19 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/daybreak/bg.jpg",
+    maidata: "/songs/all/daybreak/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
     chartDesigner: "HaySad VS ???",
     artist: "seatrus",
+    chartStats: {
+      bpm: 160,
+      totalNotes: 1048,
+      taps: 581,
+      holds: 67,
+      slides: 137,
+      touches: 95,
+      breaks: 168
+    },
     requirements: {
       description: "Boss Song Requirements:",
       conditions: [
@@ -265,9 +342,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/moonlight-sonata/bg.jpg",
+    maidata: "/songs/all/moonlight-sonata/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
     chartDesigner: "Beamthoven",
-    artist: "Beethoven"
+    artist: "Beethoven",
+    chartStats: "None"
   },
   {
     id: "15",
@@ -280,9 +359,11 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/sudden-death/bg.jpg",
+    maidata: "/songs/all/sudden-death/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
     chartDesigner: "HaySad",
     artist: "xi vs. モリモリあつし",
+    chartStats: "None"
   },
     
 

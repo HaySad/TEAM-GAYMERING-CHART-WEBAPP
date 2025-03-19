@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './Login';
 import MainPage from './MainPage';
 import MaiChart from './MaiChart';
+import SongDetail from './pages/SongDetail';
 import './App.css';
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/mai-chart" element={
             <MaiChart username={username} sessionExpiry={sessionExpiry} />
           } />
+          <Route path="/song/:id" element={<SongDetail />} />
           <Route path="/" element={<Navigate to="/mai-chart" replace />} />
           <Route path="*" element={<Navigate to="/mai-chart" replace />} />
         </Routes>
