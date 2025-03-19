@@ -140,4 +140,51 @@ export const tiersData = [
           },
         ]
       },
+      {
+        "level": 4,
+        "life": 1000,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 100,
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=1Vzk9yQh8lBs7UmlMvW9DMnldrgNIQrGr",
+        "songs": [
+          {
+            "id": "4-1",
+            "name": "DA'AT -The First Seeker of Souls",
+            "level": 13.8,
+            "image": "/songs/4-1/bg.png",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1mzBkU4Sb1kNrX_DzqtJB1Kotp8B51PGV",
+            "artist": "水野健治 VS 大国奏音",
+            "chartDesigner": "RhoGaming"
+          },
+          {
+            "id": "4-2",
+            "name": "Vita",
+            "level": 14.1,
+            "image": "/songs/4-2/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
+            "artist": "Masaaki Endoh",
+            "chartDesigner": "Levelast"
+          },
+          {
+            "id": "4-3",
+            "name": "Nuclear Plant Zeta (Triexus Remix)",
+            "level": 14.3,
+            "image": "/songs/4-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qw3GHrq3dij4LKn-Cxzte4yWY35RODqP",
+            "artist": "Pokemon Uranium, Triexus",
+            "chartDesigner": "M4cTh30ne"
+          },
+          {
+            "id": "4-4",
+            "name": "Pyrocrypt",
+            "level": 14.9,
+            "image": "/songs/4-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1bzNN3axn94OKXWsDXIjWlfEbyaaFePZp",
+            "artist": "Ardolf",
+            "chartDesigner": "RhoGaming vs Levelast"
+          },
+        ]
+      },
 ]; 

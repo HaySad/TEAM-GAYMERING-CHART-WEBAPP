@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { tiersData } from './data/tiers';
+import './styles/MaiChart.css';
 
 interface Song {
   id: string;
@@ -99,7 +100,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                 <span style={styles.statItem}>Great - {tier.minusX} <span style={styles.heart}>❤️</span></span>
                 <span style={styles.statItem}>Good - {tier.minusY} <span style={styles.heart}>❤️</span></span>
                 <span style={styles.statItem}>Miss - {tier.minusZ} <span style={styles.heart}>❤️</span></span>
-                <span style={styles.statItem}>Add Life - {tier.addLife} <span style={styles.heart}>❤️</span></span>
+                <span style={styles.statItem}> + {tier.addLife} <span style={styles.heart}>❤️</span></span>
               </div>
               {tier.allSongsDownloadUrl && (
                 <button
@@ -114,7 +115,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
             
             <div style={styles.songsGrid}>
               {tier.songs.map((song) => (
-                <div key={song.id} style={styles.songCard}>
+                <div key={song.id} style={styles.songCard} className="main-song-card">
                   <div style={styles.imageContainer}>
                     <img 
                       src={song.image} 
@@ -138,6 +139,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                     </div>
                     <button 
                       style={styles.downloadButton}
+                      className="main-download-button"
                       onClick={() => handleDownload(song.downloadUrl, song.name)}
                     >
                       ดาวน์โหลด / Download ⬇️
