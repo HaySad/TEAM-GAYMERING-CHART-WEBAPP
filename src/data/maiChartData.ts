@@ -117,7 +117,25 @@ export const maiChartData: Song[] = [
     chartDesigner: "Levelast the NULL",
     artist: "G2961 (SLEEPING HUMMINGBIRD - LONDON REMIX)"
   },
-  
+  {
+    id: "13",
+    name: "SuddeNDeath",
+    level: 15.0,
+    image: "/songs/all/sudden-death/bg.jpg",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
+    chartDesigner: "HaySad",
+    artist: "xi vs. モリモリあつし"
+  },
+  {
+    id: "14",
+    name: "Moonlight Sonata 3rd Movement (Cut Ver.)",
+    level: 14.7,
+    image: "/songs/all/moonlight-sonata/bg.jpg",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
+    chartDesigner: "Beamthoven",
+    artist: "Beethoven"
+  },
+    
 
   // เพิ่มเพลงอื่นๆ ตามต้องการ
 ]; 
