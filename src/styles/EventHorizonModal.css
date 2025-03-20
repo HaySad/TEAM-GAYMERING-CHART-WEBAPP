@@ -1,0 +1,303 @@
+.event-horizon-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, 
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.98) 30%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.event-horizon-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cards-container {
+  position: relative;
+  width: 1200px;
+  height: 1200px;
+  z-index: 2;
+}
+
+.modal-header {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.reset-button {
+  padding: 8px 16px;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 4px;
+  color: #4ECDC4;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background: rgba(78, 205, 196, 0.2);
+  border-color: rgba(78, 205, 196, 0.5);
+}
+
+.close-button {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.black-hole {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, 
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.95) 20%,
+    rgba(78, 205, 196, 0.1) 40%,
+    rgba(78, 205, 196, 0.05) 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 200px rgba(0, 0, 0, 1);
+  z-index: 1;
+}
+
+.black-hole::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(78, 205, 196, 0.2) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.black-hole::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle at center,
+    transparent 30%,
+    rgba(78, 205, 196, 0.05) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.event-song-card {
+  position: absolute;
+  width: 160px;
+  height: 200px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 2px solid rgba(78, 205, 196, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.8rem;
+  z-index: 3;
+}
+
+.event-song-card:hover {
+  border-color: rgba(78, 205, 196, 0.8);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  z-index: 10;
+}
+
+.event-song-card img {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  object-fit: cover;
+}
+
+.event-song-card h3 {
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.event-song-card .level {
+  color: #4ECDC4;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Tier 10 Card Positions */
+.tier-10 .event-song-card:nth-child(1) {
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border-color: rgba(78, 205, 196, 0.8);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+  background: rgba(30, 30, 30, 0.98);
+}
+
+.tier-10 .event-song-card:nth-child(2) {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.tier-10 .event-song-card:nth-child(3) {
+  bottom: 15%;
+  left: 15%;
+  transform: translate(0, 0);
+}
+
+.tier-10 .event-song-card:nth-child(4) {
+  bottom: 15%;
+  right: 15%;
+  transform: translate(0, 0);
+}
+
+/* Add glow effect for outer cards */
+.tier-10 .event-song-card:not(:first-child) {
+  border-color: rgba(78, 205, 196, 0.4);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.2);
+  opacity: 0.9;
+}
+
+/* Center card special styles */
+.tier-10 .event-song-card:first-child {
+  z-index: 4;
+  background: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 0 50px rgba(78, 205, 196, 0.4);
+}
+
+.tier-10 .event-song-card:first-child:hover {
+  box-shadow: 0 0 50px rgba(78, 205, 196, 0.6);
+}
+
+/* Locked card styles */
+.event-song-card.locked {
+  filter: grayscale(100%) brightness(0.7);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.event-song-card.locked:hover {
+  border-color: rgba(78, 205, 196, 0.3);
+  box-shadow: none;
+}
+
+/* Tier 11 Card Positions */
+.tier-11 .event-song-card:nth-child(1) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border-color: rgba(78, 205, 196, 0.8);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+}
+
+.tier-11 .event-song-card:nth-child(2) {
+  top: 25%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+
+.tier-11 .event-song-card:nth-child(3) {
+  top: 75%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+/* Add glow effect for outer cards */
+.tier-10 .event-song-card:not(:first-child),
+.tier-11 .event-song-card:not(:first-child) {
+  border-color: rgba(78, 205, 196, 0.4);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.2);
+}
+
+/* Center card special styles */
+.tier-10 .event-song-card:first-child,
+.tier-11 .event-song-card:first-child {
+  background: rgba(30, 30, 30, 0.95);
+  border-width: 2px;
+  box-shadow: 0 0 40px rgba(78, 205, 196, 0.4);
+}
+
+.tier-10 .event-song-card:first-child:hover,
+.tier-11 .event-song-card:first-child:hover {
+  box-shadow: 0 0 50px rgba(78, 205, 196, 0.6);
+} 

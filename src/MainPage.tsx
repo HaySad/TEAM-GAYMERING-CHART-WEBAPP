@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { tiersData } from './data/tiers';
+import EventHorizonModal from './components/EventHorizonModal';
 import './styles/MaiChart.css';
 
 interface Song {
@@ -30,6 +31,9 @@ interface MainPageProps {
 
 const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
   const [tiers] = useState<Tier[]>(tiersData);
+  const [isEventHorizonOpen, setIsEventHorizonOpen] = useState(false);
+  const [showEventHorizon] = useState(false); //รับเพื่อแสดง event horizon tier
+  const [completedEventSongs, setCompletedEventSongs] = useState<string[]>([]);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = '/placeholder.png';
@@ -57,13 +61,35 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
     window.location.href = '/';
   };
 
+  const handleEventSongComplete = (songId: string) => {
+    setCompletedEventSongs([...completedEventSongs, songId]);
+    
+    // Unlock next song based on completion
+    if (songId === '11-1') {
+      localStorage.setItem('event_11-2_unlocked', 'true');
+    } else if (songId === '11-2') {
+      localStorage.setItem('event_11-3_unlocked', 'true');
+    }
+  };
+
   return (
     <div style={styles.pageWrapper}>
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
-            <a href="/discord-competition-4" style={{...styles.navLink, color: '#4ECDC4'}}>Discord Competition</a>
-            <a href="/mai-chart" style={styles.navLink}>Mai Chart</a>
+            <button 
+              onClick={() => setIsEventHorizonOpen(true)}
+              style={{
+                ...styles.navLink,
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#4ECDC4'
+              }}
+            >
+              Discord-Competition
+            </button>
+            <a href="/mai-chart" style={styles.navLink}>MaiChart</a>
           </div>
           <div style={styles.userInfo}>
             {username ? (
@@ -91,6 +117,23 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
       <div style={styles.container}>
         <h1 style={styles.header}>段位認定- Discord-Competition IV</h1>
         
+        {/* Event Horizon Tier */}
+        {showEventHorizon && (
+          <div style={styles.eventHorizonTier}>
+            <div 
+              style={styles.eventHorizonButton}
+              onClick={() => setIsEventHorizonOpen(true)}
+            >
+              <div style={styles.blackHolePreview}>
+                <div style={styles.blackHoleRing}></div>
+                <div style={styles.blackHoleCore}></div>
+              </div>
+              <h2 style={styles.eventHorizonTitle}>Tier Event Horizon</h2>
+              <p style={styles.eventHorizonDesc}>Enter the void...</p>
+            </div>
+          </div>
+        )}
+
         {tiers.map((tier) => (
           <div key={tier.level} style={styles.tierContainer}>
             <div style={styles.tierHeader}>
@@ -150,6 +193,14 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
             </div>
           </div>
         ))}
+
+        {showEventHorizon && (
+          <EventHorizonModal 
+            isOpen={isEventHorizonOpen}
+            onClose={() => setIsEventHorizonOpen(false)}
+            onSongComplete={handleEventSongComplete}
+          />
+        )}
       </div>
     </div>
   );
@@ -424,15 +475,106 @@ const styles = {
       backgroundColor: 'rgba(78, 205, 196, 0.25)',
     },
   },
+  eventHorizonTier: {
+    marginBottom: '2rem',
+    padding: '2rem',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderRadius: '12px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    border: '1px solid rgba(78, 205, 196, 0.3)',
+    transition: 'all 0.3s ease',
+    position: 'relative' as const,
+    overflow: 'hidden',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      transform: 'scale(1.02)',
+      border: '1px solid rgba(78, 205, 196, 0.8)',
+      boxShadow: '0 0 30px rgba(78, 205, 196, 0.2)',
+    },
+    '&:active': {
+      transform: 'scale(0.98)',
+    },
+  },
+  eventHorizonButton: {
+    textAlign: 'center' as const,
+    color: '#ffffff',
+    width: '100%',
+    padding: '1rem',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+  blackHolePreview: {
+    width: '150px',
+    height: '150px',
+    position: 'relative' as const,
+    margin: '0 auto 1rem',
+    transition: 'all 0.3s ease',
+  },
+  blackHoleRing: {
+    position: 'absolute' as const,
+    top: '50%',
+    left: '50%',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    border: '2px solid rgba(78, 205, 196, 0.5)',
+    transform: 'translate(-50%, -50%)',
+    animation: 'rotate 10s linear infinite',
+    transition: 'all 0.3s ease',
+  },
+  blackHoleCore: {
+    position: 'absolute' as const,
+    top: '50%',
+    left: '50%',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    backgroundColor: '#000',
+    transform: 'translate(-50%, -50%)',
+    boxShadow: '0 0 30px rgba(78, 205, 196, 0.5)',
+    transition: 'all 0.3s ease',
+  },
+  eventHorizonTitle: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    background: 'linear-gradient(45deg, #4ECDC4, #000)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    marginBottom: '0.5rem',
+    transition: 'all 0.3s ease',
+  },
+  eventHorizonDesc: {
+    color: '#4ECDC4',
+    fontSize: '1.1rem',
+    opacity: 0.8,
+    transition: 'all 0.3s ease',
+  },
 };
 
 const keyframes = `
-  @keyframes animateStars {
+  @keyframes rotate {
     from {
-      transform: translateY(0px);
+      transform: translate(-50%, -50%) rotate(0deg);
     }
     to {
-      transform: translateY(-2000px);
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  @keyframes pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.2);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
     }
   }
 `;

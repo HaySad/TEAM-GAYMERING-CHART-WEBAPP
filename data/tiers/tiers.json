@@ -75,6 +75,89 @@
           "downloadUrl": "/api/songs/2-4/download"
         }
       ]
+    },
+    {
+      "level": 10,
+      "life": 1000,
+      "minusX": 5,
+      "minusY": 10,
+      "minusZ": 20,
+      "addLife": 100,
+      "songs": [
+        {
+          "id": "10-1",
+          "name": "Hello BPM 2025",
+          "level": 14.9,
+          "image": "/songs/event/10-1.jpg",
+          "downloadUrl": "/api/songs/event/10-1/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        },
+        {
+          "id": "10-2",
+          "name": "Event Horizon II",
+          "level": 14.9,
+          "image": "/songs/event/10-2.jpg",
+          "downloadUrl": "/api/songs/event/10-2/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        },
+        {
+          "id": "10-3",
+          "name": "Event Horizon III",
+          "level": 14.9,
+          "image": "/songs/event/10-3.jpg",
+          "downloadUrl": "/api/songs/event/10-3/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        },
+        {
+          "id": "10-4",
+          "name": "Event Horizon IV",
+          "level": 14.9,
+          "image": "/songs/event/10-4.jpg",
+          "downloadUrl": "/api/songs/event/10-4/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "life": 1200,
+      "minusX": 10,
+      "minusY": 15,
+      "minusZ": 25,
+      "addLife": 120,
+      "songs": [
+        {
+          "id": "11-1",
+          "name": "Singularity I",
+          "level": 15.0,
+          "image": "/songs/event/11-1.jpg",
+          "downloadUrl": "/api/songs/event/11-1/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        },
+        {
+          "id": "11-2",
+          "name": "Singularity II",
+          "level": 15.0,
+          "image": "/songs/event/11-2.jpg",
+          "downloadUrl": "/api/songs/event/11-2/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        },
+        {
+          "id": "11-3",
+          "name": "Singularity III",
+          "level": 15.0,
+          "image": "/songs/event/11-3.jpg",
+          "downloadUrl": "/api/songs/event/11-3/download",
+          "chartDesigner": "Event Team",
+          "artist": "Event Artist"
+        }
+      ]
     }
   ]
 } 

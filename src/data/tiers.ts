@@ -132,7 +132,7 @@ export const tiersData = [
           {
             "id": "3-4",
             "name": "甘神さんちの縁結び - 神様の言うとーり！",
-            "level": 14.2,
+            "level": 14.4,
             "image": "/songs/3-4/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1GTGl2dIaiu5O4Z5YABloIY2owImbzMCX",
             "artist": "≠ME",
@@ -161,7 +161,7 @@ export const tiersData = [
           {
             "id": "4-2",
             "name": "Vita",
-            "level": 14.1,
+            "level": 14.0,
             "image": "/songs/4-2/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
             "artist": "Masaaki Endoh",
@@ -170,7 +170,7 @@ export const tiersData = [
           {
             "id": "4-3",
             "name": "Nuclear Plant Zeta (Triexus Remix)",
-            "level": 14.3,
+            "level": 14.4,
             "image": "/songs/4-3/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qw3GHrq3dij4LKn-Cxzte4yWY35RODqP",
             "artist": "Pokemon Uranium, Triexus",

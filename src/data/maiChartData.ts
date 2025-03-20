@@ -165,11 +165,19 @@ export const maiChartData: Song[] = [
       }
     ],
     image: "/songs/all/stigma/bg.jpg",
-    maidata: "/songs/all/stigma/maidata.txt",
+    maidata: "/songs/all/stigma/maidata.txt", 
     downloadUrl: "https://drive.google.com/uc?export=download&id=1oNP12jv0SbJ7IxsP589XplYGvKDUsvRl",
     chartDesigner: "HaySad Vs S0Time",
     artist: "U-ske feat. 棗いつき",
-    chartStats: "None"
+    chartStats: {
+      bpm: 194,
+      totalNotes: 792,
+      taps: 500,
+      holds: 89,
+      slides: 52,
+      touches: 111,
+      breaks: 40
+    }
   },
   {
     id: "6",
@@ -211,7 +219,15 @@ export const maiChartData: Song[] = [
     downloadUrl: "https://drive.google.com/uc?export=download&id=1UGZATTON26LO3xF7dQuo_iGyw4u--RpQ",
     chartDesigner: "HaySad vs Levelast [ChuniMai]",
     artist: "void (Mournfinale) x 水野健治",
-    chartStats: "None"
+    chartStats: {
+      bpm: 180,
+      totalNotes: 1155,
+      taps: 757,
+      holds: 116,
+      slides: 105,
+      touches: 106,
+      breaks: 77
+    }
   },
   {
     id: "8",
@@ -228,7 +244,15 @@ export const maiChartData: Song[] = [
     downloadUrl: "https://drive.google.com/uc?export=download&id=1R7un6B-RTF_VdIlar3AwyoOZCZIyyKM_",
     chartDesigner: "Happy To THE GoD VS LevelMAX",
     artist: "Designant.",
-    chartStats: "None"
+    chartStats: {
+      bpm: 200,
+      totalNotes: 1854,
+      taps: 1169,
+      holds: 123,
+      slides: 109,
+      touches: 143,
+      breaks: 310
+    }
   },
   {
     id: "9",

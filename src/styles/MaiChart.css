@@ -6,11 +6,34 @@
   background-color: rgba(255, 59, 59, 0.25) !important;
 }
 
+/* MaiChart specific card styles */
+.song-card {
+  background-color: rgba(37, 37, 37, 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  position: relative;
+}
+
 .song-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 32px rgba(78, 205, 196, 0.3);
   border: 1px solid rgba(78, 205, 196, 0.5);
   z-index: 2;
+}
+
+.boss-song-card {
+  background-color: rgba(37, 37, 37, 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 59, 59, 0.5);
+  width: 100%;
+  position: relative;
 }
 
 .boss-song-card:hover {
