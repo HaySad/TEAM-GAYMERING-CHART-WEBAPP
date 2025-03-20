@@ -132,7 +132,7 @@ export const tiersData = [
           {
             "id": "3-4",
             "name": "甘神さんちの縁結び - 神様の言うとーり！",
-            "level": 14.4,
+            "level": 14.3,
             "image": "/songs/3-4/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1GTGl2dIaiu5O4Z5YABloIY2owImbzMCX",
             "artist": "≠ME",
