@@ -187,4 +187,51 @@ export const tiersData = [
           },
         ]
       },
+      {
+        "level": 5,
+        "life": 1500,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 200,
+        "allSongsDownloadUrl": "https://drive.google.com/drive/folders/1JOwchFahYkNLJZZ47mzXBItkX-u61l6u?usp=sharing",
+        "songs": [
+          {
+            "id": "5-1",
+            "name": "STIGMA",
+            "level": 14.1,
+            "image": "/songs/5-1/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1oNP12jv0SbJ7IxsP589XplYGvKDUsvRl",
+            "artist": "U-ske feat. 棗いつき",
+            "chartDesigner": "HaySad Vs S0Time"
+          },
+          {
+            "id": "5-2",
+            "name": "Aether Crest: Celestial",
+            "level": 14.8,
+            "image": "/songs/5-2/bg.png",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1x80aCbbyk2TSdyqQ8Bc98r0vHuZj5rr8",
+            "artist": "void (Mournfinale) x 水野健治",
+            "chartDesigner": "HaySad vs Levelast [ChuniMai]"
+          },
+          {
+            "id": "5-3",
+            "name": "Let Me Know",
+            "level": 14.5,
+            "image": "/songs/5-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qw3GHrq3dij4LKn-Cxzte4yWY35RODqP",
+            "artist": "4EVE",
+            "chartDesigner": "M4cTh30ne"
+          },
+          {
+            "id": "5-4",
+            "name": "SUPERNOVA",
+            "level": 14.9,
+            "image": "/songs/5-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1_mkivuAdyWRfaZsV4xTzj0YYVqC1Ynz6",
+            "artist": "Kyotsugyon",
+            "chartDesigner": "8 bit"
+          },
+        ]
+      },
 ]; 
