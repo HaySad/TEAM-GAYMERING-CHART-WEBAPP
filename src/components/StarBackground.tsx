@@ -13,15 +13,15 @@ const StarBackground: React.FC = () => {
       star.className = 'star';
       
       // Random position
-      star.style.left = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}vw`;
       
-      // Random size
-      const size = Math.random() * 3 + 1;
+      // Random size between 2px and 6px
+      const size = Math.random() * 4 + 2;
       star.style.width = `${size}px`;
       star.style.height = `${size}px`;
       
-      // Random duration and delay
-      const duration = Math.random() * 3 + 2;
+      // Random duration between 2s and 4s
+      const duration = Math.random() * 2 + 2;
       const delay = Math.random() * 2;
       star.style.setProperty('--duration', `${duration}s`);
       star.style.setProperty('--delay', `${delay}s`);
@@ -30,7 +30,9 @@ const StarBackground: React.FC = () => {
 
       // Remove star after animation
       setTimeout(() => {
-        star.remove();
+        if (star.parentNode === container) {
+          star.remove();
+        }
       }, (duration + delay) * 1000);
     };
 
@@ -39,10 +41,12 @@ const StarBackground: React.FC = () => {
       createStar();
     }
 
-    // Create new stars periodically
+    // Create new stars continuously
     const interval = setInterval(() => {
-      createStar();
-    }, 200);
+      if (container.children.length < 100) {  // Limit maximum stars
+        createStar();
+      }
+    }, 100);
 
     return () => {
       clearInterval(interval);

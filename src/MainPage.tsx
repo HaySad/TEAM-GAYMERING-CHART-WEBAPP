@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { tiersData } from './data/tiers';
 import EventHorizonModal from './components/EventHorizonModal';
+import StarBackground from './components/StarBackground';
 import './styles/MaiChart.css';
 
 interface Song {
@@ -76,6 +77,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
 
   return (
     <div style={styles.pageWrapper}>
+      <StarBackground />
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
