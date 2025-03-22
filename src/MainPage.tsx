@@ -32,8 +32,9 @@ interface MainPageProps {
 const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
   const [tiers] = useState<Tier[]>(tiersData);
   const [isEventHorizonOpen, setIsEventHorizonOpen] = useState(false);
-  const [showEventHorizon] = useState(false); //รับเพื่อแสดง event horizon tier
+  const [showEventHorizon] = useState(true);
   const [completedEventSongs, setCompletedEventSongs] = useState<string[]>([]);
+  const [isLockedModalOpen, setIsLockedModalOpen] = useState(false);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = '/placeholder.png';
@@ -122,17 +123,55 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
           <div style={styles.eventHorizonTier}>
             <div 
               style={styles.eventHorizonButton}
-              onClick={() => setIsEventHorizonOpen(true)}
+              onClick={() => setIsLockedModalOpen(true)}
             >
               <div style={styles.blackHolePreview}>
                 <div style={styles.blackHoleRing}></div>
                 <div style={styles.blackHoleCore}></div>
               </div>
-              <h2 style={styles.eventHorizonTitle}>Tier Event Horizon</h2>
-              <p style={styles.eventHorizonDesc}>Enter the void...</p>
+              <h2 style={styles.eventHorizonTitle}>Tier Event Horizon 🔒</h2>
+              <p style={styles.eventHorizonDesc}>Coming soon...</p>
             </div>
           </div>
         )}
+
+        {/* Locked Event Horizon Modal */}
+        <div className={`locked-event-horizon-modal ${isLockedModalOpen ? 'open' : ''}`}>
+          <div className="locked-modal-content">
+            <div className="locked-black-hole">
+              <div className="locked-black-hole-ring"></div>
+              <div className="locked-black-hole-ring-2"></div>
+              <div className="locked-black-hole-ring-3"></div>
+              <div className="locked-black-hole-ring-4"></div>
+              <div className="locked-black-hole-ring-5"></div>
+              <div className="locked-black-hole-core"></div>
+              <div className="locked-black-hole-particles">
+                {[...Array(12)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="locked-black-hole-particle"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 30}deg)`,
+                      animationDelay: `${i * 0.25}s`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <h2 className="locked-modal-title">Event Horizon</h2>
+            <p className="locked-modal-desc">
+              The Supernova has been completed.<br/>
+              Now, we are looking at the Event Horizon for astrodx.<br/>
+              A new challenge awaits...<br/><br/>
+              Coming soon...
+            </p>
+            <button className="locked-modal-close" onClick={() => setIsLockedModalOpen(false)}>
+              Close
+            </button>
+          </div>
+        </div>
 
         {tiers.map((tier) => (
           <div key={tier.level} style={styles.tierContainer}>
