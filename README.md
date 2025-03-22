@@ -1,34 +1,25 @@
-# Simple React Login System
 
-A simple React application with TypeScript that implements a basic login system using a text file as a database.
+# (Thai) นี้เป็นเพียง Web-app ที่ใช้ในการ previwe chart ของทีม The GAYMERING Chart
 
-## Features
-- Simple login system
-- Username-only authentication
-- Persistent storage using text file
-- Bilingual support (Thai/English)
+โดยเป็นการ chart fanmade ของเกมอย่าง maimai 
+ซึ่งจะถูก run ผ่าน astrodx
 
-## Installation
+## สามารถใช้งานได้ผ่าน https://discord-competition.vercel.app
 
-1. Install dependencies:
-```bash
-npm install
-```
+UPDATE 
+ver. - 0.32 
+  : Add Event Horizon Event to page
 
-2. Start the development server:
-```bash
-npm start
-```
 
-3. In a separate terminal, start the backend server:
-```bash
-node server.js
-```
+# (Eng) This is just a Web-app used to previwe the chart of The GAYMERING Chart team
 
-The application will be running at http://localhost:3000, and the backend server will be running at http://localhost:3001.
+It is a fanmade chart of the game maimai
 
-## How it works
-- Users can enter their username to log in
-- If the username doesn't exist, it will be automatically created
-- All usernames are stored in users.txt
-- The system is bilingual (Thai/English)
+Which will be run through astrodx
+
+## Can be used through https://discord-competition.vercel.app
+
+UPDATE
+ver. - 0.32
+: Add Event Horizon Event to page
+
