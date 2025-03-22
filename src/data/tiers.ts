@@ -321,7 +321,7 @@ export const tiersData = [
             "id": "6-4",
             "name": "Designant",
             "level": 15.3,
-            "image": "/songs/6-4/bg.jpg",
+            "image": "/songs/7-4/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1ljfNJZCELDouia3BEA1Pyky4XROmc6Ui",
             "artist": "Designant",
             "chartDesigner": "Happy To THE GoD VS LevelMAX"
