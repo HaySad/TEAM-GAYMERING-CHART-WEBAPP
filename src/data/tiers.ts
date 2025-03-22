@@ -302,7 +302,7 @@ export const tiersData = [
           {
             "id": "7-2",
             "name": "ただ声一つ (One Voice)",
-            "level": 15.0,
+            "level": 15.1,
             "image": "/songs/7-2/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1g8tCKgATKppcWEIiBho7-SYJxr9aPXGh",
             "artist": "ロクデナシ",
