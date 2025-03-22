@@ -312,7 +312,7 @@ export const tiersData = [
             "id": "7-3",
             "name": "Milky Way Galaxy (SIHanatsuka Remix) ",
             "level": 15.0,
-            "image": "/songs/7-3/bg.jpg",
+            "image": "/songs/7-3/bg.png",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1Y7a7C0yLq4Ose8BVPAFBVp39M-suYgsx",
             "artist": "3R2",
             "chartDesigner": "P4P1N002"
