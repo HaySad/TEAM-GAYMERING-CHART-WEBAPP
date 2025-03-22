@@ -194,7 +194,7 @@ export const tiersData = [
         "minusY": 3,
         "minusZ": 5,
         "addLife": 200,
-        "allSongsDownloadUrl": "https://drive.google.com/drive/folders/1JOwchFahYkNLJZZ47mzXBItkX-u61l6u?usp=sharing",
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=1G7kT1ENJOxl_InyY-4dl_VZSjglbdkca",
         "songs": [
           {
             "id": "5-1",
@@ -210,7 +210,7 @@ export const tiersData = [
             "name": "Aether Crest: Celestial",
             "level": 14.8,
             "image": "/songs/5-2/bg.png",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=1x80aCbbyk2TSdyqQ8Bc98r0vHuZj5rr8",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1UGZATTON26LO3xF7dQuo_iGyw4u--RpQ",
             "artist": "void (Mournfinale) x 水野健治",
             "chartDesigner": "HaySad vs Levelast [ChuniMai]"
           },
@@ -219,7 +219,7 @@ export const tiersData = [
             "name": "Let Me Know",
             "level": 14.5,
             "image": "/songs/5-3/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qw3GHrq3dij4LKn-Cxzte4yWY35RODqP",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1x80aCbbyk2TSdyqQ8Bc98r0vHuZj5rr8",
             "artist": "4EVE",
             "chartDesigner": "M4cTh30ne"
           },
@@ -231,6 +231,147 @@ export const tiersData = [
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1_mkivuAdyWRfaZsV4xTzj0YYVqC1Ynz6",
             "artist": "Kyotsugyon",
             "chartDesigner": "8 bit"
+          },
+        ]
+      },
+      {
+        "level": 6,
+        "life": 2500,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 300,
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=1gGrWjn49joHU1jK41U-f1JAcSDRh8jBz",
+        "songs": [
+          {
+            "id": "6-1",
+            "name": "Inverted World",
+            "level": 14.7,
+            "image": "/songs/6-1/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1gh1ciIV-omImb7ajkHql-5dJRW7BZ7YQ",
+            "artist": "ARForest",
+            "chartDesigner": "1V MELT"
+          },
+          {
+            "id": "6-2",
+            "name": "Theatore Creatore",
+            "level": 15.0,
+            "image": "/songs/6-2/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=18F_ChdvrUn9vjadeHgJkeB51nqR0_Xl2",
+            "artist": "Toby Fox & Camellia",
+            "chartDesigner": "P4P1N002"
+          },
+          {
+            "id": "6-3",
+            "name": "Dream Flower",
+            "level": 14.9,
+            "image": "/songs/6-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1x80aCbbyk2TSdyqQ8Bc98r0vHuZj5rr8",
+            "artist": "KLYDIX",
+            "chartDesigner": "MacTheDaydreamer -May Your Wishes Come True-"
+          },
+          {
+            "id": "6-4",
+            "name": "MEGALOVANIA (Camellia Remix)",
+            "level": 15.0,
+            "image": "/songs/6-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1dlDDH-AmO6a1qtc0oiJzR7veI0U6dYpK",
+            "artist": "Toby Fox (Remixed by Camellia)",
+            "chartDesigner": "P4P1N002 Vs Levelast"
+          },
+        ]
+      },
+      {
+        "level": 7,
+        "life": 3000,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 400,
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=14ANvgYmen9XWhgEaFg_6f7GkQi9pz6Gt",
+        "songs": [
+          {
+            "id": "7-1",
+            "name": "Shattered Vows",
+            "level": 15,
+            "image": "/songs/7-1/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1l9t7rCcuYU2CTfKz41wGXVjwdQ8NMz-U",
+            "artist": "Ardolf",
+            "chartDesigner": "RhoGaming"
+          },
+          {
+            "id": "7-2",
+            "name": "ただ声一つ (One Voice)",
+            "level": 15.0,
+            "image": "/songs/7-2/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1g8tCKgATKppcWEIiBho7-SYJxr9aPXGh",
+            "artist": "ロクデナシ",
+            "chartDesigner": "M4cTh30ne -I'll always be by your side-"
+          },
+          {
+            "id": "7-3",
+            "name": "Milky Way Galaxy (SIHanatsuka Remix) ",
+            "level": 15.0,
+            "image": "/songs/7-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1Y7a7C0yLq4Ose8BVPAFBVp39M-suYgsx",
+            "artist": "3R2",
+            "chartDesigner": "P4P1N002"
+          },
+          {
+            "id": "6-4",
+            "name": "Designant",
+            "level": 15.3,
+            "image": "/songs/6-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1ljfNJZCELDouia3BEA1Pyky4XROmc6Ui",
+            "artist": "Designant",
+            "chartDesigner": "Happy To THE GoD VS LevelMAX"
+          },
+        ]
+      },
+      {
+        "level": 8, 
+        "life": 5000,
+        "minusX": 2,
+        "minusY": 3,
+        "minusZ": 5,
+        "addLife": 500,
+        "allSongsDownloadUrl": "https://drive.google.com/uc?export=download&id=1Eu2xeR7aVKcAaysEDH2MaCMz6dIjjWEW",
+        "songs": [
+          {
+            "id": "8-1",
+            "name": "DiSANiMATE",
+            "level": 15.6,
+            "image": "/songs/8-1/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1bFqG6qSNnJl1s6rmmkN3jAYQL2Gadgbf",
+            "artist": "seatrus",
+            "chartDesigner": "HaySad"
+          },
+          {
+            "id": "8-2",
+            "name": "Executioner",
+            "level": 15.6,
+            "image": "/songs/8-2/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1Ek1OmtVCvrVMyuwCqW99Xi5CvXwNnSeg",
+            "artist": "Laur",
+            "chartDesigner": "Levelast"
+          },
+          {
+            "id": "8-3",
+            "name": "Xronial Xero",
+            "level": 15.7,
+            "image": "/songs/8-3/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1RAYrMldrnyGciCcFS5Vw_VfzzzkZSwLA",
+            "artist": "Camellia",
+            "chartDesigner": "P4P1N002"
+          },
+          {
+            "id": "8-4",
+            "name": " Siren’s Eye",
+            "level": 16.7,
+            "image": "/songs/8-4/bg.jpg",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1TJw11wru0AEZCK3lz99od0qtjUt_EX_g",
+            "artist": "かたぎり× Frums",
+            "chartDesigner": "P4P1N002"
           },
         ]
       },

@@ -389,6 +389,24 @@ export const maiChartData: Song[] = [
     artist: "xi vs. モリモリあつし",
     chartStats: "None"
   },
+  {
+    id: "16",
+    name: "Executioner",
+    difficulties: [
+      {
+        level: "15+",
+        levelValue: 15.6,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/8-2/bg.jpg",
+    maidata: "/songs/all/shattered-vows/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1Ek1OmtVCvrVMyuwCqW99Xi5CvXwNnSeg",
+    chartDesigner: "Levelast",
+    artist: "Laur",
+    chartStats: "None"
+  },
+
     
 
   // เพิ่มเพลงอื่นๆ ตามต้องการ

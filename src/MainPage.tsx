@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { tiersData } from './data/tiers';
 import EventHorizonModal from './components/EventHorizonModal';
 import './styles/MaiChart.css';
@@ -78,18 +79,15 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
-            <button 
-              onClick={() => setIsEventHorizonOpen(true)}
+            <Link 
+              to="/discord-competition-4"
               style={{
                 ...styles.navLink,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
                 color: '#4ECDC4'
               }}
             >
               Discord-Competition
-            </button>
+            </Link>
             <a href="/mai-chart" style={styles.navLink}>MaiChart</a>
           </div>
           <div style={styles.userInfo}>
