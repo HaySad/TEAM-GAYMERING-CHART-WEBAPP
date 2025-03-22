@@ -236,7 +236,7 @@ export const maiChartData: Song[] = [
       {
         level: "15",
         levelValue: 15.3,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/designant/bg.jpg",
@@ -295,7 +295,7 @@ export const maiChartData: Song[] = [
       {
         level: "15",
         levelValue: 15.0,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/megalovania/bg.jpg",
@@ -312,7 +312,7 @@ export const maiChartData: Song[] = [
       {
         level: "16.0",
         levelValue: 16.0,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/kocmoc-unleashed/bg.jpg",
