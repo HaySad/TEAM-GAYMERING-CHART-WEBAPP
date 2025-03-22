@@ -358,7 +358,7 @@ export const tiersData = [
           {
             "id": "8-3",
             "name": "Xronial Xero",
-            "level": 15.7,
+            "level": 15.6,
             "image": "/songs/8-3/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1RAYrMldrnyGciCcFS5Vw_VfzzzkZSwLA",
             "artist": "Camellia",
@@ -367,7 +367,7 @@ export const tiersData = [
           {
             "id": "8-4",
             "name": " Siren’s Eye",
-            "level": 16.7,
+            "level": 16.6,
             "image": "/songs/8-4/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1TJw11wru0AEZCK3lz99od0qtjUt_EX_g",
             "artist": "かたぎり× Frums",
