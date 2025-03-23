@@ -160,7 +160,7 @@ export const tiersData = [
           },
           {
             "id": "4-2",
-            "name": "Vita",
+            "name": "Vital",
             "level": 14.0,
             "image": "/songs/4-2/bg.jpg",
             "downloadUrl": "https://drive.google.com/uc?export=download&id=1igC1s2f3kjNTwCwx9tr8-LeR1OSjOLYI",
