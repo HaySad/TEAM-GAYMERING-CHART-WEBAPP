@@ -569,8 +569,8 @@ export const maiChartData: Song[] = [
     image: "/songs/all/shelter/bg.png",
     maidata: "/songs/all/shelter/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1mmmJ1TWC3kakOTBcz1jUmELwpX3cCUdI",
-    chartDesigner: "NotHappy",
-    artist: "Feryquitous",
+    chartDesigner: "TEAM GAYMERING",
+    artist: "Porter Robinson & Madeon",
     chartStats: {
       bpm: 200,
       totalNotes: 0,
