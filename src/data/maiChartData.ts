@@ -556,6 +556,31 @@ export const maiChartData: Song[] = [
       breaks: 93
     }
   },
+  {
+    id: "23",
+    name: "Shelter",
+    difficulties: [
+      {
+        level: "13+",
+        levelValue: 13.8,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/shelter/bg.png",
+    maidata: "/songs/all/shelter/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1mmmJ1TWC3kakOTBcz1jUmELwpX3cCUdI",
+    chartDesigner: "NotHappy",
+    artist: "Feryquitous",
+    chartStats: {
+      bpm: 200,
+      totalNotes: 0,
+      taps: 0,
+      holds: 0,
+      slides: 0,
+      touches: 0,
+      breaks: 0
+    }
+  },
 
     
 
