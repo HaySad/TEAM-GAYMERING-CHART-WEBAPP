@@ -27,6 +27,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     return (savedTier === '11' ? '11' : '10') as '10' | '11';
   });
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+  const [, forceUpdate] = useState({});
   const navigate = useNavigate();
 
   const tier10Songs = useMemo(() => [
@@ -105,11 +106,6 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     }
   ], []);
 
-  // Save current tier whenever it changes
-  useEffect(() => {
-    localStorage.setItem('event_current_tier', currentTier);
-  }, [currentTier]);
-
   const checkCompletedSongs = useCallback(() => {
     // Check localStorage for completed songs and unlock next songs
     const is10_1Completed = localStorage.getItem('event_10-1_completed') === 'true';
@@ -146,10 +142,13 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       tier11Songs[2].isLocked = false;
       localStorage.setItem('event_11-3_locked', 'false');
     }
+
+    // Force re-render to update UI
+    forceUpdate({});
   }, [tier10Songs, tier11Songs]);
 
-  // Load locked status on initial render
   useEffect(() => {
+    // Load initial locked status
     tier10Songs.forEach((song, index) => {
       if (index > 0) {
         const isLocked = localStorage.getItem(`event_${song.id}_locked`) !== 'false';
@@ -161,11 +160,9 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       const isLocked = localStorage.getItem(`event_${song.id}_locked`) !== 'false';
       song.isLocked = isLocked;
     });
-  }, [tier10Songs, tier11Songs]);
 
-  useEffect(() => {
     checkCompletedSongs();
-  }, [checkCompletedSongs]);
+  }, [tier10Songs, tier11Songs, checkCompletedSongs]);
 
   const handleSongClick = (song: Song) => {
     if (song.isLocked) return;
@@ -181,18 +178,28 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     // Unlock next song based on completion
     if (songId === '10-1') {
       tier10Songs[1].isLocked = false;
+      localStorage.setItem('event_10-2_locked', 'false');
     } else if (songId === '10-2') {
       tier10Songs[2].isLocked = false;
+      localStorage.setItem('event_10-3_locked', 'false');
     } else if (songId === '10-3') {
       tier10Songs[3].isLocked = false;
+      localStorage.setItem('event_10-4_locked', 'false');
     } else if (songId === '10-4') {
       tier11Songs[0].isLocked = false;
+      localStorage.setItem('event_11-1_locked', 'false');
       setCurrentTier('11');
     } else if (songId === '11-1') {
       tier11Songs[1].isLocked = false;
+      localStorage.setItem('event_11-2_locked', 'false');
     } else if (songId === '11-2') {
       tier11Songs[2].isLocked = false;
+      localStorage.setItem('event_11-3_locked', 'false');
     }
+
+    // Force re-render to update UI
+    setSelectedSong(null);
+    forceUpdate({});
   };
 
   const handleReset = useCallback(() => {
@@ -229,8 +236,8 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     
     // Force re-render and re-check completed songs
     setSelectedSong(null);
-    checkCompletedSongs();
-  }, [tier10Songs, tier11Songs, checkCompletedSongs]);
+    forceUpdate({});
+  }, [tier10Songs, tier11Songs]);
 
   const handleClose = () => {
     onClose();
