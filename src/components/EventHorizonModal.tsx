@@ -44,7 +44,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     },
     {
       id: '10-2',
-      name: 'Event Horizon II',
+      name: 'Daytime EP',
       level: 14.9,
       image: '/songs/event/10-2.jpg',
       downloadUrl: '#',
