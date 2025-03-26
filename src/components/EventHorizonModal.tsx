@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/EventHorizonModal.css';
 
 interface Song {
@@ -21,6 +22,7 @@ interface EventHorizonModalProps {
 
 const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, onSongComplete }) => {
   const [currentTier, setCurrentTier] = useState<'10' | '11'>('10');
+  const navigate = useNavigate();
 
   const tier10Songs = useMemo(() => [
     {
@@ -180,11 +182,16 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     setCurrentTier('10');
   };
 
+  const handleClose = () => {
+    onClose();
+    navigate('/mai-chart');
+  };
+
   return (
     <div className={`event-horizon-modal ${isOpen ? 'open' : ''}`}>
       <div className="modal-header">
         <button className="reset-button" onClick={handleReset}>Reset Progress</button>
-        <button className="close-button" onClick={onClose}>×</button>
+        <button className="close-button" onClick={handleClose}>×</button>
       </div>
       
       <div className="cards-container">

@@ -1,0 +1,145 @@
+.event-horizon-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0B0B1F 0%, #1F1135 50%, #0B0B1F 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-horizon-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.event-horizon-page::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 200vw;
+  background: radial-gradient(circle at center, 
+    rgba(78, 205, 196, 0.05) 0%,
+    rgba(78, 205, 196, 0.02) 20%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.event-horizon-page .black-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1200px;
+  height: 1200px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.event-horizon-page .black-hole::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center,
+    rgba(78, 205, 196, 0.4) 0%,
+    rgba(78, 205, 196, 0.2) 30%,
+    rgba(11, 11, 31, 0.9) 60%,
+    rgba(11, 11, 31, 1) 100%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 100px rgba(78, 205, 196, 0.3),
+    0 0 150px rgba(78, 205, 196, 0.2),
+    0 0 200px rgba(78, 205, 196, 0.1);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.event-horizon-page .ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(78, 205, 196, 0.15);
+  transform: translate(-50%, -50%);
+}
+
+.event-horizon-page .ring:nth-child(1) {
+  width: 400px;
+  height: 400px;
+  animation: rotate 20s linear infinite;
+}
+
+.event-horizon-page .ring:nth-child(2) {
+  width: 600px;
+  height: 600px;
+  animation: rotate 25s linear infinite reverse;
+}
+
+.event-horizon-page .ring:nth-child(3) {
+  width: 800px;
+  height: 800px;
+  animation: rotate 30s linear infinite;
+}
+
+.event-horizon-page .ring:nth-child(4) {
+  width: 1000px;
+  height: 1000px;
+  animation: rotate 35s linear infinite reverse;
+}
+
+.event-horizon-page .ring:nth-child(5) {
+  width: 1200px;
+  height: 1200px;
+  animation: rotate 40s linear infinite;
+}
+
+.event-horizon-page .particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+}
+
+.event-horizon-page .particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(78, 205, 196, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(78, 205, 196, 0.8);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+} 

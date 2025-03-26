@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { tiersData } from './data/tiers';
 import EventHorizonModal from './components/EventHorizonModal';
 import './styles/MaiChart.css';
+import { Link } from 'react-router-dom';
 
 interface Song {
   id: string;
@@ -78,19 +79,8 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
-            <button 
-              onClick={() => setIsEventHorizonOpen(true)}
-              style={{
-                ...styles.navLink,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                color: '#4ECDC4'
-              }}
-            >
-              Discord-Competition
-            </button>
-            <a href="/mai-chart" style={styles.navLink}>MaiChart</a>
+            <Link to="/mai-chart" style={styles.navLink}>Mai Chart</Link>
+            <Link to="/event-horizon" style={styles.navLink}>Event Horizon</Link>
           </div>
           <div style={styles.userInfo}>
             {username ? (
