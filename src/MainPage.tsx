@@ -82,7 +82,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
             <button 
-              onClick={() => setIsEventHorizonOpen(true)}
+              // onClick={() => setIsEventHorizonOpen(true)} ปิดเพื่อ test ระบบ
               style={{
                 ...styles.navLink,
                 background: 'none',
