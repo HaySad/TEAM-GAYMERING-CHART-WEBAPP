@@ -236,7 +236,7 @@ export const maiChartData: Song[] = [
       {
         level: "15",
         levelValue: 15.3,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/designant/bg.jpg",
@@ -295,7 +295,7 @@ export const maiChartData: Song[] = [
       {
         level: "15",
         levelValue: 15.0,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/megalovania/bg.jpg",
@@ -312,7 +312,7 @@ export const maiChartData: Song[] = [
       {
         level: "16.0",
         levelValue: 16.0,
-        levelType: "MASTER"
+        levelType: "Re:MASTER"
       }
     ],
     image: "/songs/all/kocmoc-unleashed/bg.jpg",
@@ -367,7 +367,7 @@ export const maiChartData: Song[] = [
     ],
     image: "/songs/all/moonlight-sonata/bg.jpg",
     maidata: "/songs/all/moonlight-sonata/maidata.txt",
-    downloadUrl: "https://drive.google.com/uc?export=download&id=1cfPeNNBG69UpLGVqpgLb-hpjkfm6yVLE",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=17KPMhaxoda10w4zpXiY8gsS33FiZPILz",
     chartDesigner: "Beamthoven",
     artist: "Beethoven",
     chartStats: "None"
@@ -389,6 +389,199 @@ export const maiChartData: Song[] = [
     artist: "xi vs. モリモリあつし",
     chartStats: "None"
   },
+  {
+    id: "16",
+    name: "Executioner",
+    difficulties: [
+      {
+        level: "15+",
+        levelValue: 15.6,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/8-2/bg.jpg",
+    maidata: "/songs/all/shattered-vows/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1Ek1OmtVCvrVMyuwCqW99Xi5CvXwNnSeg",
+    chartDesigner: "Levelast",
+    artist: "Laur",
+    chartStats: "None"
+  },
+  {
+    id: "17",
+    name: "Aether Crest: Astral",
+    difficulties: [
+      {
+        level: "14+",
+        levelValue: 14.8,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/astral-aether-crest/bg.jpg",
+    maidata: "/songs/all/shattered-vows/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1PPyrusJfuKm3xhn7njZdrewmUq0eCv-1",
+    chartDesigner: "RhoGaming vs HaySad",
+    artist: "void (Mournfinale) x 水野健治",
+    chartStats: {
+      bpm: 200,
+      totalNotes: 1165,
+      taps: 843,
+      holds: 100,
+      slides: 90,
+      touches: 61,
+      breaks: 71
+    }
+  },
+  {
+    id: "18",
+    name: "Harder, Better, Faster, Stronger",
+    difficulties: [
+      {
+        level: "14",
+        levelValue: 14.4,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/harder-better-faster-stronger/bg.jpg",
+    maidata: "/songs/all/harder-better-faster-stronger/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1UUIkmWVExqlrkoxBEdn03BsIwkBTcO-5",
+    chartDesigner: "MacTheOne",
+    artist: "Daft Punk",
+    chartStats: {
+      bpm: 123,
+      totalNotes: 1425,
+      taps: 920,
+      holds: 80,
+      slides: 300,
+      touches: 0,
+      breaks: 125
+    }
+  },
+  {
+    id: "19",
+    name: "Yoo Dai Leaw",
+    difficulties: [
+      {
+        level: "14",
+        levelValue: 14.5,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/yoo-dai-leaw/bg.jpg",
+    maidata: "/songs/all/yoo-dai-leaw/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1cI05Y0QNn3FQFoLCw31HP-A4EQg4Wgfd",
+    chartDesigner: "MacTheOne's High School Farewell 1",
+    artist: "Lipta x Mirrr",
+    chartStats: {
+      bpm: 75,
+      totalNotes: 1285,
+      taps: 825,
+      holds: 120,
+      slides: 160,
+      touches: 100,
+      breaks: 80
+    }
+  },
+  {
+    id: "20",
+    name: "Love Me Like You Do",
+    difficulties: [
+      {
+        level: "13+",
+        levelValue: 13.9,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/love-me-like-you-do/bg.jpg",
+    maidata: "/songs/all/love-me-like-you-do/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1G7weupEDrnUCUyyXx8qJJ-g7G65JdGSl",
+    chartDesigner: "MacTheValentine",
+    artist: "Ellie Goulding",
+    chartStats: {
+      bpm: 95,
+      totalNotes: 1624,
+      taps: 1080,
+      holds: 95,
+      slides: 140,
+      touches: 250,
+      breaks: 69
+    }
+  },
+  {
+    id: "21",
+    name: "Arcahv",
+    difficulties: [
+      {
+        level: "13+",
+        levelValue: 13.7,
+        levelType: "EXPERT"
+      }
+    ],
+    image: "/songs/all/arcahv/bg.jpg",
+    maidata: "/songs/all/arcahv/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=15HJpQf6OU6GZ2cJVHNaq4fY-6jiPlZnW",
+    chartDesigner: "NotHappy",
+    artist: "Feryquitous",
+    chartStats: {
+      bpm: 192,
+      totalNotes: 736,
+      taps: 415,
+      holds: 52,
+      slides: 101,
+      touches: 89,
+      breaks: 79
+    }
+  },
+  {
+    id: "22",
+    name: "To the Furthest Dream",
+    difficulties: [
+      {
+        level: "12+",
+        levelValue: 12.8,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/to-the-furthest-dream/bg.jpg",
+    maidata: "/songs/all/to-the-furthest-dream/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1Hh1HX-LPT_06rbdwZL8Npx-_qKj05nqz",
+    chartDesigner: "HaySad",
+    artist: "ii/night feat. 綺良雪",
+    chartStats: {
+      bpm: 183,
+      totalNotes: 747,
+      taps: 399,
+      holds: 94,
+      slides: 50,
+      touches: 111,
+      breaks: 93
+    }
+  },
+  {
+    id: "23",
+    name: "Shelter",
+    difficulties: [
+      {
+        level: "13+",
+        levelValue: 13.8,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/shelter/bg.png",
+    maidata: "/songs/all/shelter/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1mmmJ1TWC3kakOTBcz1jUmELwpX3cCUdI",
+    chartDesigner: "TEAM GAYMERING",
+    artist: "Porter Robinson & Madeon",
+    chartStats: {
+      bpm: 200,
+      totalNotes: 0,
+      taps: 0,
+      holds: 0,
+      slides: 0,
+      touches: 0,
+      breaks: 0
+    }
+  },
+
     
 
   // เพิ่มเพลงอื่นๆ ตามต้องการ

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { tiersData } from './data/tiers';
 import EventHorizonModal from './components/EventHorizonModal';
+import StarBackground from './components/StarBackground';
 import './styles/MaiChart.css';
 import { Link } from 'react-router-dom';
 
@@ -76,11 +78,23 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
 
   return (
     <div style={styles.pageWrapper}>
+      <StarBackground />
       <div style={styles.navbar}>
         <div style={styles.navbarContent}>
           <div style={styles.navLinks}>
-            <Link to="/mai-chart" style={styles.navLink}>Mai Chart</Link>
-            <Link to="/event-horizon" style={styles.navLink}>Event Horizon</Link>
+            <button 
+              onClick={() => setIsEventHorizonOpen(true)}
+              style={{
+                ...styles.navLink,
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#4ECDC4'
+              }}
+            >
+              Discord-Competition
+            </button>
+            <a href="/mai-chart" style={styles.navLink}>MaiChart</a>
           </div>
           <div style={styles.userInfo}>
             {username ? (
