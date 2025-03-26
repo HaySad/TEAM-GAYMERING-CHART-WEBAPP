@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/SongDetailModal.css';
 
 interface Song {
@@ -11,6 +11,7 @@ interface Song {
   artist: string;
   isCompleted?: boolean;
   isLocked?: boolean;
+  videoUrl?: string;
 }
 
 interface SongDetailModalProps {
@@ -26,6 +27,8 @@ const SongDetailModal: React.FC<SongDetailModalProps> = ({
   onClose,
   onComplete,
 }) => {
+  const [videoEnded, setVideoEnded] = useState(false);
+
   const handleDownload = () => {
     window.open(song.downloadUrl, '_blank');
   };
@@ -35,6 +38,20 @@ const SongDetailModal: React.FC<SongDetailModalProps> = ({
     onClose();
   };
 
+  const handleVideoEnd = () => {
+    setVideoEnded(true);
+    // Auto complete the song when video ends
+    if (song.id === '10-2') {
+      handleComplete();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setVideoEnded(false);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -42,36 +59,68 @@ const SongDetailModal: React.FC<SongDetailModalProps> = ({
       <div className="song-detail-modal">
         <button className="close-button" onClick={onClose}>×</button>
         
-        <div className="song-image">
-          <img src={song.image} alt={song.name} />
-        </div>
-        
-        <div className="song-info">
-          <h2>{song.name}</h2>
-          <div className="song-metadata">
-            <div className="metadata-item">
-              <span className="label">Level</span>
-              <span className="value">{song.level.toFixed(1)}</span>
-            </div>
-            <div className="metadata-item">
-              <span className="label">Artist</span>
-              <span className="value">{song.artist}</span>
-            </div>
-            <div className="metadata-item">
-              <span className="label">Chart Designer</span>
-              <span className="value">{song.chartDesigner}</span>
-            </div>
+        {song.id === '10-2' && !videoEnded ? (
+          <div className="video-container">
+            {song.videoUrl?.includes('youtube.com') || song.videoUrl?.includes('youtu.be') ? (
+              <>
+                <iframe
+                  src={song.videoUrl.replace('watch?v=', 'embed/')}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="full-video"
+                />
+                <div className="video-actions">
+                  <button className="complete-button" onClick={handleComplete}>
+                    Mark as Completed
+                  </button>
+                </div>
+              </>
+            ) : (
+              <video
+                src={song.videoUrl || '/videos/event-horizon.mp4'}
+                autoPlay
+                controls={false}
+                onEnded={handleVideoEnd}
+                className="full-video"
+              />
+            )}
           </div>
+        ) : (
+          <>
+            <div className="song-image">
+              <img src={song.image} alt={song.name} />
+            </div>
+            
+            <div className="song-info">
+              <h2>{song.name}</h2>
+              <div className="song-metadata">
+                <div className="metadata-item">
+                  <span className="label">Level</span>
+                  <span className="value">{song.level.toFixed(1)}</span>
+                </div>
+                <div className="metadata-item">
+                  <span className="label">Artist</span>
+                  <span className="value">{song.artist}</span>
+                </div>
+                <div className="metadata-item">
+                  <span className="label">Chart Designer</span>
+                  <span className="value">{song.chartDesigner}</span>
+                </div>
+              </div>
 
-          <div className="actions">
-            <button className="download-button" onClick={handleDownload}>
-              Download Chart
-            </button>
-            <button className="complete-button" onClick={handleComplete}>
-              Mark as Completed
-            </button>
-          </div>
-        </div>
+              <div className="actions">
+                <button className="download-button" onClick={handleDownload}>
+                  Download Chart
+                </button>
+                <button className="complete-button" onClick={handleComplete}>
+                  Mark as Completed
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

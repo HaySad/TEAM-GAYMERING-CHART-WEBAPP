@@ -13,6 +13,7 @@ interface Song {
   artist: string;
   isCompleted?: boolean;
   isLocked?: boolean;
+  videoUrl?: string;
 }
 
 interface EventHorizonModalProps {
@@ -49,7 +50,8 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       downloadUrl: '#',
       chartDesigner: 'Event Team',
       artist: 'Event Artist',
-      isLocked: true
+      isLocked: true,
+      videoUrl: 'https://www.youtube.com/watch?v=K0I1gI0tX4U'
     },
     {
       id: '10-3',
@@ -175,20 +177,22 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     onSongComplete(songId);
     localStorage.setItem(`event_${songId}_completed`, 'true');
 
-    // Unlock next song based on completion
-    if (songId === '10-1') {
-      tier10Songs[1].isLocked = false;
-      localStorage.setItem('event_10-2_locked', 'false');
-    } else if (songId === '10-2') {
-      tier10Songs[2].isLocked = false;
-      localStorage.setItem('event_10-3_locked', 'false');
-    } else if (songId === '10-3') {
-      tier10Songs[3].isLocked = false;
-      localStorage.setItem('event_10-4_locked', 'false');
-    } else if (songId === '10-4') {
+    // Special handling for song progression after 10-2
+    if (songId === '10-2') {
+      // Skip remaining tier 10 songs and mark them as completed
+      localStorage.setItem('event_10-2_completed', 'true');
+      localStorage.setItem('event_10-3_completed', 'true');
+      localStorage.setItem('event_10-4_completed', 'true');
+      
+      // Move to tier 11
+      setCurrentTier('11');
+      
+      // Unlock only the first tier 11 song
       tier11Songs[0].isLocked = false;
       localStorage.setItem('event_11-1_locked', 'false');
-      setCurrentTier('11');
+    } else if (songId === '10-1') {
+      tier10Songs[1].isLocked = false;
+      localStorage.setItem('event_10-2_locked', 'false');
     } else if (songId === '11-1') {
       tier11Songs[1].isLocked = false;
       localStorage.setItem('event_11-2_locked', 'false');
@@ -234,7 +238,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     // Reset to tier 10
     setCurrentTier('10');
     
-    // Force re-render and re-check completed songs
+    // Force re-render
     setSelectedSong(null);
     forceUpdate({});
   }, [tier10Songs, tier11Songs]);

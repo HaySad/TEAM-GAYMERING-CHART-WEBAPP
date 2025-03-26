@@ -16,12 +16,16 @@
   background: rgba(17, 17, 35, 0.95);
   border-radius: 20px;
   padding: 2rem;
-  width: 90%;
-  max-width: 600px;
+  width: 80%;
+  height: 80vh;
+  max-width: none;
   position: relative;
   border: 1px solid rgba(78, 205, 196, 0.3);
   box-shadow: 0 0 30px rgba(78, 205, 196, 0.1);
   animation: modalFadeIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .song-detail-modal .close-button {
@@ -144,4 +148,28 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.video-container {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.full-video {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.video-actions {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 } 
