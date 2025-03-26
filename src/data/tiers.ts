@@ -295,7 +295,7 @@ export const tiersData = [
             "name": "Shattered Vows",
             "level": 15,
             "image": "/songs/7-1/bg.jpg",
-            "downloadUrl": "https://drive.google.com/uc?export=download&id=1l9t7rCcuYU2CTfKz41wGXVjwdQ8NMz-U",
+            "downloadUrl": "https://drive.google.com/uc?export=download&id=1ljfNJZCELDouia3BEA1Pyky4XROmc6Ui",
             "artist": "Ardolf",
             "chartDesigner": "RhoGaming"
           },
