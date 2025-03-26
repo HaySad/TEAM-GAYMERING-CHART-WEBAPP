@@ -205,7 +205,7 @@
 .tier-10 .event-song-card:nth-child(1) {
   top: 55%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) !important;
   z-index: 5;
   border-color: rgba(78, 205, 196, 0.8);
   box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
@@ -300,4 +300,32 @@
 .tier-10 .event-song-card:first-child:hover,
 .tier-11 .event-song-card:first-child:hover {
   box-shadow: 0 0 50px rgba(78, 205, 196, 0.6);
+}
+
+.event-song-card.completed {
+  pointer-events: none;
+  position: relative;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* Override completed transform for first card */
+.tier-10 .event-song-card:nth-child(1).completed {
+  transform: translate(-50%, -50%) !important;
+}
+
+.event-song-card .completed-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  background: rgba(78, 205, 196, 0.9);
+  color: white;
+  padding: 5px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+  z-index: 2;
 } 

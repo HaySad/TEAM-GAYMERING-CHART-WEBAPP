@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SongDetailModal from './SongDetailModal';
 import '../styles/EventHorizonModal.css';
 
 interface Song {
@@ -21,7 +22,11 @@ interface EventHorizonModalProps {
 }
 
 const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, onSongComplete }) => {
-  const [currentTier, setCurrentTier] = useState<'10' | '11'>('10');
+  const [currentTier, setCurrentTier] = useState<'10' | '11'>(() => {
+    const savedTier = localStorage.getItem('event_current_tier');
+    return (savedTier === '11' ? '11' : '10') as '10' | '11';
+  });
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const navigate = useNavigate();
 
   const tier10Songs = useMemo(() => [
@@ -100,6 +105,11 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     }
   ], []);
 
+  // Save current tier whenever it changes
+  useEffect(() => {
+    localStorage.setItem('event_current_tier', currentTier);
+  }, [currentTier]);
+
   const checkCompletedSongs = useCallback(() => {
     // Check localStorage for completed songs and unlock next songs
     const is10_1Completed = localStorage.getItem('event_10-1_completed') === 'true';
@@ -109,15 +119,19 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
 
     if (is10_1Completed) {
       tier10Songs[1].isLocked = false;
+      localStorage.setItem('event_10-2_locked', 'false');
     }
     if (is10_2Completed) {
       tier10Songs[2].isLocked = false;
+      localStorage.setItem('event_10-3_locked', 'false');
     }
     if (is10_3Completed) {
       tier10Songs[3].isLocked = false;
+      localStorage.setItem('event_10-4_locked', 'false');
     }
     if (is10_4Completed) {
       tier11Songs[0].isLocked = false;
+      localStorage.setItem('event_11-1_locked', 'false');
       setCurrentTier('11');
     }
 
@@ -126,10 +140,27 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
 
     if (is11_1Completed) {
       tier11Songs[1].isLocked = false;
+      localStorage.setItem('event_11-2_locked', 'false');
     }
     if (is11_2Completed) {
       tier11Songs[2].isLocked = false;
+      localStorage.setItem('event_11-3_locked', 'false');
     }
+  }, [tier10Songs, tier11Songs]);
+
+  // Load locked status on initial render
+  useEffect(() => {
+    tier10Songs.forEach((song, index) => {
+      if (index > 0) {
+        const isLocked = localStorage.getItem(`event_${song.id}_locked`) !== 'false';
+        song.isLocked = isLocked;
+      }
+    });
+    
+    tier11Songs.forEach((song) => {
+      const isLocked = localStorage.getItem(`event_${song.id}_locked`) !== 'false';
+      song.isLocked = isLocked;
+    });
   }, [tier10Songs, tier11Songs]);
 
   useEffect(() => {
@@ -138,29 +169,33 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
 
   const handleSongClick = (song: Song) => {
     if (song.isLocked) return;
+    const isCompleted = localStorage.getItem(`event_${song.id}_completed`) === 'true';
+    if (isCompleted) return;
+    setSelectedSong(song);
+  };
 
-    // Handle song completion
-    onSongComplete(song.id);
-    localStorage.setItem(`event_${song.id}_completed`, 'true');
+  const handleSongComplete = (songId: string) => {
+    onSongComplete(songId);
+    localStorage.setItem(`event_${songId}_completed`, 'true');
 
     // Unlock next song based on completion
-    if (song.id === '10-1') {
+    if (songId === '10-1') {
       tier10Songs[1].isLocked = false;
-    } else if (song.id === '10-2') {
+    } else if (songId === '10-2') {
       tier10Songs[2].isLocked = false;
-    } else if (song.id === '10-3') {
+    } else if (songId === '10-3') {
       tier10Songs[3].isLocked = false;
-    } else if (song.id === '10-4') {
+    } else if (songId === '10-4') {
       tier11Songs[0].isLocked = false;
       setCurrentTier('11');
-    } else if (song.id === '11-1') {
+    } else if (songId === '11-1') {
       tier11Songs[1].isLocked = false;
-    } else if (song.id === '11-2') {
+    } else if (songId === '11-2') {
       tier11Songs[2].isLocked = false;
     }
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     // Reset localStorage
     localStorage.removeItem('event_10-1_completed');
     localStorage.removeItem('event_10-2_completed');
@@ -170,17 +205,32 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
     localStorage.removeItem('event_11-2_completed');
     localStorage.removeItem('event_11-3_completed');
 
+    // Reset locked status in localStorage
+    localStorage.removeItem('event_10-2_locked');
+    localStorage.removeItem('event_10-3_locked');
+    localStorage.removeItem('event_10-4_locked');
+    localStorage.removeItem('event_11-1_locked');
+    localStorage.removeItem('event_11-2_locked');
+    localStorage.removeItem('event_11-3_locked');
+
+    // Reset current tier in localStorage
+    localStorage.removeItem('event_current_tier');
+
     // Reset locked status
-    tier10Songs[1].isLocked = true;
-    tier10Songs[2].isLocked = true;
-    tier10Songs[3].isLocked = true;
-    tier11Songs[0].isLocked = true;
-    tier11Songs[1].isLocked = true;
-    tier11Songs[2].isLocked = true;
+    tier10Songs.forEach((song, index) => {
+      if (index > 0) song.isLocked = true;
+    });
+    tier11Songs.forEach(song => {
+      song.isLocked = true;
+    });
 
     // Reset to tier 10
     setCurrentTier('10');
-  };
+    
+    // Force re-render and re-check completed songs
+    setSelectedSong(null);
+    checkCompletedSongs();
+  }, [tier10Songs, tier11Songs, checkCompletedSongs]);
 
   const handleClose = () => {
     onClose();
@@ -188,44 +238,63 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
   };
 
   return (
-    <div className={`event-horizon-modal ${isOpen ? 'open' : ''}`}>
-      <div className="modal-header">
-        <button className="reset-button" onClick={handleReset}>Reset Progress</button>
-        <button className="close-button" onClick={handleClose}>×</button>
-      </div>
-      
-      <div className="cards-container">
-        <div className={`tier-${currentTier}`}>
-          {currentTier === '10' ? (
-            tier10Songs.map((song) => (
-              <div
-                key={song.id}
-                className={`event-song-card ${song.isLocked ? 'locked' : ''}`}
-                onClick={() => !song.isLocked && handleSongClick(song)}
-              >
-                <img src={song.image} alt={song.name} />
-                <h3>{song.name}</h3>
-                <div className="level">Lv.{song.level}</div>
-              </div>
-            ))
-          ) : (
-            tier11Songs.map((song) => (
-              <div
-                key={song.id}
-                className={`event-song-card ${song.isLocked ? 'locked' : ''}`}
-                onClick={() => !song.isLocked && handleSongClick(song)}
-              >
-                <img src={song.image} alt={song.name} />
-                <h3>{song.name}</h3>
-                <div className="level">Lv.{song.level}</div>
-              </div>
-            ))
-          )}
+    <>
+      <div className={`event-horizon-modal ${isOpen ? 'open' : ''}`}>
+        <div className="modal-header">
+          <button className="reset-button" onClick={handleReset}>Reset Progress</button>
+          <button className="close-button" onClick={handleClose}>×</button>
         </div>
+        
+        <div className="cards-container">
+          <div className={`tier-${currentTier}`}>
+            {currentTier === '10' ? (
+              tier10Songs.map((song) => {
+                const isCompleted = localStorage.getItem(`event_${song.id}_completed`) === 'true';
+                return (
+                  <div
+                    key={song.id}
+                    className={`event-song-card ${song.isLocked ? 'locked' : ''} ${isCompleted ? 'completed' : ''}`}
+                    onClick={() => !song.isLocked && handleSongClick(song)}
+                  >
+                    <img src={song.image} alt={song.name} />
+                    <h3>{song.name}</h3>
+                    <div className="level">Lv.{song.level}</div>
+                    {isCompleted && <div className="completed-overlay">Completed</div>}
+                  </div>
+                );
+              })
+            ) : (
+              tier11Songs.map((song) => {
+                const isCompleted = localStorage.getItem(`event_${song.id}_completed`) === 'true';
+                return (
+                  <div
+                    key={song.id}
+                    className={`event-song-card ${song.isLocked ? 'locked' : ''} ${isCompleted ? 'completed' : ''}`}
+                    onClick={() => !song.isLocked && handleSongClick(song)}
+                  >
+                    <img src={song.image} alt={song.name} />
+                    <h3>{song.name}</h3>
+                    <div className="level">Lv.{song.level}</div>
+                    {isCompleted && <div className="completed-overlay">Completed</div>}
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+        
+        <div className="black-hole"></div>
       </div>
-      
-      <div className="black-hole"></div>
-    </div>
+
+      {selectedSong && (
+        <SongDetailModal
+          song={selectedSong}
+          isOpen={true}
+          onClose={() => setSelectedSong(null)}
+          onComplete={handleSongComplete}
+        />
+      )}
+    </>
   );
 };
 

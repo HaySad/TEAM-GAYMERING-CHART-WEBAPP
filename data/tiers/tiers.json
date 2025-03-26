@@ -78,10 +78,10 @@
     },
     {
       "level": 10,
-      "life": 1000,
-      "minusX": 5,
-      "minusY": 10,
-      "minusZ": 20,
+      "life": 2025,
+      "minusX": 2,
+      "minusY": 3,
+      "minusZ": 5,
       "addLife": 100,
       "songs": [
         {
@@ -95,11 +95,11 @@
         },
         {
           "id": "10-2",
-          "name": "Event Horizon II",
+          "name": "Daytime EP",
           "level": 14.9,
           "image": "/songs/event/10-2.jpg",
           "downloadUrl": "/api/songs/event/10-2/download",
-          "chartDesigner": "Event Team",
+          "chartDesigner": "HaySad",
           "artist": "Event Artist"
         },
         {
