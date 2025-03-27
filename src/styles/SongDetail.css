@@ -142,23 +142,23 @@
 }
 
 .song-detail {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
   color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .song-header {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
   background: rgba(17, 17, 35, 0.95);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 20px;
   border: 1px solid rgba(78, 205, 196, 0.3);
   box-shadow: 0 0 30px rgba(78, 205, 196, 0.1);
@@ -166,8 +166,8 @@
 
 .song-image {
   width: 100%;
-  max-width: 400px;
-  height: 400px;
+  max-width: 300px;
+  aspect-ratio: 1;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
@@ -186,7 +186,7 @@
 }
 
 .song-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   color: #4ECDC4;
   text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
@@ -194,14 +194,14 @@
 
 .song-meta {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .meta-item {
   background: rgba(78, 205, 196, 0.1);
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 10px;
   border: 1px solid rgba(78, 205, 196, 0.2);
 }
@@ -213,17 +213,17 @@
 }
 
 .meta-value {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .song-description {
   background: rgba(17, 17, 35, 0.95);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 20px;
   border: 1px solid rgba(78, 205, 196, 0.3);
   box-shadow: 0 0 30px rgba(78, 205, 196, 0.1);
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .song-description h2 {
@@ -238,52 +238,36 @@
   color: #ccc;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .song-detail {
-    padding: 1rem;
+    padding: 2rem;
+    gap: 2rem;
   }
 
   .song-header {
-    padding: 1rem;
-    gap: 1rem;
+    padding: 2rem;
+    gap: 2rem;
   }
 
   .song-image {
-    height: 300px;
+    max-width: 400px;
   }
 
   .song-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .song-meta {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   .meta-item {
-    padding: 0.8rem;
+    padding: 1rem;
   }
 
   .song-description {
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .song-title {
-    font-size: 1.8rem;
-  }
-
-  .song-image {
-    height: 250px;
-  }
-
-  .meta-label {
-    font-size: 0.8rem;
-  }
-
-  .meta-value {
-    font-size: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
   }
 } 
