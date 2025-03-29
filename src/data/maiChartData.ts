@@ -581,6 +581,31 @@ export const maiChartData: Song[] = [
       breaks: 0
     }
   },
+  {
+    id: "24",
+    name: "Running In The Dark",
+    difficulties: [
+      {
+        level: "12",
+        levelValue: 12.3,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/running-in-the-dark/bg.jpg",
+    maidata: "/songs/all/running-in-the-dark/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=18oCS2cylsnWLkr1V-ddoKw4sF1W7zAC6",
+    chartDesigner: "HaySad",
+    artist: "Monkey Majik",
+    chartStats: {
+      bpm: 125,
+      totalNotes: 339,
+      taps: 190,
+      holds: 36,
+      slides: 64,
+      touches: 37,
+      breaks: 12
+    }
+  },
 
     
 
