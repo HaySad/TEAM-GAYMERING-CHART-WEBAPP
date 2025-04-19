@@ -1,0 +1,267 @@
+.world-map-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  padding: 20px;
+}
+
+.world-map {
+  width: 90%;
+  height: 80vh;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.map-background {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px) 0 0 / 20px 20px;
+  opacity: 0.3;
+}
+
+.map-grid {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.connection-line {
+  position: absolute;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.connection-line.unlocked {
+  background: #4ecdc4;
+  box-shadow: 0 0 5px #4ecdc4;
+}
+
+.connection-line.locked {
+  background: #ff6b6b;
+  opacity: 0.5;
+}
+
+.location {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.location-marker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.location-level {
+  position: absolute;
+  top: -20px;
+  background: #ff6b6b;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.location-name {
+  position: absolute;
+  bottom: -20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.location::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #4ecdc4;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #4ecdc4;
+  animation: pulse 2s infinite;
+}
+
+.location.locked::before {
+  background: #ff6b6b;
+  box-shadow: 0 0 10px #ff6b6b;
+}
+
+.location.current::before {
+  background: #ffd166;
+  box-shadow: 0 0 15px #ffd166;
+  animation: pulse 1s infinite;
+}
+
+.location:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.location-details {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 26, 46, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 300px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.location-image {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.location-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.location-image img:hover {
+  transform: scale(1.05);
+}
+
+.location-details h2 {
+  margin: 0 0 10px 0;
+  color: #ffd166;
+}
+
+.location-info {
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.download-button, .complete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.download-button {
+  background: #4ecdc4;
+  color: white;
+  box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+}
+
+.download-button:hover {
+  background: #45b7af;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.7);
+}
+
+.complete-button {
+  background: #ffd166;
+  color: #1a1a2e;
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+}
+
+.complete-button:hover {
+  background: #ffc233;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 209, 102, 0.7);
+}
+
+.start-challenge {
+  background: #4ecdc4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.start-challenge:hover {
+  background: #45b7af;
+  transform: translateY(-2px);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.map-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.reset-button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.reset-button:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+} 

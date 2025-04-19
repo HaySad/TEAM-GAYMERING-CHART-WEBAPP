@@ -263,23 +263,45 @@
 /* Tier 11 Card Positions */
 .tier-11 .event-song-card:nth-child(1) {
   top: 50%;
-  left: 50%;
+  left: 20%;
   transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
   z-index: 5;
   border-color: rgba(78, 205, 196, 0.8);
   box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
 }
 
 .tier-11 .event-song-card:nth-child(2) {
-  top: 25%;
-  left: 70%;
-  transform: translate(-50%, -50%);
+  top: 50%;
+  right: 20%;
+  transform: translate(50%, -50%);
+  transition: all 0.5s ease;
 }
 
 .tier-11 .event-song-card:nth-child(3) {
-  top: 75%;
-  left: 30%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+  z-index: 4;
+  filter: brightness(0.7);
+  background: rgba(10, 10, 10, 0.95);
+}
+
+.tier-11 .event-song-card:nth-child(3) img {
+  filter: blur(2px);
+}
+
+.tier-11 .event-song-card:nth-child(3)::before {
+  content: '???';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  color: rgba(78, 205, 196, 0.8);
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+  z-index: 2;
 }
 
 /* Add glow effect for outer cards */
@@ -304,14 +326,7 @@
 
 .event-song-card.completed {
   pointer-events: none;
-  position: relative;
   opacity: 0.7;
-  transform: none;
-}
-
-/* Override completed transform for first card */
-.tier-10 .event-song-card:nth-child(1).completed {
-  transform: translate(-50%, -50%) !important;
 }
 
 .event-song-card .completed-overlay {
@@ -328,4 +343,47 @@
   text-transform: uppercase;
   box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
   z-index: 2;
+}
+
+/* Keep original transforms for completed cards */
+.tier-11 .event-song-card:nth-child(1).completed {
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.tier-11 .event-song-card:nth-child(2).completed {
+  top: 50%;
+  right: 20%;
+  transform: translate(50%, -50%);
+}
+
+.tier-11 .event-song-card:nth-child(3).completed {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tier-10 .event-song-card:nth-child(1).completed {
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+}
+
+.tier-10 .event-song-card:nth-child(2).completed {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.tier-10 .event-song-card:nth-child(3).completed {
+  bottom: 15%;
+  left: 15%;
+  transform: translate(0, 0);
+}
+
+.tier-10 .event-song-card:nth-child(4).completed {
+  bottom: 15%;
+  right: 15%;
+  transform: translate(0, 0);
 } 

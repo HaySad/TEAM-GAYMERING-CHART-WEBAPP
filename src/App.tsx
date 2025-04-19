@@ -5,6 +5,7 @@ import MainPage from './MainPage';
 import MaiChart from './MaiChart';
 import SongDetail from './pages/SongDetail';
 import EventHorizon from './pages/EventHorizon';
+import WorldMap from './components/WorldMap';
 import './App.css';
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
           } />
           <Route path="/song/:id" element={<SongDetail />} />
           <Route path="/event-horizon" element={<EventHorizon />} />
+          <Route path="/world-map" element={<WorldMap />} />
           <Route path="/" element={<Navigate to="/mai-chart" replace />} />
           <Route path="*" element={<Navigate to="/mai-chart" replace />} />
         </Routes>
