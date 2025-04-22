@@ -97,9 +97,16 @@
 .location-name {
   position: absolute;
   bottom: -20px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .location::before {
@@ -110,7 +117,7 @@
   background: #4ecdc4;
   border-radius: 50%;
   box-shadow: 0 0 10px #4ecdc4;
-  animation: pulse 2s infinite;
+  animation: locationPulse 2s infinite;
 }
 
 .location.locked::before {
@@ -121,11 +128,20 @@
 .location.current::before {
   background: #ffd166;
   box-shadow: 0 0 15px #ffd166;
-  animation: pulse 1s infinite;
+  animation: locationPulse 1s infinite;
 }
 
 .location:hover {
   transform: translate(-50%, -50%) scale(1.2);
+}
+
+.location:hover .location-name {
+  white-space: normal;
+  overflow: visible;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 100;
 }
 
 .location-details {
@@ -168,6 +184,23 @@
 
 .location-info {
   margin-bottom: 15px;
+}
+
+.creator-info {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.creator-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.creator-info p span {
+  color: #ffd166;
+  font-weight: bold;
 }
 
 .button-group {
@@ -226,7 +259,7 @@
   transform: translateY(-2px);
 }
 
-@keyframes pulse {
+@keyframes locationPulse {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -264,4 +297,39 @@
   background: #ff5252;
   transform: translateY(-2px);
   box-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+}
+
+.life-system {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.life-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.life-icon {
+  font-size: 16px;
+  animation: heartPulse 2s infinite;
+}
+
+@keyframes heartPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 } 

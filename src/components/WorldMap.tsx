@@ -11,64 +11,112 @@ interface MapLocation {
   isCurrent: boolean;
   imageUrl: string;
   downloadUrl: string;
+  artist: string;
+  charter: string;
+  lifeSystem: {
+    maxLife: number;
+    great: number;
+    good: number;
+    miss: number;
+  };
 }
 
 const WorldMap: React.FC = () => {
   const initialLocations: MapLocation[] = [
     { 
       id: 1, 
-      name: 'Song1', 
+      name: 'メクルメ', 
       x: 10, 
       y: 50, 
-      level: 1, 
+      level: 14, 
       isUnlocked: true, 
       isCurrent: true,
-      imageUrl: '/songs/song1.jpg',
-      downloadUrl: '/downloads/song1.zip'
+      imageUrl: 'songs/all/mekuru/bg.jpg',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1351K8EjwH38e8zeuawg4CWe7G-AExxlf',
+      artist: '初星学園',
+      charter: 'Happy VS H&S VS 8bit ft. The doop',
+      lifeSystem: {
+        maxLife: 100,
+        great: 2,
+        good: 3,
+        miss: 5
+      }
     },
     { 
       id: 2, 
-      name: 'Song2', 
+      name: '甘神さんちの縁結び - 神様の言うとーり！', 
       x: 30, 
       y: 50, 
-      level: 2, 
+      level: 14, 
       isUnlocked: false, 
       isCurrent: false,
-      imageUrl: '/songs/song2.jpg',
-      downloadUrl: '/downloads/song2.zip'
+      imageUrl: 'songs/3-4/bg.jpg',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1GTGl2dIaiu5O4Z5YABloIY2owImbzMCX',
+      artist: '≠ME',
+      charter: 'Levelast',
+      lifeSystem: {
+        maxLife: 100,
+        great: 0,
+        good: 0,
+        miss: 0
+      }
     },
     { 
       id: 3, 
-      name: 'Song3', 
+      name: 'Pyrocrypt', 
       x: 50, 
       y: 50, 
-      level: 3, 
+      level: 14.9, 
       isUnlocked: false, 
       isCurrent: false,
-      imageUrl: '/songs/song3.jpg',
-      downloadUrl: '/downloads/song3.zip'
+      imageUrl: 'songs/4-4/bg.jpg',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1bzNN3axn94OKXWsDXIjWlfEbyaaFePZp',
+      artist: 'Ardolf',
+      charter: 'RhoGaming vs Levelast',
+      lifeSystem: {
+        maxLife: 100,
+        great: 0,
+        good: 0,
+        miss: 0
+      }
     },
     { 
       id: 4, 
-      name: 'Song4', 
+      name: 'SUPERNOVA', 
       x: 70, 
       y: 50, 
-      level: 4, 
+      level: 14.9, 
       isUnlocked: false, 
       isCurrent: false,
-      imageUrl: '/songs/song4.jpg',
-      downloadUrl: '/downloads/song4.zip'
+      imageUrl: 'songs/5-4/bg.jpg',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1_mkivuAdyWRfaZsV4xTzj0YYVqC1Ynz6',
+      artist: 'Kyotsugyon',
+      charter: '8 bit',
+      lifeSystem: {
+        maxLife: 100,
+        great: 0,
+        good: 0,
+        miss: 0
+      }
     },
     { 
       id: 5, 
-      name: 'Song5', 
+      name: 'Sincuvate', 
       x: 90, 
       y: 50, 
-      level: 5, 
+      level: 15, 
       isUnlocked: false, 
       isCurrent: false,
-      imageUrl: '/songs/song5.jpg',
-      downloadUrl: '/downloads/song5.zip'
+      imageUrl: 'songs/event/event-end.png',
+      downloadUrl: '/downloads/song5.zip',
+      artist: 'Endorfin. vs Feryquitous',
+      charter: 'Levelast the NULL',
+      lifeSystem: {
+        maxLife: 100,
+        great: 0,
+        good: 0,
+        miss: 0
+      }
     },
   ];
 
@@ -167,6 +215,28 @@ const WorldMap: React.FC = () => {
           <div className="location-info">
             <p>Level: {selectedLocation.level}</p>
             <p>Status: {selectedLocation.isUnlocked ? 'Unlocked' : 'Locked'}</p>
+            <div className="creator-info">
+              <p>Artist: {selectedLocation.artist}</p>
+              <p>Charter: {selectedLocation.charter}</p>
+            </div>
+            <div className="life-system">
+              <div className="life-item">
+                <span className="life-icon">❤️</span>
+                <span>Max Life: {selectedLocation.lifeSystem.maxLife}</span>
+              </div>
+              <div className="life-item">
+                <span className="life-icon">❤️</span>
+                <span>Great: -{selectedLocation.lifeSystem.great}</span>
+              </div>
+              <div className="life-item">
+                <span className="life-icon">❤️</span>
+                <span>Good: -{selectedLocation.lifeSystem.good}</span>
+              </div>
+              <div className="life-item">
+                <span className="life-icon">❤️</span>
+                <span>Miss: -{selectedLocation.lifeSystem.miss}</span>
+              </div>
+            </div>
           </div>
           <div className="button-group">
             <button 

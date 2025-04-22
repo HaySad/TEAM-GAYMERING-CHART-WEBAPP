@@ -34,12 +34,18 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
   const tier10Songs = useMemo(() => [
     {
       id: '10-1',
-      name: 'Metaverse',
+      name: 'Metaverse To Be Like This',
       level: 14.8,
       image: '/songs/event/10-1.jpg',
       downloadUrl: 'https://drive.google.com/uc?export=download&id=13cqjn17WfDhCUKXFVwr5ZZgnqVx_TvNP',
       chartDesigner: 'papin002',
       artist: 'Camellia',
+      lifeSystem: {
+        maxLife: 400,
+        great: 2,
+        good: 3,
+        miss: 5
+      },
       isLocked: false
     },
     {
@@ -92,7 +98,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       level: 15.9,
       image: '/songs/event/11-2.jpg',
       downloadUrl: 'https://drive.google.com/uc?export=download&id=1b84kGfo67KQea7x1W9Ei1UTUxFKKRRKK',
-      chartDesigner: 'Event Team',
+      chartDesigner: 'MacTheOne respects for RhoGaming',
       artist: 'Helblinde',
       isLocked: true
     },

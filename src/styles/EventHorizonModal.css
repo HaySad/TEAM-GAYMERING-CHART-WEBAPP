@@ -345,7 +345,7 @@
   z-index: 2;
 }
 
-/* Keep original transforms for completed cards */
+Keep original transforms for completed cards
 .tier-11 .event-song-card:nth-child(1).completed {
   top: 50%;
   left: 20%;

@@ -12,6 +12,12 @@ interface Song {
   isCompleted?: boolean;
   isLocked?: boolean;
   videoUrl?: string;
+  lifeSystem?: {
+    maxLife: number;
+    great: number;
+    good: number;
+    miss: number;
+  };
 }
 
 interface SongDetailModalProps {
@@ -109,6 +115,27 @@ const SongDetailModal: React.FC<SongDetailModalProps> = ({
                   <span className="value">{song.chartDesigner}</span>
                 </div>
               </div>
+
+              {song.lifeSystem && (
+                <div className="life-system">
+                  <div className="life-item">
+                    <span className="life-icon">❤️</span>
+                    <span>Max Life: {song.lifeSystem.maxLife}</span>
+                  </div>
+                  <div className="life-item">
+                    <span className="life-icon">❤️</span>
+                    <span>Great: -{song.lifeSystem.great}</span>
+                  </div>
+                  <div className="life-item">
+                    <span className="life-icon">❤️</span>
+                    <span>Good: -{song.lifeSystem.good}</span>
+                  </div>
+                  <div className="life-item">
+                    <span className="life-icon">❤️</span>
+                    <span>Miss: -{song.lifeSystem.miss}</span>
+                  </div>
+                </div>
+              )}
 
               <div className="actions">
                 <button className="download-button" onClick={handleDownload}>
