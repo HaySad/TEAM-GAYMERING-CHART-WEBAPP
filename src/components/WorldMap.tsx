@@ -36,7 +36,7 @@ const WorldMap: React.FC = () => {
       artist: '初星学園',
       charter: 'Happy VS H&S VS 8bit ft. The doop',
       lifeSystem: {
-        maxLife: 100,
+        maxLife: 200,
         great: 2,
         good: 3,
         miss: 5
@@ -55,10 +55,10 @@ const WorldMap: React.FC = () => {
       artist: '≠ME',
       charter: 'Levelast',
       lifeSystem: {
-        maxLife: 100,
-        great: 0,
-        good: 0,
-        miss: 0
+        maxLife: 200,
+        great: 2,
+        good: 3,
+        miss: 5
       }
     },
     { 
@@ -74,10 +74,10 @@ const WorldMap: React.FC = () => {
       artist: 'Ardolf',
       charter: 'RhoGaming vs Levelast',
       lifeSystem: {
-        maxLife: 100,
-        great: 0,
-        good: 0,
-        miss: 0
+        maxLife: 500,
+        great: 2,
+        good: 3,
+        miss: 5
       }
     },
     { 
@@ -93,10 +93,10 @@ const WorldMap: React.FC = () => {
       artist: 'Kyotsugyon',
       charter: '8 bit',
       lifeSystem: {
-        maxLife: 100,
-        great: 0,
-        good: 0,
-        miss: 0
+        maxLife: 500,
+        great: 2,
+        good: 3,
+        miss: 5
       }
     },
     { 
@@ -112,10 +112,10 @@ const WorldMap: React.FC = () => {
       artist: 'Endorfin. vs Feryquitous',
       charter: 'Levelast the NULL',
       lifeSystem: {
-        maxLife: 100,
-        great: 0,
-        good: 0,
-        miss: 0
+        maxLife: 500,
+        great: 2,
+        good: 3,
+        miss: 5
       }
     },
   ];

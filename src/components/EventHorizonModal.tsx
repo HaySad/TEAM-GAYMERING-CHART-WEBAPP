@@ -90,7 +90,13 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       downloadUrl: 'https://drive.google.com/uc?export=download&id=1PzOsc15uVVwISbbesoT9stp5W0dGmNU1',
       chartDesigner: '"S"ad for braeak',
       artist: 'seatrus',
-      isLocked: true
+      isLocked: true,
+      lifeSystem: {
+        maxLife: 4000,
+        great: 2,
+        good: 3,
+        miss: 5
+      }
     },
     {
       id: '11-2',
@@ -100,7 +106,13 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       downloadUrl: 'https://drive.google.com/uc?export=download&id=1b84kGfo67KQea7x1W9Ei1UTUxFKKRRKK',
       chartDesigner: 'MacTheOne respects for RhoGaming',
       artist: 'Helblinde',
-      isLocked: true
+      isLocked: true,
+      lifeSystem: {
+        maxLife: 4000,
+        great: 2,
+        good: 3,
+        miss: 5
+      }
     },
     {
       id: '11-3',
@@ -110,7 +122,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       downloadUrl: '/world-map',
       chartDesigner: '???',
       artist: '???',
-      isLocked: true
+      isLocked: true,
     }
   ], []);
 
