@@ -179,6 +179,25 @@ const WorldMap: React.FC = () => {
               return null;
             })}
             
+            {/* Player Avatar */}
+            {locations.map((location) => {
+              if (location.isCurrent) {
+                return (
+                  <div 
+                    key={`player-${location.id}`}
+                    className="worldmap-player-avatar"
+                    style={{
+                      left: `${location.x + 0.5}%`,
+                      top: `${location.y - 11}%`,
+                    }}
+                  >
+                    <img src="songs/1-2/bg.jpg" alt="" />
+                  </div>
+                );
+              }
+              return null;
+            })}
+            
             {/* Locations */}
             {locations.map((location) => (
               <div
@@ -191,8 +210,8 @@ const WorldMap: React.FC = () => {
                 onClick={() => handleLocationClick(location)}
               >
                 <div className="location-marker">
-                  <div className="location-level">Lv.{location.level}</div>
-                  <div className="location-name">{location.name}</div>
+                  <div className="location-level">Lv.{location.isUnlocked ? location.level : '?'}</div>
+                  <div className="location-name">{location.isUnlocked ? location.name : '???'}</div>
                 </div>
               </div>
             ))}
@@ -208,35 +227,38 @@ const WorldMap: React.FC = () => {
 
       {selectedLocation && (
         <div className="location-details">
+          <button className="worldmap-close-button" onClick={() => setSelectedLocation(null)}>✕</button>
           <div className="location-image">
             <img src={selectedLocation.imageUrl} alt={selectedLocation.name} />
           </div>
-          <h2>{selectedLocation.name}</h2>
+          <h2>{selectedLocation.isUnlocked ? selectedLocation.name : '???'}</h2>
           <div className="location-info">
-            <p>Level: {selectedLocation.level}</p>
+            <p>Level: {selectedLocation.isUnlocked ? selectedLocation.level : '???'}</p>
             <p>Status: {selectedLocation.isUnlocked ? 'Unlocked' : 'Locked'}</p>
             <div className="creator-info">
-              <p>Artist: {selectedLocation.artist}</p>
-              <p>Charter: {selectedLocation.charter}</p>
+              <p>Artist: {selectedLocation.isUnlocked ? selectedLocation.artist : '???'}</p>
+              <p>Charter: {selectedLocation.isUnlocked ? selectedLocation.charter : '???'}</p>
             </div>
-            <div className="life-system">
-              <div className="life-item">
-                <span className="life-icon">❤️</span>
-                <span>Max Life: {selectedLocation.lifeSystem.maxLife}</span>
+            {selectedLocation.isUnlocked && (
+              <div className="life-system">
+                <div className="life-item">
+                  <span className="life-icon">❤️</span>
+                  <span>Max Life: {selectedLocation.lifeSystem.maxLife}</span>
+                </div>
+                <div className="life-item">
+                  <span className="life-icon">❤️</span>
+                  <span>Great: -{selectedLocation.lifeSystem.great}</span>
+                </div>
+                <div className="life-item">
+                  <span className="life-icon">❤️</span>
+                  <span>Good: -{selectedLocation.lifeSystem.good}</span>
+                </div>
+                <div className="life-item">
+                  <span className="life-icon">❤️</span>
+                  <span>Miss: -{selectedLocation.lifeSystem.miss}</span>
+                </div>
               </div>
-              <div className="life-item">
-                <span className="life-icon">❤️</span>
-                <span>Great: -{selectedLocation.lifeSystem.great}</span>
-              </div>
-              <div className="life-item">
-                <span className="life-icon">❤️</span>
-                <span>Good: -{selectedLocation.lifeSystem.good}</span>
-              </div>
-              <div className="life-item">
-                <span className="life-icon">❤️</span>
-                <span>Miss: -{selectedLocation.lifeSystem.miss}</span>
-              </div>
-            </div>
+            )}
           </div>
           <div className="button-group">
             <button 

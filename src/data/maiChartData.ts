@@ -606,6 +606,31 @@ export const maiChartData: Song[] = [
       breaks: 12
     }
   },
+  {
+    id: "25",
+    name: "HeinousЯeaper",
+    difficulties: [
+      {
+        level: "15",
+        levelValue: 15.0,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/heinous/bg.jpg",
+    maidata: "/songs/all/heinous/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=13bN_MPZGjzZq-dO0OblLoZlYTipMwhJf",
+    chartDesigner: "HaySad",
+    artist: "seatrus",
+    chartStats: {
+      bpm: 201,
+      totalNotes: 1222,
+      taps: 803,
+      holds: 69,
+      slides: 31,
+      touches: 66,
+      breaks: 253
+    }
+  },
 
     
 
