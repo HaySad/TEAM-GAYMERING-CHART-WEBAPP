@@ -632,6 +632,24 @@ export const maiChartData: Song[] = [
     }
   },
 
+  {
+    id: "25",
+    name: "彩りキャンバス (-ive aLIVE! Event Music)",
+    difficulties: [
+      {
+        level: "13",
+        levelValue: 13.2,
+        levelType: "MASTER"
+      }
+    ],
+    image: "/songs/all/sugar-rush/bg.jpg",
+    maidata: "/songs/all/sugar-rush/maidata.txt",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=18qVdgpkcANZivL9Jfq1weRUU3vFJWo11",
+    chartDesigner: "H&S",
+    artist: "Sugar Rush",
+    chartStats: "None"
+  },
+
     
 
   // เพิ่มเพลงอื่นๆ ตามต้องการ
