@@ -51,7 +51,7 @@ const WorldMap: React.FC = () => {
       isUnlocked: false, 
       isCurrent: false,
       imageUrl: 'songs/3-4/bg.jpg',
-      downloadUrl: 'https://drive.google.com/uc?export=download&id=1GTGl2dIaiu5O4Z5YABloIY2owImbzMCX',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1SqLNFNIFDh7IeKfJkcwHlG6CjQDSr6jN',
       artist: '≠ME',
       charter: 'Levelast',
       lifeSystem: {
