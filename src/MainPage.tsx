@@ -168,10 +168,15 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
               The Supernova has been completed.<br/>
               Now, we are looking at the Event Horizon for astrodx.<br/>
               A new challenge awaits...<br/><br/>
-              Coming soon...
             </p>
-            <button className="locked-modal-close" onClick={() => setIsLockedModalOpen(false)}>
-              Close
+            <button 
+              className="locked-modal-close" 
+              onClick={() => {
+                setIsLockedModalOpen(false);
+                window.location.href = '/event-horizon';
+              }}
+            >
+              Deep in to event horizon
             </button>
           </div>
         </div>
