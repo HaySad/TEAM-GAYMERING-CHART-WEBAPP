@@ -306,8 +306,8 @@ const WorldMap: React.FC = () => {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/7l8-dTpDqlA"
-              title="SUPERNOVA Completion"
+              src="https://www.youtube.com/embed/wlPmJ72XsyQ"
+              title="Completion"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
