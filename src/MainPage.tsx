@@ -132,7 +132,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                 <div style={styles.blackHoleRing}></div>
                 <div style={styles.blackHoleCore}></div>
               </div>
-              <h2 style={styles.eventHorizonTitle}>Tier Event Horizon 🔒</h2>
+              <h2 style={styles.eventHorizonTitle}>Tier Event Horizon</h2>
               <p style={styles.eventHorizonDesc}>Coming soon...</p>
             </div>
           </div>
