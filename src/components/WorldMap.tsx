@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/WorldMap.css';
 
 interface MapLocation {
@@ -120,8 +120,21 @@ const WorldMap: React.FC = () => {
     },
   ];
 
-  const [locations, setLocations] = useState<MapLocation[]>(initialLocations);
+  // Load saved locations from localStorage or use initial locations
+  const loadSavedLocations = () => {
+    const savedLocations = localStorage.getItem('worldMapLocations');
+    return savedLocations ? JSON.parse(savedLocations) : initialLocations;
+  };
+
+  const [locations, setLocations] = useState<MapLocation[]>(loadSavedLocations());
   const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+
+  // Save locations to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('worldMapLocations', JSON.stringify(locations));
+  }, [locations]);
 
   const handleLocationClick = (location: MapLocation) => {
     if (location.isUnlocked) {
@@ -131,8 +144,13 @@ const WorldMap: React.FC = () => {
 
   const handleComplete = () => {
     if (selectedLocation) {
+      if (selectedLocation.id === 4) {
+        setShowVideoModal(true);
+      } else if (selectedLocation.id === 5) {
+        setShowCompletionModal(true);
+      }
       setLocations(prevLocations => {
-        return prevLocations.map(loc => {
+        const updatedLocations = prevLocations.map(loc => {
           if (loc.id === selectedLocation.id) {
             return { ...loc, isCurrent: false };
           } else if (loc.id === selectedLocation.id + 1) {
@@ -140,6 +158,9 @@ const WorldMap: React.FC = () => {
           }
           return loc;
         });
+        // Save to localStorage immediately after updating
+        localStorage.setItem('worldMapLocations', JSON.stringify(updatedLocations));
+        return updatedLocations;
       });
       setSelectedLocation(null);
     }
@@ -151,6 +172,7 @@ const WorldMap: React.FC = () => {
   };
 
   const handleResetJourney = () => {
+    localStorage.removeItem('worldMapLocations');
     setLocations(initialLocations);
     setSelectedLocation(null);
   };
@@ -191,7 +213,7 @@ const WorldMap: React.FC = () => {
                       top: `${location.y - 11}%`,
                     }}
                   >
-                    <img src="songs/1-2/bg.jpg" alt="" />
+                    <img src="songs/event/pro.png" alt="" />
                   </div>
                 );
               }
@@ -273,6 +295,36 @@ const WorldMap: React.FC = () => {
             >
               Complete
             </button>
+          </div>
+        </div>
+      )}
+
+      {showVideoModal && (
+        <div className="video-modal">
+          <button className="worldmap-close-button" onClick={() => setShowVideoModal(false)}>✕</button>
+          <div className="video-container">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/7l8-dTpDqlA"
+              title="SUPERNOVA Completion"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
+
+      {showCompletionModal && (
+        <div className="completion-modal">
+          <button className="worldmap-close-button" onClick={() => setShowCompletionModal(false)}>✕</button>
+          <div className="completion-content">
+            <h2>🎉 ยินดีด้วย! 🎉</h2>
+            <p>นายผ่าน Discord Competition IV แล้ว พี่ชาย</p>
+            <div className="completion-image">
+              <img src="/songs/event/event-end.png" alt="Competition Complete" />
+            </div>
           </div>
         </div>
       )}
