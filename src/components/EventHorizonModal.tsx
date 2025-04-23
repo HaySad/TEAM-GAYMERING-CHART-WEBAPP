@@ -57,7 +57,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       chartDesigner: 'Event Team',
       artist: 'Event Artist',
       isLocked: true,
-      videoUrl: 'https://www.youtube.com/watch?v=0YuzCwOtDh0'
+      videoUrl: 'https://www.youtube.com/watch?v=7l8-dTpDqlA'
     },
     {
       id: '10-3',
