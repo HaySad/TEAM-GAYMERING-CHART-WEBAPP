@@ -57,7 +57,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       chartDesigner: 'Event Team',
       artist: 'Event Artist',
       isLocked: true,
-      videoUrl: 'https://www.youtube.com/watch?v=K0I1gI0tX4U'
+      videoUrl: 'https://www.youtube.com/watch?v=0YuzCwOtDh0'
     },
     {
       id: '10-3',
@@ -87,7 +87,7 @@ const EventHorizonModal: React.FC<EventHorizonModalProps> = ({ isOpen, onClose, 
       name: 'The Daybreak Will Never Come Again.',
       level: 15.0,
       image: '/songs/event/11-1.jpg',
-      downloadUrl: 'https://drive.google.com/uc?export=download&id=1PzOsc15uVVwISbbesoT9stp5W0dGmNU1',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1p537ouAsf0o0BTs_vXjfq7KwnbrwbutV',
       chartDesigner: '"S"ad for braeak',
       artist: 'seatrus',
       isLocked: true,

@@ -136,14 +136,21 @@ const SongDetailModal: React.FC<SongDetailModalProps> = ({
                   </div>
                 </div>
               )}
-
               <div className="actions">
-                <button className="download-button" onClick={handleDownload}>
-                  Download Chart
-                </button>
-                <button className="complete-button" onClick={handleComplete}>
-                  Mark as Completed
-                </button>
+                {song.id === '11-3' ? (
+                  <button className="download-button" onClick={handleDownload}>
+                    ????
+                  </button>
+                ) : (
+                  <>
+                    <button className="download-button" onClick={handleDownload}>
+                      Download Chart
+                    </button>
+                    <button className="complete-button" onClick={handleComplete}>
+                      Mark as Completed
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </>
