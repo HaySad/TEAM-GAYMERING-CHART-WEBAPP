@@ -327,34 +327,27 @@ export const maiChartData: Song[] = [
     name: "The Daybreak Will Never Come Again.",
     difficulties: [
       {
-        level: "??",
-        levelValue: 0,
+        level: "15",
+        levelValue: 15.0,
         levelType: "MASTER"
       }
     ],
     image: "/songs/all/daybreak/bg.jpg",
     maidata: "/songs/all/daybreak/maidata.txt",
     downloadUrl: "https://drive.google.com/uc?export=download&id=1jKLe2wUEwYBVZh2S4eWixMAvN4SnrVde",
-    chartDesigner: "HaySad VS ???",
+    chartDesigner: "HaySad VS EventHorizon",
     artist: "seatrus",
     chartStats: {
       bpm: 160,
-      totalNotes: 1048,
-      taps: 581,
-      holds: 67,
-      slides: 137,
-      touches: 95,
-      breaks: 168
+      totalNotes: 2241,
+      taps: 0,
+      holds: 0,
+      slides: 0,
+      touches: 0,
+      breaks: 2241
     },
-    requirements: {
-      description: "Boss Song Requirements:",
-      conditions: [
-        "Find the Daybreak Before The End of Daytime",
-        "Clear Discord Compilation IV more than 5 times or Play Discord Compilation IV all tire",
-      ],
-      isLocked: true
-    }
   },
+
   {
     id: "14",
     name: "Moonlight Sonata 3rd Movement (Cut Ver.)",
@@ -647,6 +640,58 @@ export const maiChartData: Song[] = [
     downloadUrl: "https://drive.google.com/uc?export=download&id=18qVdgpkcANZivL9Jfq1weRUU3vFJWo11",
     chartDesigner: "H&S",
     artist: "Sugar Rush",
+    chartStats: "None"
+  },
+  {
+    id: "26",
+    name: 'The Solace of Oblivion',
+    difficulties: [
+      {
+        level: "15.9",
+        levelValue: 15.9,
+        levelType: "MASTER"
+      }
+    ],
+    image: '/songs/event/11-2.jpg',
+    maidata: '/songs/event/11-2.txt',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=1b84kGfo67KQea7x1W9Ei1UTUxFKKRRKK',
+    chartDesigner: 'MacTheOne respects for RhoGaming',
+    artist: 'Helblinde',
+    chartStats: "None"
+  },
+  {
+    id: "27",
+    name: 'Sincuvate', 
+    difficulties: [
+      {
+        level: "15",
+        levelValue: 15.0,
+        levelType: "MASTER"
+      }
+    ],
+    image: '/songs/event/event-end.png',
+    maidata: '/songs/event/11-2.txt',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=1drOhp6q5E2ov3gxiK82B5TCLZpSwZqSt',
+    chartDesigner: 'Levelast the NULL',
+    artist: 'Endorfin. vs Feryquitous',
+    chartStats: "None"
+  },
+
+  {
+    id: '28',
+    name: 'Metaverse To Be Like This',
+    difficulties: [
+      {
+        level: "14.8",
+        levelValue: 14.8,
+        levelType: "MASTER"
+      }
+    ],
+    image: '/songs/event/10-1.jpg',
+    maidata: '',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=13cqjn17WfDhCUKXFVwr5ZZgnqVx_TvNP',
+    chartDesigner: 'papin002',
+    artist: 'Camellia',
     chartStats: "None"
   },
 
