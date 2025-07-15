@@ -124,7 +124,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
         </div>
       </div>
       <div style={styles.container}>
-        <h1 style={styles.header}>段位認定- Discord-Competition IV</h1>
+        <h1 style={styles.header}>-段位認定- Discord-Competition IV</h1>
         
         {/* Event Horizon Tier */}
         {showEventHorizon && (
@@ -143,68 +143,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
           </div>
         )}
 
-        {/* Higurashi Tier (Orange, with blinking lights) */}
-        <div style={styles.higurashiTier}>
-          {isHigurashiLocked ? (
-            <div style={styles.higurashiButtonLocked}>
-              <div style={styles.higurashiPreview}>
-                {/* Torii Gate Shape */}
-                <div style={styles.toriiTop}></div>
-                <div style={styles.toriiLegLeft}></div>
-                <div style={styles.toriiLegRight}></div>
-                <div style={styles.toriiBar}></div>
-              </div>
-              <h2 style={styles.higurashiTitle}>Higurashi</h2>
-              <p style={styles.higurashiDesc}>Special Challenge</p>
-              {/* Locked overlay */}
-              <div style={styles.lockedOverlay}>🔒 Locked</div>
-              {/* Blinking lights */}
-              <div style={styles.blinkingLightsWrapper}>
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      ...styles.blinkingLight,
-                      left: `${10 + i * 12}%`,
-                      animationDelay: `${i * 0.2}s`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div
-              style={styles.higurashiButton}
-              onClick={() => navigate('/higurashi-dan')}
-              tabIndex={0}
-              role="button"
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate('/higurashi-dan'); }}
-            >
-              <div style={styles.higurashiPreview}>
-                {/* Torii Gate Shape */}
-                <div style={styles.toriiTop}></div>
-                <div style={styles.toriiLegLeft}></div>
-                <div style={styles.toriiLegRight}></div>
-                <div style={styles.toriiBar}></div>
-              </div>
-              <h2 style={styles.higurashiTitle}>Higurashi</h2>
-              <p style={styles.higurashiDesc}>Special Challenge</p>
-              {/* Blinking lights */}
-              <div style={styles.blinkingLightsWrapper}>
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      ...styles.blinkingLight,
-                      left: `${10 + i * 12}%`,
-                      animationDelay: `${i * 0.2}s`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        
 
         {/* Locked Event Horizon Modal */}
         <div className={`locked-event-horizon-modal ${isLockedModalOpen ? 'open' : ''}`}>
@@ -306,6 +245,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                 </div>
               ))}
             </div>
+            
           </div>
         ))}
 
@@ -316,6 +256,72 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
             onSongComplete={handleEventSongComplete}
           />
         )}
+      </div>
+      <h1 style={styles.header}>-段位認定- Discord-Competition V</h1>
+
+      <div style={styles.container}>
+      {/* Higurashi Tier (Orange, with blinking lights) */}
+      <div style={styles.higurashiTier}>
+          {isHigurashiLocked ? (
+            <div style={styles.higurashiButtonLocked}>
+              <div style={styles.higurashiPreview}>
+                {/* Torii Gate Shape */}
+                <div style={styles.toriiTop}></div>
+                <div style={styles.toriiLegLeft}></div>
+                <div style={styles.toriiLegRight}></div>
+                <div style={styles.toriiBar}></div>
+              </div>
+              <h2 style={styles.higurashiTitle}>Higurashi</h2>
+              <p style={styles.higurashiDesc}>Special Challenge</p>
+              {/* Locked overlay */}
+              <div style={styles.lockedOverlay}>🔒 Locked</div>
+              {/* Blinking lights */}
+              <div style={styles.blinkingLightsWrapper}>
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      ...styles.blinkingLight,
+                      left: `${10 + i * 12}%`,
+                      animationDelay: `${i * 0.2}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div
+              style={styles.higurashiButton}
+              onClick={() => navigate('/higurashi-dan')}
+              tabIndex={0}
+              role="button"
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate('/higurashi-dan'); }}
+            >
+              <div style={styles.higurashiPreview}>
+                {/* Torii Gate Shape */}
+                <div style={styles.toriiTop}></div>
+                <div style={styles.toriiLegLeft}></div>
+                <div style={styles.toriiLegRight}></div>
+                <div style={styles.toriiBar}></div>
+              </div>
+              <h2 style={styles.higurashiTitle}>Higurashi</h2>
+              <p style={styles.higurashiDesc}>Special Challenge</p>
+              {/* Blinking lights */}
+              <div style={styles.blinkingLightsWrapper}>
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      ...styles.blinkingLight,
+                      left: `${10 + i * 12}%`,
+                      animationDelay: `${i * 0.2}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
