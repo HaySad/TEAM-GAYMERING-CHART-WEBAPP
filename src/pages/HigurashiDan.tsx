@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import StarBackground from '../components/StarBackground';
 import { higurashiDan1Songs } from '../data/higurashi-dan1';
 import { higurashiDan2Songs } from '../data/higurashi-dan2';
@@ -160,6 +160,9 @@ const HigurashiDan: React.FC = () => {
   const [selectedSongs, setSelectedSongs] = useState<any[]>([]);
   const [showBossModal, setShowBossModal] = useState(false);
   const [showBossDownload, setShowBossDownload] = useState(false);
+  const [toriiDialogIndex, setToriiDialogIndex] = useState(0);
+  const [toriiDialogText, setToriiDialogText] = useState('');
+  const [toriiBreak, setToriiBreak] = useState(false);
 
   const handleNext = () => {
     if (step === 0) {
@@ -183,9 +186,9 @@ const HigurashiDan: React.FC = () => {
   const handleEnd = () => {
     setShowBossModal(true);
     setShowBossDownload(false);
-    setTimeout(() => {
-      setShowBossDownload(true);
-    }, 5000); // 5 วินาที
+    setToriiDialogIndex(0);
+    setToriiDialogText('');
+    setToriiBreak(false);
   };
 
   const handleReset = () => {
@@ -194,6 +197,52 @@ const HigurashiDan: React.FC = () => {
     setShowBossModal(false);
     setShowBossDownload(false);
   };
+
+  // Typewriter & dialog change effect
+  React.useEffect(() => {
+    if (!showBossModal) return;
+    let dialogTimeout: NodeJS.Timeout;
+    let typeTimeout: NodeJS.Timeout;
+    let breakTimeout: NodeJS.Timeout;
+    let downloadTimeout: NodeJS.Timeout;
+    let isCancelled = false;
+
+    function showDialogLine(idx: number) {
+      setToriiDialogText('');
+      let charIdx = 0;
+      function typeChar() {
+        if (isCancelled) return;
+        setToriiDialogText(toriiDialog[idx].slice(0, charIdx + 1));
+        if (charIdx < toriiDialog[idx].length - 1) {
+          typeTimeout = setTimeout(typeChar, 40);
+          charIdx++;
+        } else {
+          // Wait 5s then go to next line or break
+          if (idx < toriiDialog.length - 1) {
+            dialogTimeout = setTimeout(() => {
+              setToriiDialogIndex(idx + 1);
+            }, 5000);
+          } else {
+            // สุดท้าย: รอ 1.2 วิ แล้ว trigger break, รออีก 1.8 วิ แล้ว show download
+            breakTimeout = setTimeout(() => setToriiBreak(true), 1200);
+            downloadTimeout = setTimeout(() => setShowBossDownload(true), 3000);
+          }
+        }
+      }
+      typeChar();
+    }
+
+    showDialogLine(toriiDialogIndex);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(dialogTimeout);
+      clearTimeout(typeTimeout);
+      clearTimeout(breakTimeout);
+      clearTimeout(downloadTimeout);
+    };
+    // eslint-disable-next-line
+  }, [showBossModal, toriiDialogIndex]);
 
   return (
     <div style={styles.pageWrapper}>
@@ -241,9 +290,13 @@ const HigurashiDan: React.FC = () => {
             >
               ×
             </button>
-            {!showBossDownload ? (
-              <ToriiBreakAnimation />
-            ) : (
+            {/* เล่นเพลง boss theme หลังประตูแตกและในหน้า download (render แค่ 1 ตัว) */}
+            {(toriiBreak || showBossDownload) && <BossAudioPlayer src={BOSS_THEME_AUDIO} />}
+            <ToriiBreakAnimation
+              dialogText={showBossDownload ? '' : toriiDialogText}
+              breakNow={toriiBreak}
+            />
+            {showBossDownload && (
               <div style={{textAlign: 'center'}}>
                 <h2 style={{color: '#ff9800'}}>🎵 Special Boss Song!</h2>
                 <img src={higurashiDanBossSongs[0].image} alt={higurashiDanBossSongs[0].name} style={{width: 120, borderRadius: 12, margin: '1rem auto'}} />
@@ -266,9 +319,26 @@ const HigurashiDan: React.FC = () => {
 
 export default HigurashiDan;
 
-// เพิ่ม ToriiBreakAnimation component (CSS inline)
-const ToriiBreakAnimation: React.FC = () => {
-  // ใช้ state เพื่อ trigger effect (optional)
+// ไดอะลอกสำหรับอนิเมชั่น
+const toriiDialog = [
+  'หากคุณคิดว่ายามนี้ ราตรีนี้ได้จบลงแล้ว . . .',
+  'หากคิดว่าเวลานี้สมควรแก่การพักผ่อน',
+  'คุณ . . . . คิด . . . . ผิด',
+  'เพราะเมื่อราตรีนี้จบลง',
+  'คงได้เวลาที่สายฝลจะตกลงมา',
+  'ฝนที่ตกลงมา',
+  'Lament Rain',
+];
+
+// กำหนด path เพลง boss theme 
+const BOSS_THEME_AUDIO = '/songs/boss-song/track.mp3';
+
+interface ToriiBreakAnimationProps {
+  dialogText: string;
+  breakNow: boolean;
+}
+
+const ToriiBreakAnimation: React.FC<ToriiBreakAnimationProps> = ({ dialogText, breakNow }) => {
   return (
     <div style={{width: 180, height: 180, position: 'relative', margin: '2rem auto'}}>
       {/* Top bar */}
@@ -278,7 +348,7 @@ const ToriiBreakAnimation: React.FC = () => {
         borderRadius: '8px 8px 6px 6px',
         boxShadow: '0 2px 8px 0 #ff9800',
         zIndex: 2,
-        animation: 'toriiTopBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) 2.2s forwards',
+        animation: breakNow ? 'toriiTopBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) forwards' : undefined,
       }} />
       {/* Left leg */}
       <div style={{
@@ -287,7 +357,7 @@ const ToriiBreakAnimation: React.FC = () => {
         borderRadius: 8,
         zIndex: 1,
         boxShadow: '0 0 8px 0 #ff9800',
-        animation: 'toriiLegLeftBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) 2.5s forwards',
+        animation: breakNow ? 'toriiLegLeftBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) forwards' : undefined,
       }} />
       {/* Right leg */}
       <div style={{
@@ -296,7 +366,7 @@ const ToriiBreakAnimation: React.FC = () => {
         borderRadius: 8,
         zIndex: 1,
         boxShadow: '0 0 8px 0 #ff9800',
-        animation: 'toriiLegRightBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) 2.5s forwards',
+        animation: breakNow ? 'toriiLegRightBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) forwards' : undefined,
       }} />
       {/* Bar */}
       <div style={{
@@ -305,12 +375,14 @@ const ToriiBreakAnimation: React.FC = () => {
         borderRadius: 4,
         zIndex: 2,
         boxShadow: '0 1px 6px 0 #ff9800',
-        animation: 'toriiBarBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) 2.3s forwards',
+        animation: breakNow ? 'toriiBarBreak 1.2s cubic-bezier(.7,-0.2,.7,1.5) forwards' : undefined,
       }} />
       {/* Effect text */}
-      <div style={{position: 'absolute', width: '100%', top: 140, textAlign: 'center', color: '#ff9800', fontWeight: 'bold', fontSize: 22, letterSpacing: 2, opacity: 0.9}}>
-        ??????
-      </div>
+      {dialogText && (
+        <div style={{position: 'absolute', width: '100%', top: 140, textAlign: 'center', color: '#ff9800', fontWeight: 'bold', fontSize: 22, letterSpacing: 2, opacity: 0.9}}>
+          {dialogText}
+        </div>
+      )}
       {/* Keyframes */}
       <style>{`
         @keyframes toriiTopBreak {
@@ -328,4 +400,15 @@ const ToriiBreakAnimation: React.FC = () => {
       `}</style>
     </div>
   );
+}; 
+
+// Component สำหรับเล่น audio ด้วย volume 0.5
+const BossAudioPlayer: React.FC<{ src: string }> = ({ src }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+    }
+  }, [src]);
+  return <audio ref={audioRef} src={src} autoPlay style={{display: 'none'}} />;
 }; 

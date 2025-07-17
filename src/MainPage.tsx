@@ -239,7 +239,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
                       className="main-download-button"
                       onClick={() => handleDownload(song.downloadUrl, song.name)}
                     >
-                      ดาวน์โหลด / Download ⬇️
+                      ดาวน์โหลด / Download
                     </button>
                   </div>
                 </div>
