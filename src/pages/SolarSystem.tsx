@@ -1,0 +1,156 @@
+import React, { useEffect, useState } from 'react';
+
+const planets = [
+  { name: 'Mercury', color: '#b1b1b1', size: 12, orbit: 50 },
+  { name: 'Venus', color: '#e6c97b', size: 18, orbit: 80 },
+  { name: 'Earth', color: '#4e8cff', size: 20, orbit: 110 },
+  { name: 'Mars', color: '#d14b2a', size: 16, orbit: 140 },
+  { name: 'Jupiter', color: '#e3b97b', size: 32, orbit: 180 },
+  { name: 'Saturn', color: '#e6d47b', size: 28, orbit: 220 },
+  { name: 'Uranus', color: '#7be6e6', size: 22, orbit: 260 },
+  { name: 'Neptune', color: '#4b7be6', size: 22, orbit: 300 },
+];
+
+const SolarSystem: React.FC = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogs, setDialogs] = useState<any[]>([]);
+  const [dialogIndex, setDialogIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState(''); // สำหรับ typewriter
+
+  useEffect(() => {
+    setShowDialog(true);
+    fetch('/solar-dialog.json')
+      .then(res => res.json())
+      .then(data => {
+        setDialogs(data);
+        setDialogIndex(0);
+      });
+  }, []);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (!dialogs.length || !dialogs[dialogIndex] || typeof dialogs[dialogIndex].text !== 'string') return;
+    const fullText = dialogs[dialogIndex].text;
+    setDisplayedText('');
+    let i = 0;
+    let cancelled = false;
+    function typeChar() {
+      if (cancelled) return;
+      setDisplayedText(fullText.slice(0, i + 1));
+      i++;
+      if (i < fullText.length) {
+        setTimeout(typeChar, 30);
+      }
+    }
+    typeChar();
+    return () => { cancelled = true; };
+  }, [dialogIndex, dialogs]);
+
+  const handleNext = () => {
+    if (!dialogs.length || !dialogs[dialogIndex] || typeof dialogs[dialogIndex].text !== 'string') return;
+    if (displayedText.length < dialogs[dialogIndex].text.length) {
+      setDisplayedText(dialogs[dialogIndex].text);
+      return;
+    }
+    if (dialogIndex < dialogs.length - 1) {
+      setDialogIndex(dialogIndex + 1);
+    } else {
+      setShowDialog(false);
+    }
+  };
+
+  const dialogData = dialogs[dialogIndex];
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: 'radial-gradient(ellipse at center, #222 0%, #111 100%)',
+      color: '#fff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Solar System */}
+      <div style={{
+        position: 'relative',
+        width: 700,
+        height: 700,
+        borderRadius: '50%',
+        margin: '0 auto',
+        background: 'rgba(0,0,0,0.1)'
+      }}>
+        {/* Sun */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: 60,
+          height: 60,
+          background: 'radial-gradient(circle, #ffe066 60%, #ffae00 100%)',
+          borderRadius: '50%',
+          transform: 'translate(-50%, -50%)',
+          boxShadow: '0 0 60px 20px #ffe06688'
+        }}>
+          <span style={{
+            position: 'absolute', left: '50%', top: '110%', transform: 'translateX(-50%)', color: '#ffe066', fontWeight: 'bold'
+          }}>Sun</span>
+        </div>
+        {/* Orbits and Planets */}
+        {planets.map((planet, idx) => (
+          <React.Fragment key={planet.name}>
+            {/* Orbit */}
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              width: planet.orbit * 2,
+              height: planet.orbit * 2,
+              border: '1px dashed #444',
+              borderRadius: '50%',
+              transform: 'translate(-50%, -50%)'
+            }} />
+            {/* Planet */}
+            <div style={{
+              position: 'absolute',
+              left: `50%`,
+              top: `50%`,
+              width: planet.size,
+              height: planet.size,
+              background: planet.color,
+              borderRadius: '50%',
+              transform: `translate(-50%, -50%) translateY(-${planet.orbit}px)`,
+              boxShadow: `0 0 16px 2px ${planet.color}88`
+            }}>
+              <span style={{
+                position: 'absolute', left: '50%', top: '120%', transform: 'translateX(-50%)', fontSize: 12, color: '#fff'
+              }}>{planet.name}</span>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+      {showDialog && dialogData && (
+        <div
+          style={{
+            position: 'fixed', bottom: 0, left: 0, width: '100%',
+            background: 'rgba(30,30,30,0.95)', display: 'flex', alignItems: 'flex-end', zIndex: 9999, padding: 24,
+            cursor: 'pointer'
+          }}
+          onClick={handleNext}
+        >
+          <img src={dialogData.avatar} style={{height: 120, marginLeft: 16, borderRadius: 12}} alt={dialogData.characterName}/>
+          <div style={{margin: 16, flex: 1}}>
+            <div style={{color: '#ff9800', fontWeight: 'bold', marginBottom: 4, fontSize: 20}}>{dialogData.characterName}</div>
+            <div style={{color: '#fff', fontSize: 20, background: 'rgba(0,0,0,0.3)', borderRadius: 8, padding: 12, minHeight: 48}}>
+              {displayedText}
+            </div>
+            <div style={{marginTop: 12, color: '#aaa', fontSize: 14}}>คลิกเพื่อดำเนินต่อ / Click to continue</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SolarSystem; 

@@ -11,11 +11,11 @@ export interface Song {
 export const higurashiDanBossSongs: Song[] = [
   {
     id: 'boss-1',
-    name: 'Higurashi Boss Song',
+    name: 'Lament Rain',
     level: 15.0,
     image: '/public/songs/all/extra/bg.jpg',
-    artist: 'Boss Artist',
-    chartDesigner: 'Boss Designer',
+    artist: 'Ashrount vs. 打打だいず',
+    chartDesigner: '??????? Vs ???',
     downloadUrl: 'https://example.com/boss-song.mp3',
   },
 ]; 

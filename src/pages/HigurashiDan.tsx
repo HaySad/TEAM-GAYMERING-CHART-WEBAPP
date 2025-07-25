@@ -4,6 +4,7 @@ import { higurashiDan1Songs } from '../data/higurashi-dan1';
 import { higurashiDan2Songs } from '../data/higurashi-dan2';
 import { higurashiDan3Songs } from '../data/higurashi-dan3';
 import { higurashiDanBossSongs } from '../data/higurashi-dan-boss';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   pageWrapper: {
@@ -163,6 +164,8 @@ const HigurashiDan: React.FC = () => {
   const [toriiDialogIndex, setToriiDialogIndex] = useState(0);
   const [toriiDialogText, setToriiDialogText] = useState('');
   const [toriiBreak, setToriiBreak] = useState(false);
+  const [showFinishQuestion, setShowFinishQuestion] = useState(false);
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (step === 0) {
@@ -196,6 +199,7 @@ const HigurashiDan: React.FC = () => {
     setSelectedSongs([]);
     setShowBossModal(false);
     setShowBossDownload(false);
+    setShowFinishQuestion(false);
   };
 
   // Typewriter & dialog change effect
@@ -243,6 +247,12 @@ const HigurashiDan: React.FC = () => {
     };
     // eslint-disable-next-line
   }, [showBossModal, toriiDialogIndex]);
+
+  useEffect(() => {
+    if (showBossDownload) {
+      setShowFinishQuestion(true);
+    }
+  }, [showBossDownload]);
 
   return (
     <div style={styles.pageWrapper}>
@@ -303,10 +313,20 @@ const HigurashiDan: React.FC = () => {
                 <div style={{color: '#fff', fontWeight: 'bold', marginBottom: 8}}>{higurashiDanBossSongs[0].name}</div>
                 <button
                   style={styles.downloadButton}
-                  onClick={() => window.open(higurashiDanBossSongs[0].downloadUrl, '_blank')}
+                  onClick={() => {
+                    window.open(higurashiDanBossSongs[0].downloadUrl, '_blank');
+                  }}
                 >
                   Download Boss Song
                 </button>
+                {/* ปุ่ม Yes/No ใต้ปุ่ม Download */}
+                {showFinishQuestion && (
+                  <div style={{marginTop: 16}}>
+                    <div style={{color: '#ff9800', marginBottom: 8, fontWeight: 'bold'}}>เล่นจบแล้วหรือยัง? / Did you finish playing?</div>
+                    <button style={{...styles.downloadButton, marginRight: 8}} onClick={() => { setShowFinishQuestion(false); navigate('/solar-system'); }}>Yes</button>
+                    <button style={styles.downloadButton} onClick={() => setShowFinishQuestion(false)}>No</button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -321,13 +341,7 @@ export default HigurashiDan;
 
 // ไดอะลอกสำหรับอนิเมชั่น
 const toriiDialog = [
-  'หากคุณคิดว่ายามนี้ ราตรีนี้ได้จบลงแล้ว . . .',
-  'หากคิดว่าเวลานี้สมควรแก่การพักผ่อน',
-  'คุณ . . . . คิด . . . . ผิด',
-  'เพราะเมื่อราตรีนี้จบลง',
-  'คงได้เวลาที่สายฝลจะตกลงมา',
-  'ฝนที่ตกลงมา',
-  'Lament Rain',
+  'Tesx',
 ];
 
 // กำหนด path เพลง boss theme 

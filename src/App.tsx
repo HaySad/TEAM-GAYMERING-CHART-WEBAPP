@@ -7,6 +7,7 @@ import SongDetail from './pages/SongDetail';
 import EventHorizon from './pages/EventHorizon';
 import WorldMap from './components/WorldMap';
 import HigurashiDan from './pages/HigurashiDan';
+import SolarSystem from './pages/SolarSystem';
 import './App.css';
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
           <Route path="/event-horizon" element={<EventHorizon />} />
           <Route path="/world-map" element={<WorldMap />} />
           <Route path="/higurashi-dan" element={<HigurashiDan />} />
+          <Route path="/solar-system" element={<SolarSystem />} />
           <Route path="/" element={<Navigate to="/mai-chart" replace />} />
           <Route path="*" element={<Navigate to="/mai-chart" replace />} />
         </Routes>

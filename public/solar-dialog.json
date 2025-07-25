@@ -1,0 +1,23 @@
+[
+  {
+    "id": "intro-1",
+    "characterId": "alice",
+    "characterName": "Alice",
+    "avatar": "/images/characters/alice.png",
+    "text": "ยินดีต้อนรับสู่ระบบสุริยะ! ฉันคือ Alice จะพาเธอไปผจญภัยเอง "
+  },
+  {
+    "id": "intro-2",
+    "characterId": "bob",
+    "characterName": "Bob",
+    "avatar": "/images/characters/bob.png",
+    "text": " ระวังด้วยนะ! ที่นี่มีอะไรน่าตื่นเต้นเยอะเลย "
+  },
+  {
+    "id": "intro-3",
+    "characterId": "alice",
+    "characterName": "Alice",
+    "avatar": "/images/characters/alice.png",
+    "text": "พร้อมหรือยัง? ไปกันเลย!"
+  }
+] 
