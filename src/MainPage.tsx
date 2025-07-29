@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 import { tiersData } from './data/tiers';
 import EventHorizonModal from './components/EventHorizonModal';
 import StarBackground from './components/StarBackground';
@@ -27,12 +28,8 @@ interface Tier {
   allSongsDownloadUrl?: string;
 }
 
-interface MainPageProps {
-  username: string;
-  sessionExpiry: Date | null;
-}
-
-const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
+const MainPage: React.FC = () => {
+  const { user } = useAuth();
   const [tiers] = useState<Tier[]>(tiersData);
   const [isEventHorizonOpen, setIsEventHorizonOpen] = useState(false);
   const [showEventHorizon] = useState(true);
@@ -57,17 +54,7 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
     }
   };
 
-  const handleLogout = () => {
-    // Clear all cookies
-    document.cookie.split(";").forEach((c) => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-    
-    // Redirect to root path
-    window.location.href = '/';
-  };
+
 
   const handleEventSongComplete = (songId: string) => {
     setCompletedEventSongs([...completedEventSongs, songId]);
@@ -101,14 +88,9 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
             <a href="/mai-chart" style={styles.navLink}>MaiChart</a>
           </div>
           <div style={styles.userInfo}>
-            {username ? (
+            {user ? (
               <>
-                <span style={styles.welcomeText}>Welcome, {username}!</span>
-                {sessionExpiry && (
-                  <span style={styles.sessionTimer}>
-                    Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
-                  </span>
-                )}
+                <span style={styles.welcomeText}>Welcome, {user.username}!</span>
               </>
             ) : (
               <a href="/login" style={styles.loginButton}>
@@ -116,11 +98,6 @@ const MainPage: React.FC<MainPageProps> = ({ username, sessionExpiry }) => {
               </a>
             )}
           </div>
-          {username && (
-            <button style={styles.logoutButton} onClick={handleLogout}>
-              ออกจากระบบ / Logout
-            </button>
-          )}
         </div>
       </div>
       <div style={styles.container}>

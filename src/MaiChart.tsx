@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 import { maiChartData, Song } from './data/maiChartData';
 import './styles/MaiChart.css';
-
-interface MaiChartProps {
-  username: string | null;
-  sessionExpiry: Date | null;
-}
 
 interface RequirementsModalProps {
   requirements: {
@@ -30,10 +26,10 @@ const RequirementsModal: React.FC<RequirementsModalProps> = ({ requirements, onC
   </div>
 );
 
-const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpiry }) => {
+const MaiChart: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [songs, setSongs] = useState<Song[]>(maiChartData);
-  const [username] = useState(() => propUsername || localStorage.getItem('username') || 'Guest');
   const [sortBy, setSortBy] = useState<'chartDesigner' | 'name' | 'level'>('chartDesigner');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [selectedDesigner, setSelectedDesigner] = useState<string>('all');
@@ -92,17 +88,7 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/logout', { method: 'POST' });
-      localStorage.removeItem('username');
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Logout error:', error);
-      localStorage.removeItem('username');
-      window.location.href = '/';
-    }
-  };
+
 
   const handleCardClick = (songId: string) => {
     sessionStorage.setItem('maiChartScrollPosition', window.scrollY.toString());
@@ -118,14 +104,9 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
             <a href="/mai-chart" style={{...styles.navLink, color: '#4ECDC4'}}>Mai Chart</a>
           </div>
           <div style={styles.userInfo}>
-            {username !== 'Guest' ? (
+            {user ? (
               <>
-                <span style={styles.welcomeText}>Welcome, {username}!</span>
-                {sessionExpiry && (
-                  <span style={styles.sessionTimer}>
-                    Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
-                  </span>
-                )}
+                <span style={styles.welcomeText}>Welcome, {user.username}!</span>
               </>
             ) : (
               <a href="/login" style={styles.loginButton}>
@@ -133,11 +114,6 @@ const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpi
               </a>
             )}
           </div>
-          {username !== 'Guest' && (
-            <button style={styles.logoutButton} onClick={handleLogout}>
-              ออกจากระบบ / Logout
-            </button>
-          )}
         </div>
       </div>
 
