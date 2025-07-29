@@ -88,17 +88,7 @@ const MaiChart: React.FC = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/logout', { method: 'POST' });
-      localStorage.removeItem('username');
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Logout error:', error);
-      localStorage.removeItem('username');
-      window.location.href = '/';
-    }
-  };
+
 
   const handleCardClick = (songId: string) => {
     sessionStorage.setItem('maiChartScrollPosition', window.scrollY.toString());
@@ -114,14 +104,9 @@ const MaiChart: React.FC = () => {
             <a href="/mai-chart" style={{...styles.navLink, color: '#4ECDC4'}}>Mai Chart</a>
           </div>
           <div style={styles.userInfo}>
-            {username !== 'Guest' ? (
+            {user ? (
               <>
-                <span style={styles.welcomeText}>Welcome, {username}!</span>
-                {sessionExpiry && (
-                  <span style={styles.sessionTimer}>
-                    Session expires: {new Date(sessionExpiry).toLocaleTimeString()}
-                  </span>
-                )}
+                <span style={styles.welcomeText}>Welcome, {user.username}!</span>
               </>
             ) : (
               <a href="/login" style={styles.loginButton}>
@@ -129,11 +114,6 @@ const MaiChart: React.FC = () => {
               </a>
             )}
           </div>
-          {username !== 'Guest' && (
-            <button style={styles.logoutButton} onClick={handleLogout}>
-              ออกจากระบบ / Logout
-            </button>
-          )}
         </div>
       </div>
 
