@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 import { maiChartData, Song } from './data/maiChartData';
 import './styles/MaiChart.css';
-
-interface MaiChartProps {
-  username: string | null;
-  sessionExpiry: Date | null;
-}
 
 interface RequirementsModalProps {
   requirements: {
@@ -30,10 +26,10 @@ const RequirementsModal: React.FC<RequirementsModalProps> = ({ requirements, onC
   </div>
 );
 
-const MaiChart: React.FC<MaiChartProps> = ({ username: propUsername, sessionExpiry }) => {
+const MaiChart: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [songs, setSongs] = useState<Song[]>(maiChartData);
-  const [username] = useState(() => propUsername || localStorage.getItem('username') || 'Guest');
   const [sortBy, setSortBy] = useState<'chartDesigner' | 'name' | 'level'>('chartDesigner');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [selectedDesigner, setSelectedDesigner] = useState<string>('all');

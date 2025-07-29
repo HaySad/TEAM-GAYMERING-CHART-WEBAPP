@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import AuthButton from './components/AuthButton';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import MainPage from './MainPage';
 import MaiChart from './MaiChart';
 import SongDetail from './pages/SongDetail';
@@ -10,81 +13,108 @@ import HigurashiDan from './pages/HigurashiDan';
 import SolarSystem from './pages/SolarSystem';
 import './App.css';
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // ตรวจสอบ username ใน localStorage ถ้ามีแสดงว่าเคย login
-    return !!localStorage.getItem('username');
-  });
-  const [username, setUsername] = useState(() => localStorage.getItem('username') || '');
-  const [sessionExpiry, setSessionExpiry] = useState<Date | null>(null);
+// Loading component
+const LoadingScreen: React.FC = () => (
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    fontSize: '18px',
+    color: '#666'
+  }}>
+    ⏳ กำลังโหลด...
+  </div>
+);
 
-  // Check session status on component mount
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch('/api/session');
-        const data = await response.json();
-        
-        if (data.isValid) {
-          setIsLoggedIn(true);
-          const savedUsername = data.user.username;
-          setUsername(savedUsername);
-          localStorage.setItem('username', savedUsername);
-          setSessionExpiry(new Date(data.sessionExpiry));
-        }
-      } catch (error) {
-        console.error('Session check error:', error);
-      }
-    };
-    checkSession();
-  }, []);
+// Protected Route Component
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isLoggedIn, loading } = useAuth();
+  
+  if (loading) {
+    return <LoadingScreen />;
+  }
+  
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
 
-  const handleLogin = (username: string, expiry: Date) => {
-    setIsLoggedIn(true);
-    setUsername(username);
-    localStorage.setItem('username', username);
-    setSessionExpiry(expiry);
-  };
+// App Routes Component
+const AppRoutes: React.FC = () => {
+  const { isLoggedIn, loading } = useAuth();
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await fetch('/api/logout', { method: 'POST' });
-  //   } catch (error) {
-  //     console.error('Logout error:', error);
-  //   } finally {
-  //     setIsLoggedIn(false);
-  //     setUsername('');
-  //     localStorage.removeItem('username');
-  //     setSessionExpiry(null);
-  //   }
-  // };
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
+    <>
+      <AuthButton />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={
+          !isLoggedIn ? <Login /> : <Navigate to="/" replace />
+        } />
+        <Route path="/signup" element={
+          !isLoggedIn ? <Signup /> : <Navigate to="/" replace />
+        } />
+        
+        {/* Protected Routes */}
+        <Route path="/discord-competition-4" element={
+          <ProtectedRoute>
+            <MainPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/mai-chart" element={
+          <ProtectedRoute>
+            <MaiChart />
+          </ProtectedRoute>
+        } />
+        <Route path="/song/:id" element={
+          <ProtectedRoute>
+            <SongDetail />
+          </ProtectedRoute>
+        } />
+        <Route path="/event-horizon" element={
+          <ProtectedRoute>
+            <EventHorizon />
+          </ProtectedRoute>
+        } />
+        <Route path="/world-map" element={
+          <ProtectedRoute>
+            <WorldMap />
+          </ProtectedRoute>
+        } />
+        <Route path="/higurashi-dan" element={
+          <ProtectedRoute>
+            <HigurashiDan />
+          </ProtectedRoute>
+        } />
+        <Route path="/solar-system" element={
+          <ProtectedRoute>
+            <SolarSystem />
+          </ProtectedRoute>
+        } />
+        
+        {/* Default Routes */}
+        <Route path="/" element={<Navigate to="/mai-chart" replace />} />
+        <Route path="*" element={<Navigate to="/mai-chart" replace />} />
+      </Routes>
+    </>
+  );
+};
+
+function App() {
+  return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/login" element={
-            !isLoggedIn ? (
-              <Login onLogin={handleLogin} />
-            ) : (
-              <Navigate to="/discord-competition-4" replace />
-            )
-          } />
-          <Route path="/discord-competition-4" element={
-            <MainPage username={username} sessionExpiry={sessionExpiry} />
-          } />
-          <Route path="/mai-chart" element={
-            <MaiChart username={username} sessionExpiry={sessionExpiry} />
-          } />
-          <Route path="/song/:id" element={<SongDetail />} />
-          <Route path="/event-horizon" element={<EventHorizon />} />
-          <Route path="/world-map" element={<WorldMap />} />
-          <Route path="/higurashi-dan" element={<HigurashiDan />} />
-          <Route path="/solar-system" element={<SolarSystem />} />
-          <Route path="/" element={<Navigate to="/mai-chart" replace />} />
-          <Route path="*" element={<Navigate to="/mai-chart" replace />} />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <AppRoutes />
+        </div>
+      </AuthProvider>
     </Router>
   );
 }

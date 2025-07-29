@@ -11,7 +11,7 @@ interface AuthContextType {
   token: string | null;
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signup: (username: string, password: string, email?: string) => Promise<{ success: boolean; error?: string }>;
+  signup: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   loading: boolean;
 }
@@ -90,14 +90,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signup = async (username: string, password: string, email?: string): Promise<{ success: boolean; error?: string }> => {
+  const signup = async (username: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password, email }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
