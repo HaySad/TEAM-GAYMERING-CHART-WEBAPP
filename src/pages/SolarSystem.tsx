@@ -120,8 +120,8 @@ const SolarSystem: React.FC = () => {
       {!showDialog && (
         <div style={{
           position: 'relative',
-          width: 700,
-          height: 200,
+          width: 1200,
+          height: 400,
           margin: '0 auto',
           background: 'rgba(0,0,0,0.1)'
         }}>
