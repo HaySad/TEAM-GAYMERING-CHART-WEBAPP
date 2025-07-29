@@ -1,5 +1,47 @@
 import React, { useEffect, useState } from 'react';
 
+// สร้างฟังก์ชันสุ่มระอองดาว (star background) แบบเคลื่อนไหวตลอดเวลา
+function StarBackground() {
+  // สุ่มข้อมูลดาวแต่ละดวง (ตำแหน่ง, ขนาด, ความเร็ว, ทิศทาง)
+  const stars = Array.from({ length: 120 }).map((_, i) => {
+    const size = Math.random() * 2 + 1;
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    const duration = 16 + Math.random() * 8; // 16-24s (ช้ากว่าเดิม 4 เท่า)
+    const delay = Math.random() * duration;
+    // ดาวจะลอยลงล่างแบบ loop
+    return (
+      <div
+        key={i}
+        style={{
+          position: 'absolute',
+          left: `${left}%`,
+          top: `${top}%`,
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: 'white',
+          opacity: Math.random() * 0.7 + 0.3,
+          boxShadow: `0 0 ${size * 6}px 1px #fff8`,
+          animation: `star-fall ${duration}s linear ${delay}s infinite`,
+        }}
+      />
+    );
+  });
+  return (
+    <>
+      <style>{`
+        @keyframes star-fall {
+          0% { transform: translateY(0); opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(100vh); opacity: 0; }
+        }
+      `}</style>
+      <div style={{position: 'fixed', width: '100vw', height: '100vh', left: 0, top: 0, zIndex: 0, pointerEvents: 'none'}}>{stars}</div>
+    </>
+  );
+}
+
 const planets = [
   { name: 'Mercury', color: '#b1b1b1', size: 12, orbit: 50 },
   { name: 'Venus', color: '#e6c97b', size: 18, orbit: 80 },
@@ -72,64 +114,66 @@ const SolarSystem: React.FC = () => {
       position: 'relative',
       overflow: 'hidden'
     }}>
+      {/* ระอองดาวเคลื่อนไหวตลอดเวลา */}
+      <StarBackground />
       {/* Solar System */}
-      <div style={{
-        position: 'relative',
-        width: 700,
-        height: 700,
-        borderRadius: '50%',
-        margin: '0 auto',
-        background: 'rgba(0,0,0,0.1)'
-      }}>
-        {/* Sun */}
+      {!showDialog && (
         <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: 60,
-          height: 60,
-          background: 'radial-gradient(circle, #ffe066 60%, #ffae00 100%)',
-          borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 60px 20px #ffe06688'
+          position: 'relative',
+          width: 700,
+          height: 200,
+          margin: '0 auto',
+          background: 'rgba(0,0,0,0.1)'
         }}>
-          <span style={{
-            position: 'absolute', left: '50%', top: '110%', transform: 'translateX(-50%)', color: '#ffe066', fontWeight: 'bold'
-          }}>Sun</span>
-        </div>
-        {/* Orbits and Planets */}
-        {planets.map((planet, idx) => (
-          <React.Fragment key={planet.name}>
-            {/* Orbit */}
-            <div style={{
+          {/* Sun */}
+          <div style={{
+            position: 'absolute',
+            left: 40,
+            top: '50%',
+            width: 60,
+            height: 60,
+            background: 'radial-gradient(circle, #ffe066 60%, #ffae00 100%)',
+            borderRadius: '50%',
+            transform: 'translateY(-50%)',
+            boxShadow: '0 0 60px 20px #ffe06688',
+            zIndex: 2
+          }}>
+            <span style={{
+              position: 'absolute', left: '50%', top: '110%', transform: 'translateX(-50%)', color: '#ffe066', fontWeight: 'bold'
+            }}>Sun</span>
+          </div>
+          {/* Planets */}
+          {planets.map((planet, idx) => (
+            <div key={planet.name} style={{
               position: 'absolute',
-              left: '50%',
+              left: 120 + idx * 75, // ระยะห่างแต่ละดวง
               top: '50%',
-              width: planet.orbit * 2,
-              height: planet.orbit * 2,
-              border: '1px dashed #444',
-              borderRadius: '50%',
-              transform: 'translate(-50%, -50%)'
-            }} />
-            {/* Planet */}
-            <div style={{
-              position: 'absolute',
-              left: `50%`,
-              top: `50%`,
               width: planet.size,
               height: planet.size,
-              background: planet.color,
               borderRadius: '50%',
-              transform: `translate(-50%, -50%) translateY(-${planet.orbit}px)`,
-              boxShadow: `0 0 16px 2px ${planet.color}88`
+              background: `radial-gradient(circle at 30% 30%, #fff8 0%, ${planet.color} 60%, #000 100%)`,
+              transform: 'translateY(-50%)',
+              boxShadow: `0 0 16px 2px ${planet.color}88, 0 8px 24px 0 #000a`,
+              zIndex: 2
             }}>
               <span style={{
                 position: 'absolute', left: '50%', top: '120%', transform: 'translateX(-50%)', fontSize: 12, color: '#fff'
               }}>{planet.name}</span>
             </div>
-          </React.Fragment>
-        ))}
-      </div>
+          ))}
+          {/* เส้นวงโคจรแนวนอน */}
+          <div style={{
+            position: 'absolute',
+            left: 70,
+            top: '50%',
+            width: 600,
+            height: 0,
+            borderTop: '2px dashed #444',
+            zIndex: 1
+          }} />
+        </div>
+      )}
+      {/* Dialog */}
       {showDialog && dialogData && (
         <div
           style={{

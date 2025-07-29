@@ -309,12 +309,11 @@ const HigurashiDan: React.FC = () => {
             {showBossDownload && (
               <div style={{textAlign: 'center'}}>
                 <h2 style={{color: '#ff9800'}}>🎵 Special Boss Song!</h2>
-                <img src={higurashiDanBossSongs[0].image} alt={higurashiDanBossSongs[0].name} style={{width: 120, borderRadius: 12, margin: '1rem auto'}} />
-                <div style={{color: '#fff', fontWeight: 'bold', marginBottom: 8}}>{higurashiDanBossSongs[0].name}</div>
+                <div style={{color: '#fff', fontWeight: 'bold', marginBottom: 8, fontSize: '1.1rem'}}>Lament Rain</div>
                 <button
                   style={styles.downloadButton}
                   onClick={() => {
-                    window.open(higurashiDanBossSongs[0].downloadUrl, '_blank');
+                    window.open('/public/songs/all/higurashi/Lament-rain.jpg', '_blank');
                   }}
                 >
                   Download Boss Song
@@ -341,7 +340,17 @@ export default HigurashiDan;
 
 // ไดอะลอกสำหรับอนิเมชั่น
 const toriiDialog = [
-  'Tesx',
+  'ยินดีด้วย คุณได้ผ่าน Higurashi',
+  'อย่างไรก็ดีคุณก็รู้ว่ามันไม่หมดเพียงเท่านี้',
+  'ใช่ ผมมีบางอย่างจะบอกว่า',
+  'ได้เวลารับฝนตกแล้ว',
+  'Lament Rain',
+
+  //'ยินดีด้วย คุณได้ผ่าน Higurashi',
+  //'อย่างไรก็ดีคุณก็รู้ว่ามันไม่หมดเพียงเท่านี้',
+  //'ใช่ ผมมีบางอย่างจะบอกว่า',
+  //'ได้เวลารับฝนตกแล้ว',
+  //'Lament Rain',
 ];
 
 // กำหนด path เพลง boss theme 
@@ -411,6 +420,26 @@ const ToriiBreakAnimation: React.FC<ToriiBreakAnimationProps> = ({ dialogText, b
         @keyframes toriiBarBreak {
           to { transform: rotate(12deg) translateY(40px) scaleX(1.2); opacity: 0.2; }
         }
+        @keyframes songImageAppear {
+          from { 
+            opacity: 0; 
+            transform: scale(0.3) rotate(180deg); 
+          }
+          to { 
+            opacity: 1; 
+            transform: scale(1) rotate(0deg); 
+          }
+        }
+        @keyframes songTitleAppear {
+          from { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(0.5); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+          }
+        }
       `}</style>
     </div>
   );
@@ -421,7 +450,7 @@ const BossAudioPlayer: React.FC<{ src: string }> = ({ src }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.5;
+      audioRef.current.volume = 0.3;
     }
   }, [src]);
   return <audio ref={audioRef} src={src} autoPlay style={{display: 'none'}} />;

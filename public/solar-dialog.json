@@ -1,23 +1,37 @@
 [
   {
     "id": "intro-1",
-    "characterId": "alice",
-    "characterName": "Alice",
-    "avatar": "/images/characters/alice.png",
-    "text": "ยินดีต้อนรับสู่ระบบสุริยะ! ฉันคือ Alice จะพาเธอไปผจญภัยเอง "
+    "characterId": "scientist",
+    "characterName": "Scientist",
+    "avatar": "/images/characters/scientist.png",
+    "text": "ตวรจพบสภาวะผิดปกติของสสารและแรงโน้มถวงรอบๆ บริเวณโดยรอบ"
   },
   {
     "id": "intro-2",
-    "characterId": "bob",
-    "characterName": "Bob",
+    "characterId": "???",
+    "characterName": "???",
     "avatar": "/images/characters/bob.png",
-    "text": " ระวังด้วยนะ! ที่นี่มีอะไรน่าตื่นเต้นเยอะเลย "
+    "text": "ยานกำลังถูกดึงเข้าสู่สภาวะอนันต์ ตรวจพบความผิดปกติของการความเร่งระหว่างตัวยาน"
   },
   {
     "id": "intro-3",
-    "characterId": "alice",
-    "characterName": "Alice",
-    "avatar": "/images/characters/alice.png",
-    "text": "พร้อมหรือยัง? ไปกันเลย!"
+    "characterId": "???",
+    "characterName": "???",
+    "avatar": "/images/characters/bob.png",
+    "text": "ตอนนี้ความเร่งของตัวยานกำลังเข้าใกล้ 5% ของความเร็วแสง หากปล่อยไว้ยานจะสูญเสียเกราะ ป้องกันและถูกทำลาย"
+  },
+  {
+    "id": "intro-3",
+    "characterId": "scientist",
+    "characterName": "Scientist",
+    "avatar": "/images/characters/scientist.png",
+    "text": "เราจะสละยานกัน Alice "
+  },
+  {
+    "id": "intro-4",
+    "characterId": "",
+    "characterName": "",
+    "avatar": "/images/characters/bob.png",
+    "text": "Alice และ Scientist กำลังเตรียมตัวสละยาน "
   }
 ] 
