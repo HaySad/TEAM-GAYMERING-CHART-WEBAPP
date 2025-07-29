@@ -3,7 +3,7 @@ import StarBackground from '../components/StarBackground';
 import { higurashiDan1Songs } from '../data/higurashi-dan1';
 import { higurashiDan2Songs } from '../data/higurashi-dan2';
 import { higurashiDan3Songs } from '../data/higurashi-dan3';
-import { higurashiDanBossSongs } from '../data/higurashi-dan-boss';
+//import { higurashiDanBossSongs } from '../data/higurashi-dan-boss';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
