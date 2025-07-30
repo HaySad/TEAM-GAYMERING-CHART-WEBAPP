@@ -58,8 +58,8 @@ const AuthButton: React.FC = () => {
 const styles = {
   container: {
     position: 'fixed' as const,
-    top: '20px',
-    right: '20px',
+    top: '60px',
+    right: '30px',
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
