@@ -4,13 +4,18 @@ interface User {
   id: string;
   username: string;
   email?: string;
+  rating?: number;
+  discordRoles?: string[];
+  isAdmin?: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoggedIn: boolean;
+  isGuest: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  loginAsGuest: () => Promise<{ success: boolean; error?: string }>;
   signup: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   loading: boolean;
@@ -26,6 +31,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('authToken'));
   const [loading, setLoading] = useState(true);
+  const [isGuest, setIsGuest] = useState<boolean>(false);
 
   const isLoggedIn = !!user && !!token;
 
@@ -33,7 +39,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       const savedToken = localStorage.getItem('authToken');
-      if (savedToken) {
+      const isGuestMode = localStorage.getItem('isGuest') === 'true';
+      
+      if (savedToken && isGuestMode) {
+        // Guest mode
+        setUser({
+          id: 'guest-' + Date.now(),
+          username: 'Guest User',
+          email: undefined
+        });
+        setToken(savedToken);
+        setIsGuest(true);
+      } else if (savedToken) {
+        // Regular user mode
         try {
           const response = await fetch('/api/session', {
             headers: {
@@ -45,17 +63,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (data.isValid) {
             setUser(data.user);
             setToken(savedToken);
+            setIsGuest(false);
           } else {
             // Token หมดอายุหรือไม่ถูกต้อง
             localStorage.removeItem('authToken');
+            localStorage.removeItem('isGuest');
             setToken(null);
             setUser(null);
+            setIsGuest(false);
           }
         } catch (error) {
           console.error('Auth check error:', error);
           localStorage.removeItem('authToken');
+          localStorage.removeItem('isGuest');
           setToken(null);
           setUser(null);
+          setIsGuest(false);
         }
       }
       setLoading(false);
@@ -116,9 +139,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const loginAsGuest = async (): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const guestUser = {
+        id: 'guest-' + Date.now(),
+        username: 'Guest User',
+        email: undefined
+      };
+      
+      setUser(guestUser);
+      setIsGuest(true);
+      setToken('guest-token');
+      localStorage.setItem('authToken', 'guest-token');
+      localStorage.setItem('isGuest', 'true');
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Guest login error:', error);
+      return { success: false, error: 'Guest login failed' };
+    }
+  };
+
   const logout = async (): Promise<void> => {
     try {
-      if (token) {
+      if (token && !isGuest) {
         await fetch('/api/logout', {
           method: 'POST',
           headers: {
@@ -131,7 +175,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } finally {
       setUser(null);
       setToken(null);
+      setIsGuest(false);
       localStorage.removeItem('authToken');
+      localStorage.removeItem('isGuest');
     }
   };
 
@@ -139,7 +185,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     token,
     isLoggedIn,
+    isGuest,
     login,
+    loginAsGuest,
     signup,
     logout,
     loading,

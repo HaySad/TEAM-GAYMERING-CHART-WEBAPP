@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 class Database {
   constructor() {
     this.usersFile = path.join(__dirname, 'data', 'users.json');
+    this.discordRolesFile = path.join(__dirname, 'data', 'discord_roles.txt');
     this.init();
   }
 
@@ -24,6 +25,28 @@ class Database {
       } catch {
         await fs.writeFile(this.usersFile, JSON.stringify([], null, 2));
       }
+
+      // สร้างไฟล์ discord_roles.txt ถ้ายังไม่มี
+      try {
+        await fs.access(this.discordRolesFile);
+      } catch {
+        const defaultRoles = [
+          'Moderator',
+          'Admin',
+          'VIP',
+          'Premium',
+          'Member',
+          'Newbie',
+          'Pro Player',
+          'Tournament Winner',
+          'Event Organizer',
+          'Content Creator',
+          'Streamer',
+          'Developer',
+          'Support Team'
+        ];
+        await fs.writeFile(this.discordRolesFile, defaultRoles.join('\n'));
+      }
     } catch (error) {
       console.error('Error initializing database:', error);
     }
@@ -36,6 +59,45 @@ class Database {
     } catch (error) {
       console.error('Error reading users:', error);
       return [];
+    }
+  }
+
+  // ดึง Discord roles ทั้งหมด
+  async getDiscordRoles() {
+    try {
+      const data = await fs.readFile(this.discordRolesFile, 'utf8');
+      return data.split('\n').filter(role => role.trim() !== '');
+    } catch (error) {
+      console.error('Error reading discord roles:', error);
+      return [];
+    }
+  }
+
+  // เพิ่ม Discord role ใหม่
+  async addDiscordRole(role) {
+    try {
+      const roles = await this.getDiscordRoles();
+      if (!roles.includes(role)) {
+        roles.push(role);
+        await fs.writeFile(this.discordRolesFile, roles.join('\n'));
+      }
+      return { success: true, roles };
+    } catch (error) {
+      console.error('Error adding discord role:', error);
+      return { success: false, error: 'Server error' };
+    }
+  }
+
+  // ลบ Discord role
+  async removeDiscordRole(role) {
+    try {
+      const roles = await this.getDiscordRoles();
+      const filteredRoles = roles.filter(r => r !== role);
+      await fs.writeFile(this.discordRolesFile, filteredRoles.join('\n'));
+      return { success: true, roles: filteredRoles };
+    } catch (error) {
+      console.error('Error removing discord role:', error);
+      return { success: false, error: 'Server error' };
     }
   }
 
@@ -58,6 +120,9 @@ class Database {
         username,
         password: hashedPassword,
         email,
+        rating: 0,
+        discordRoles: [],
+        isAdmin: username === 'HaySad', // HaySad เป็น admin
         createdAt: new Date().toISOString(),
         lastLogin: null
       };
@@ -98,6 +163,9 @@ class Database {
           id: user.id, 
           username: user.username, 
           email: user.email,
+          rating: user.rating || 0,
+          discordRoles: user.discordRoles || [],
+          isAdmin: user.isAdmin || false,
           lastLogin: user.lastLogin
         } 
       };
@@ -111,7 +179,14 @@ class Database {
     try {
       const users = await this.getAllUsers();
       const user = users.find(u => u.username === username);
-      return user ? { id: user.id, username: user.username, email: user.email } : null;
+      return user ? { 
+        id: user.id, 
+        username: user.username, 
+        email: user.email,
+        rating: user.rating || 0,
+        discordRoles: user.discordRoles || [],
+        isAdmin: user.isAdmin || false
+      } : null;
     } catch (error) {
       console.error('Error finding user:', error);
       return null;
@@ -122,7 +197,14 @@ class Database {
     try {
       const users = await this.getAllUsers();
       const user = users.find(u => u.id === id);
-      return user ? { id: user.id, username: user.username, email: user.email } : null;
+      return user ? { 
+        id: user.id, 
+        username: user.username, 
+        email: user.email,
+        rating: user.rating || 0,
+        discordRoles: user.discordRoles || [],
+        isAdmin: user.isAdmin || false
+      } : null;
     } catch (error) {
       console.error('Error finding user by ID:', error);
       return null;
@@ -144,6 +226,94 @@ class Database {
   // Legacy method สำหรับ backward compatibility
   async addUser(username) {
     return await this.createUser(username, 'defaultPassword123');
+  }
+
+  // อัปเดต rating ของผู้ใช้
+  async updateUserRating(userId, newRating) {
+    try {
+      const users = await this.getAllUsers();
+      const userIndex = users.findIndex(u => u.id === userId);
+      
+      if (userIndex === -1) {
+        return { success: false, error: 'User not found' };
+      }
+
+      users[userIndex].rating = newRating;
+      await fs.writeFile(this.usersFile, JSON.stringify(users, null, 2));
+      
+      return { success: true, user: users[userIndex] };
+    } catch (error) {
+      console.error('Error updating user rating:', error);
+      return { success: false, error: 'Server error' };
+    }
+  }
+
+  // เพิ่ม discord role ให้ผู้ใช้
+  async addDiscordRole(userId, role) {
+    try {
+      const users = await this.getAllUsers();
+      const userIndex = users.findIndex(u => u.id === userId);
+      
+      if (userIndex === -1) {
+        return { success: false, error: 'User not found' };
+      }
+
+      if (!users[userIndex].discordRoles) {
+        users[userIndex].discordRoles = [];
+      }
+
+      if (!users[userIndex].discordRoles.includes(role)) {
+        users[userIndex].discordRoles.push(role);
+        await fs.writeFile(this.usersFile, JSON.stringify(users, null, 2));
+      }
+      
+      return { success: true, user: users[userIndex] };
+    } catch (error) {
+      console.error('Error adding discord role:', error);
+      return { success: false, error: 'Server error' };
+    }
+  }
+
+  // ลบ discord role ของผู้ใช้
+  async removeDiscordRole(userId, role) {
+    try {
+      const users = await this.getAllUsers();
+      const userIndex = users.findIndex(u => u.id === userId);
+      
+      if (userIndex === -1) {
+        return { success: false, error: 'User not found' };
+      }
+
+      if (users[userIndex].discordRoles) {
+        users[userIndex].discordRoles = users[userIndex].discordRoles.filter(r => r !== role);
+        await fs.writeFile(this.usersFile, JSON.stringify(users, null, 2));
+      }
+      
+      return { success: true, user: users[userIndex] };
+    } catch (error) {
+      console.error('Error removing discord role:', error);
+      return { success: false, error: 'Server error' };
+    }
+  }
+
+  // ดึงข้อมูลผู้ใช้ทั้งหมด (สำหรับ admin)
+  async getAllUsersForAdmin() {
+    try {
+      const users = await this.getAllUsers();
+      return users.map(user => ({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        rating: user.rating || 0,
+        discordRoles: user.discordRoles || [],
+        isAdmin: user.isAdmin || false,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin
+      }));
+    } catch (error) {
+      console.error('Error getting all users for admin:', error);
+      return [];
+    }
   }
 }
 

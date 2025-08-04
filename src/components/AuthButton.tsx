@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const AuthButton: React.FC = () => {
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, isGuest, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
@@ -28,12 +28,21 @@ const AuthButton: React.FC = () => {
           style={styles.userButton}
           onClick={() => setShowDropdown(!showDropdown)}
         >
-          <span style={styles.username}>👤 {user.username}</span>
+          <span style={styles.username}>
+            {isGuest ? '👤 Guest User' : `👤 ${user.username}`}
+            {isGuest && <span style={styles.guestBadge}> (Guest)</span>}
+          </span>
           <span style={styles.arrow}>▼</span>
         </div>
         
         {showDropdown && (
           <div style={styles.dropdown}>
+            <div style={styles.dropdownItem} onClick={() => navigate('/mai-chart')}>
+              🏠 หน้าหลัก
+            </div>
+            <div style={styles.dropdownItem} onClick={() => navigate('/profile')}>
+              👤 โปรไฟล์
+            </div>
             <div style={styles.dropdownItem} onClick={handleLogout}>
               🚪 ออกจากระบบ
             </div>
@@ -132,6 +141,11 @@ const styles = {
     fontWeight: 'bold',
     boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
     transition: 'all 0.3s ease',
+  },
+  guestBadge: {
+    fontSize: '12px',
+    opacity: 0.8,
+    fontStyle: 'italic',
   },
 };
 

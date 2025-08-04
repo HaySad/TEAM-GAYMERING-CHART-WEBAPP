@@ -5,6 +5,24 @@
     "password": "$2b$10$1x6okBAeqNcqczOFHjwV7ecUCBF11vHl2J311NP5GStr0wfWti5zW",
     "email": null,
     "createdAt": "2025-07-29T08:40:49.616Z",
-    "lastLogin": "2025-07-30T04:15:25.342Z"
+    "lastLogin": "2025-08-04T05:57:07.665Z",
+    "isAdmin": true,
+    "discordRoles": [
+      "Admin\r",
+      "KeepSpinExecutionDiSANiMATE\r",
+      "? ? ?\r"
+    ],
+    "rating": 0
+  },
+  {
+    "id": "1754285064854",
+    "username": "Test_user",
+    "password": "$2b$10$G10R/aKAIoWA6FFzHKA6Fei.5IaU8z2Ae7sNfCHsvkOY21/scremC",
+    "email": null,
+    "rating": 0,
+    "discordRoles": [],
+    "isAdmin": false,
+    "createdAt": "2025-08-04T05:24:24.854Z",
+    "lastLogin": null
   }
 ]

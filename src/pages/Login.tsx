@@ -8,7 +8,7 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { login } = useAuth();
+  const { login, loginAsGuest } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,6 +27,21 @@ const Login: React.FC = () => {
       navigate('/');
     } else {
       setError(result.error || 'เข้าสู่ระบบไม่สำเร็จ');
+    }
+    
+    setLoading(false);
+  };
+
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    setError('');
+
+    const result = await loginAsGuest();
+    
+    if (result.success) {
+      navigate('/');
+    } else {
+      setError(result.error || 'เข้าสู่ระบบเป็น Guest ไม่สำเร็จ');
     }
     
     setLoading(false);
@@ -82,6 +97,21 @@ const Login: React.FC = () => {
             {loading ? '⏳ กำลังเข้าสู่ระบบ...' : '🚀 เข้าสู่ระบบ'}
           </button>
         </form>
+
+        <div style={styles.divider}>
+          <span style={styles.dividerText}>หรือ</span>
+        </div>
+
+        <button 
+          onClick={handleGuestLogin}
+          style={{
+            ...styles.guestButton,
+            ...(loading ? styles.submitButtonDisabled : {})
+          }}
+          disabled={loading}
+        >
+          {loading ? '⏳ กำลังเข้าสู่ระบบ...' : '👤 เข้าสู่ระบบเป็น Guest'}
+        </button>
 
         <div style={styles.footer}>
           <p style={styles.footerText}>
@@ -196,6 +226,42 @@ const styles = {
     textDecoration: 'none',
     fontWeight: 'bold',
     marginLeft: '5px',
+  },
+  divider: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '20px 0',
+    padding: '0 30px',
+  },
+  dividerText: {
+    flex: 1,
+    textAlign: 'center' as const,
+    color: '#666',
+    fontSize: '14px',
+    position: 'relative' as const,
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      left: 0,
+      right: 0,
+      height: '1px',
+      backgroundColor: '#e1e5e9',
+      zIndex: -1,
+    },
+  },
+  guestButton: {
+    width: '100%',
+    padding: '14px',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    margin: '0 30px 20px',
   },
 };
 

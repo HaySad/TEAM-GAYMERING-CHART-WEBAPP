@@ -46,6 +46,17 @@ const authenticateToken = async (req, res, next) => {
     return res.status(401).json({ error: 'Access token required' });
   }
 
+  // ตรวจสอบ guest token
+  if (token === 'guest-token') {
+    req.user = {
+      id: 'guest-' + Date.now(),
+      username: 'Guest User',
+      email: undefined
+    };
+    req.isGuest = true;
+    return next();
+  }
+
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const user = await database.findUserById(decoded.userId);
@@ -55,6 +66,7 @@ const authenticateToken = async (req, res, next) => {
     }
     
     req.user = user;
+    req.isGuest = false;
     next();
   } catch (error) {
     return res.status(403).json({ error: 'Invalid or expired token' });
@@ -159,6 +171,19 @@ app.get('/api/session', async (req, res) => {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (token) {
+    // ตรวจสอบ guest token
+    if (token === 'guest-token') {
+      return res.json({
+        isValid: true,
+        user: {
+          id: 'guest-' + Date.now(),
+          username: 'Guest User',
+          email: undefined
+        },
+        authMethod: 'guest'
+      });
+    }
+
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       const user = await database.findUserById(decoded.userId);
@@ -194,6 +219,243 @@ app.get('/api/profile', authenticateToken, (req, res) => {
     success: true,
     user: req.user
   });
+});
+
+// Submit game score for rating calculation (protected route)
+app.post('/api/game-score', authenticateToken, async (req, res) => {
+  const { 
+    songId, 
+    songTitle,
+    artist,
+    difficulty,
+    level,
+    score, 
+    rank,
+    achievementRate,
+    critical,
+    perfect,
+    great,
+    good,
+    miss,
+    early,
+    late,
+    dxScore,
+    clearType,
+    calculatedRating
+  } = req.body;
+  
+  if (!songId || !level || !rank || typeof achievementRate !== 'number') {
+    return res.status(400).json({ error: 'Invalid game score data' });
+  }
+
+  try {
+    // เก็บข้อมูลคะแนนเกม (สำหรับ deep learning)
+    const gameScore = {
+      userId: req.user.id,
+      username: req.user.username,
+      songId,
+      songTitle,
+      artist,
+      difficulty: difficulty || 'MASTER',
+      level,
+      score: score || 0,
+      rank,
+      achievementRate,
+      critical: critical || 0,
+      perfect: perfect || 0,
+      great: great || 0,
+      good: good || 0,
+      miss: miss || 0,
+      early: early || 0,
+      late: late || 0,
+      dxScore: dxScore || 0,
+      clearType: clearType || 'CLEAR',
+      calculatedRating: calculatedRating || 0,
+      timestamp: new Date().toISOString(),
+      // Rating จะถูกคำนวณโดย deep learning system
+    };
+
+    // TODO: ส่งข้อมูลไปยัง deep learning system
+    // TODO: รับ rating ที่คำนวณแล้วกลับมา
+    // TODO: อัปเดต rating ในฐานข้อมูล
+
+    console.log('Game score submitted:', gameScore);
+
+    res.json({
+      success: true,
+      message: 'Game score submitted successfully',
+      gameScore,
+      note: 'Rating will be calculated by AI system'
+    });
+  } catch (error) {
+    console.error('Submit game score error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get user game history (protected route)
+app.get('/api/game-history', authenticateToken, async (req, res) => {
+  try {
+    // TODO: ดึงประวัติเกมของผู้ใช้
+    const gameHistory = []; // จะดึงจากฐานข้อมูล
+
+    res.json({
+      success: true,
+      gameHistory
+    });
+  } catch (error) {
+    console.error('Get game history error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get all users (admin only)
+app.get('/api/admin/users', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  try {
+    const users = await database.getAllUsersForAdmin();
+    res.json({
+      success: true,
+      users
+    });
+  } catch (error) {
+    console.error('Get users error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get Discord roles (admin only)
+app.get('/api/admin/discord-roles', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  try {
+    const roles = await database.getDiscordRoles();
+    res.json({
+      success: true,
+      roles
+    });
+  } catch (error) {
+    console.error('Get discord roles error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Add Discord role (admin only)
+app.post('/api/admin/discord-roles', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  const { role } = req.body;
+  
+  if (!role || typeof role !== 'string') {
+    return res.status(400).json({ error: 'Role name is required' });
+  }
+
+  try {
+    const result = await database.addDiscordRole(role);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        message: 'Role added successfully',
+        roles: result.roles
+      });
+    } else {
+      res.status(400).json({ error: result.error });
+    }
+  } catch (error) {
+    console.error('Add discord role error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Remove Discord role (admin only)
+app.delete('/api/admin/discord-roles/:role', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  const { role } = req.params;
+
+  try {
+    const result = await database.removeDiscordRole(role);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        message: 'Role removed successfully',
+        roles: result.roles
+      });
+    } else {
+      res.status(400).json({ error: result.error });
+    }
+  } catch (error) {
+    console.error('Remove discord role error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Add Discord role to user (admin only)
+app.post('/api/admin/users/:userId/discord-roles', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  const { userId } = req.params;
+  const { role } = req.body;
+  
+  if (!role || typeof role !== 'string') {
+    return res.status(400).json({ error: 'Role name is required' });
+  }
+
+  try {
+    const result = await database.addDiscordRole(userId, role);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        message: 'Role added to user successfully',
+        user: result.user
+      });
+    } else {
+      res.status(400).json({ error: result.error });
+    }
+  } catch (error) {
+    console.error('Add role to user error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Remove Discord role from user (admin only)
+app.delete('/api/admin/users/:userId/discord-roles/:role', authenticateToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  const { userId, role } = req.params;
+
+  try {
+    const result = await database.removeDiscordRole(userId, role);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        message: 'Role removed from user successfully',
+        user: result.user
+      });
+    } else {
+      res.status(400).json({ error: result.error });
+    }
+  } catch (error) {
+    console.error('Remove role from user error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 // Get all tiers data (protected route)

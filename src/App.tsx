@@ -4,6 +4,9 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthButton from './components/AuthButton';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import AdminPanel from './pages/AdminPanel';
+import ScoreSubmission from './pages/ScoreSubmission';
 import MainPage from './MainPage';
 import MaiChart from './MaiChart';
 import SongDetail from './pages/SongDetail';
@@ -96,6 +99,21 @@ const AppRoutes: React.FC = () => {
         <Route path="/solar-system" element={
           <ProtectedRoute>
             <SolarSystem />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminPanel />
+          </ProtectedRoute>
+        } />
+        <Route path="/score-submission" element={
+          <ProtectedRoute>
+            <ScoreSubmission />
           </ProtectedRoute>
         } />
         
