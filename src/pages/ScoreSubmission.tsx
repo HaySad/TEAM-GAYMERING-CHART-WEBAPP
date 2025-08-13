@@ -11,6 +11,7 @@ interface ScoreData {
   score: number;
   rank: string;
   achievementRate: number;
+  
   critical: number;
   perfect: number;
   great: number;
