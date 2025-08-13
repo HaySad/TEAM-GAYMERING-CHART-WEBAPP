@@ -36,41 +36,43 @@ const AdminPanel: React.FC = () => {
       return;
     }
 
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [usersResponse, rolesResponse] = await Promise.all([
+          fetch('/api/admin/users', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }),
+          fetch('/api/admin/discord-roles', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+        ]);
+
+        const usersData = await usersResponse.json();
+        const rolesData = await rolesResponse.json();
+
+        if (usersData.success) {
+          setUsers(usersData.users);
+        }
+
+        if (rolesData.success) {
+          setDiscordRoles(rolesData.roles);
+        }
+      } catch (error) {
+        setError('Failed to fetch data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchData();
-  }, [isLoggedIn, user, navigate]);
+  }, [isLoggedIn, user, navigate, token]);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const [usersResponse, rolesResponse] = await Promise.all([
-        fetch('/api/admin/users', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }),
-        fetch('/api/admin/discord-roles', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-      ]);
 
-      const usersData = await usersResponse.json();
-      const rolesData = await rolesResponse.json();
-
-      if (usersData.success) {
-        setUsers(usersData.users);
-      }
-
-      if (rolesData.success) {
-        setDiscordRoles(rolesData.roles);
-      }
-    } catch (error) {
-      setError('Failed to fetch data');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAddRole = async () => {
     if (!newRole.trim()) {
