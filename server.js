@@ -12,7 +12,23 @@ const JWT_SECRET = process.env.JWT_SECRET || 'maimai-jwt-secret-key-2024';
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://discord-competition.vercel.app'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://discord-competition.vercel.app',
+      'https://maimai-w.vercel.app',
+      'https://maimai-w-git-main.vercel.app'
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -515,6 +531,15 @@ app.get('/api/users', authenticateToken, async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Server error' });
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ 
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+  });
 });
 
 // Catch all other routes and return the index.html file

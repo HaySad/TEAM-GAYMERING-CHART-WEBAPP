@@ -49,16 +49,29 @@ class Database {
       }
     } catch (error) {
       console.error('Error initializing database:', error);
+      // ใน serverless environment อาจไม่สามารถเขียนไฟล์ได้
+      // ให้ใช้ in-memory storage แทน
+      this.inMemoryUsers = [];
+      this.inMemoryRoles = [
+        'Moderator', 'Admin', 'VIP', 'Premium', 'Member', 'Newbie',
+        'Pro Player', 'Tournament Winner', 'Event Organizer',
+        'Content Creator', 'Streamer', 'Developer', 'Support Team'
+      ];
     }
   }
 
   async getAllUsers() {
     try {
+      // ถ้าใช้ in-memory storage
+      if (this.inMemoryUsers) {
+        return this.inMemoryUsers;
+      }
+      
       const data = await fs.readFile(this.usersFile, 'utf8');
       return JSON.parse(data);
     } catch (error) {
       console.error('Error reading users:', error);
-      return [];
+      return this.inMemoryUsers || [];
     }
   }
 

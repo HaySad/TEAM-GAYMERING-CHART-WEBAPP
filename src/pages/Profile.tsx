@@ -3,11 +3,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Profile: React.FC = () => {
-  const { user, isLoggedIn, isGuest, token } = useAuth();
+  const { user, isLoggedIn, isGuest } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [currentRating, setCurrentRating] = useState(user?.rating || 0);
 
   useEffect(() => {
@@ -28,7 +25,7 @@ const Profile: React.FC = () => {
     <div style={styles.container}>
       <div style={styles.profileBox}>
         <div style={styles.header}>
-          <h2 style={styles.title}>👤 โปรไฟล์</h2>
+          <h2 style={styles.title}>👤 Profile</h2>
           <p style={styles.subtitle}>
             {isGuest ? 'Guest User' : user?.username}
             {isGuest && <span style={styles.guestBadge}> (Guest)</span>}
@@ -36,17 +33,6 @@ const Profile: React.FC = () => {
         </div>
 
         <div style={styles.content}>
-          {error && (
-            <div style={styles.errorMessage}>
-              ⚠️ {error}
-            </div>
-          )}
-
-          {success && (
-            <div style={styles.successMessage}>
-              ✅ {success}
-            </div>
-          )}
 
           <div style={styles.section}>
             <h3 style={styles.sectionTitle}>📊 ข้อมูลพื้นฐาน</h3>
@@ -70,7 +56,7 @@ const Profile: React.FC = () => {
           </div>
 
           <div style={styles.section}>
-            <h3 style={styles.sectionTitle}>⭐ Rating</h3>
+            <h3 style={styles.sectionTitle}>Rating</h3>
             <div style={styles.ratingContainer}>
               <div style={styles.ratingDisplay}>
                 <span style={styles.ratingValue}>{currentRating}</span>
@@ -94,7 +80,7 @@ const Profile: React.FC = () => {
           </div>
 
           <div style={styles.section}>
-            <h3 style={styles.sectionTitle}>🎭 Discord Roles</h3>
+            <h3 style={styles.sectionTitle}>Roles</h3>
             <div style={styles.rolesContainer}>
               {user?.discordRoles && user.discordRoles.length > 0 ? (
                 <div style={styles.rolesList}>
@@ -105,7 +91,7 @@ const Profile: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                <p style={styles.noRoles}>ยังไม่มี Discord roles</p>
+                <p style={styles.noRoles}>ยังไม่มี Roles</p>
               )}
             </div>
           </div>

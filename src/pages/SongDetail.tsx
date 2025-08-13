@@ -8,7 +8,6 @@ const SongDetail: React.FC = () => {
   const navigate = useNavigate();
   const song = maiChartData.find(s => s.id === id);
   const [chartStats, setChartStats] = useState<ChartStats | null>(null);
-  const [chartError,] = useState<string>('');
 
   useEffect(() => {
     if (song) {
@@ -101,9 +100,7 @@ const SongDetail: React.FC = () => {
               {song.chartStats !== 'None' && (
                 <div style={styles.chartStatsSection}>
                   <h2 style={styles.chartStatsTitle}>Chart Information</h2>
-                  {chartError ? (
-                    <p style={styles.chartError}>{chartError}</p>
-                  ) : chartStats ? (
+                  {chartStats ? (
                     <>
                       <div style={styles.chartStatsGrid}>
                         <div style={styles.chartStatItem}>

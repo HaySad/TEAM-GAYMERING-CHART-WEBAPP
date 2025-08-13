@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 interface ScoreData {
   songId: string;
@@ -23,8 +23,7 @@ interface ScoreData {
 }
 
 const ScoreSubmission: React.FC = () => {
-  const { user, isLoggedIn, token } = useAuth();
-  const navigate = useNavigate();
+  const { token } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
