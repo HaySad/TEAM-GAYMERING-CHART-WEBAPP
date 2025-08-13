@@ -20,12 +20,39 @@ app.use(cors({
       'http://localhost:3000',
       'https://discord-competition.vercel.app',
       'https://maimai-w.vercel.app',
-      'https://maimai-w-git-main.vercel.app'
+      'https://maimai-w-git-main.vercel.app',
+      // Local network IPs (จะเพิ่มตามที่ต้องการ)
+      'http://192.168.1.100:3000',
+      'http://192.168.1.101:3000',
+      'http://192.168.1.102:3000',
+      'http://192.168.1.103:3000',
+      'http://192.168.1.104:3000',
+      'http://192.168.1.105:3000',
+      'http://192.168.1.106:3000',
+      'http://192.168.1.107:3000',
+      'http://192.168.1.108:3000',
+      'http://192.168.1.109:3000',
+      'http://192.168.1.110:3000',
+      // Public IP (จะเปลี่ยนตาม ISP)
+      'http://203.xxx.xxx.xxx:3000',
+      'http://27.145.145.20:3000',
+      'http://27.145.145.20:3001'
     ];
+    
+    // Allow all local network requests (192.168.x.x)
+    if (origin && origin.match(/^http:\/\/192\.168\.\d+\.\d+:\d+$/)) {
+      return callback(null, true);
+    }
+    
+    // Allow specific public IP
+    if (origin && origin.match(/^http:\/\/27\.145\.145\.20:\d+$/)) {
+      return callback(null, true);
+    }
     
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },

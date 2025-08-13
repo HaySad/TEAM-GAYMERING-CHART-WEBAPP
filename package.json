@@ -38,7 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm run server:dev\" \"npm run start\""
+    "dev": "concurrently \"npm run server:dev\" \"npm run start\"",
+    "public": "node start-public.js",
+    "test-connection": "node test-connection.js"
   },
   "eslintConfig": {
     "extends": [
@@ -62,5 +64,8 @@
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
