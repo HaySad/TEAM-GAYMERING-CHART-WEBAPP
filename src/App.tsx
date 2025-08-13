@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthButton from './components/AuthButton';
+import DatabaseStatusNotification from './components/DatabaseStatusNotification';
+import { useDatabaseStatus } from './hooks/useDatabaseStatus';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
@@ -48,6 +50,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 // App Routes Component
 const AppRoutes: React.FC = () => {
   const { isLoggedIn, loading } = useAuth();
+  const { isConnected, isFallbackMode } = useDatabaseStatus();
 
   if (loading) {
     return <LoadingScreen />;
@@ -56,6 +59,10 @@ const AppRoutes: React.FC = () => {
   return (
     <>
       <AuthButton />
+      <DatabaseStatusNotification 
+        isConnected={isConnected}
+        isFallbackMode={isFallbackMode}
+      />
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={

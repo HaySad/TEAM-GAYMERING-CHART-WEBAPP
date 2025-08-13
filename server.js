@@ -2,13 +2,40 @@ const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
 const session = require('express-session');
+const RedisStore = require('connect-redis').default;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const database = require('./database');
+const redisDatabase = require('./redis-database');
 const app = express();
+
+// Debug logging
+console.log('Server starting...');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'SET' : 'NOT SET');
+console.log('PORT:', process.env.PORT);
+console.log('REDIS_URL:', process.env.REDIS_URL ? 'SET' : 'NOT SET');
 
 // JWT Secret Key (ในการใช้งานจริงควรเก็บใน environment variable)
 const JWT_SECRET = process.env.JWT_SECRET || 'maimai-jwt-secret-key-2024';
+
+// Initialize Redis database
+async function initializeDatabase() {
+  try {
+    console.log('Initializing Redis database...');
+    const connected = await redisDatabase.connect();
+    if (connected) {
+      await redisDatabase.initializeDefaultData();
+      console.log('Database initialization completed');
+    } else {
+      console.error('Failed to connect to Redis');
+    }
+  } catch (error) {
+    console.error('Database initialization error:', error);
+  }
+}
+
+// Initialize database on startup
+initializeDatabase();
 
 // CORS configuration
 app.use(cors({
@@ -61,8 +88,12 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Session configuration for Vercel (in-memory)
-app.use(session({
+// Session configuration with Redis store
+const sessionConfig = {
+  store: new RedisStore({ 
+    client: redisDatabase.client,
+    prefix: 'session:'
+  }),
   secret: 'maimai-secret-key',
   resave: false,
   saveUninitialized: false,
@@ -70,7 +101,9 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60 * 1000 // 1 hour
   }
-}));
+};
+
+app.use(session(sessionConfig));
 
 app.use(express.json());
 
@@ -118,6 +151,7 @@ const authenticateToken = async (req, res, next) => {
 
 // Signup endpoint
 app.post('/api/signup', async (req, res) => {
+  console.log('Signup request received:', { username: req.body.username });
   const { username, password, email } = req.body;
   
   if (!username || !password) {
@@ -129,7 +163,7 @@ app.post('/api/signup', async (req, res) => {
   }
 
   try {
-    const result = await database.createUser(username, password, email);
+    const result = await redisDatabase.createUser(username, password, email);
     
     if (!result.success) {
       return res.status(400).json({ error: result.error });
@@ -164,7 +198,7 @@ app.post('/api/login', async (req, res) => {
   }
 
   try {
-    const result = await database.authenticateUser(username, password);
+    const result = await redisDatabase.authenticateUser(username, password);
     
     if (!result.success) {
       return res.status(401).json({ error: result.error });
@@ -359,7 +393,7 @@ app.get('/api/admin/users', authenticateToken, async (req, res) => {
   }
 
   try {
-    const users = await database.getAllUsersForAdmin();
+    const users = await redisDatabase.getAllUsers();
     res.json({
       success: true,
       users
@@ -377,7 +411,7 @@ app.get('/api/admin/discord-roles', authenticateToken, async (req, res) => {
   }
 
   try {
-    const roles = await database.getDiscordRoles();
+    const roles = await redisDatabase.getAllDiscordRoles();
     res.json({
       success: true,
       roles
@@ -401,7 +435,7 @@ app.post('/api/admin/discord-roles', authenticateToken, async (req, res) => {
   }
 
   try {
-    const result = await database.addDiscordRole(role);
+    const result = await redisDatabase.addDiscordRole(role);
     
     if (result.success) {
       res.json({
@@ -427,7 +461,7 @@ app.delete('/api/admin/discord-roles/:role', authenticateToken, async (req, res)
   const { role } = req.params;
 
   try {
-    const result = await database.removeDiscordRole(role);
+    const result = await redisDatabase.removeDiscordRole(role);
     
     if (result.success) {
       res.json({
@@ -458,7 +492,7 @@ app.post('/api/admin/users/:userId/discord-roles', authenticateToken, async (req
   }
 
   try {
-    const result = await database.addDiscordRole(userId, role);
+    const result = await redisDatabase.addRoleToUser(userId, role);
     
     if (result.success) {
       res.json({
@@ -484,7 +518,7 @@ app.delete('/api/admin/users/:userId/discord-roles/:role', authenticateToken, as
   const { userId, role } = req.params;
 
   try {
-    const result = await database.removeDiscordRole(userId, role);
+    const result = await redisDatabase.removeRoleFromUser(userId, role);
     
     if (result.success) {
       res.json({
@@ -541,10 +575,30 @@ app.get('/api/songs/:songId/download', authenticateToken, (req, res) => {
   });
 });
 
+// Get database status
+app.get('/api/database-status', async (req, res) => {
+  try {
+    res.json({
+      isConnected: redisDatabase.isConnected,
+      isFallbackMode: redisDatabase.fallbackMode,
+      message: redisDatabase.fallbackMode 
+        ? 'Using fallback mode - data may not persist' 
+        : 'Connected to Redis database'
+    });
+  } catch (error) {
+    console.error('Database status error:', error);
+    res.status(500).json({ 
+      isConnected: false,
+      isFallbackMode: true,
+      message: 'Database status check failed'
+    });
+  }
+});
+
 // Get all users (admin endpoint - for testing)
 app.get('/api/users', authenticateToken, async (req, res) => {
   try {
-    const users = await database.getAllUsers();
+    const users = await redisDatabase.getAllUsers();
     // ไม่ส่ง password กลับไป
     const safeUsers = users.map(user => ({
       id: user.id,
