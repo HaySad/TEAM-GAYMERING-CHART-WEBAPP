@@ -575,6 +575,26 @@ app.get('/api/songs/:songId/download', authenticateToken, (req, res) => {
   });
 });
 
+// Get database status
+app.get('/api/database-status', async (req, res) => {
+  try {
+    res.json({
+      isConnected: redisDatabase.isConnected,
+      isFallbackMode: redisDatabase.fallbackMode,
+      message: redisDatabase.fallbackMode 
+        ? 'Using fallback mode - data may not persist' 
+        : 'Connected to Redis database'
+    });
+  } catch (error) {
+    console.error('Database status error:', error);
+    res.status(500).json({ 
+      isConnected: false,
+      isFallbackMode: true,
+      message: 'Database status check failed'
+    });
+  }
+});
+
 // Get all users (admin endpoint - for testing)
 app.get('/api/users', authenticateToken, async (req, res) => {
   try {
