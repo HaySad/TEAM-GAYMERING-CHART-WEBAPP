@@ -49,8 +49,8 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '1.5rem',
-    minWidth: '320px',
-    maxWidth: '400px',
+    width: '400px',
+    height: '120px',
   },
   songImage: {
     width: '80px',
@@ -63,11 +63,16 @@ const styles = {
     display: 'flex',
     flexDirection: 'column' as const,
     gap: '0.3rem',
+    flex: 1,
+    minWidth: 0,
   },
   songName: {
     fontWeight: 'bold',
     fontSize: '1.1rem',
     color: '#ff9800',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   songLevel: {
     color: '#fff',
@@ -76,6 +81,9 @@ const styles = {
   songDetail: {
     color: '#ffb74d',
     fontSize: '0.9rem',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   downloadButton: {
     marginTop: '0.7rem',
@@ -150,10 +158,57 @@ const styles = {
     padding: 0,
     transition: 'color 0.2s',
   },
+  glassBreakOverlay: {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    background: 'rgba(0,0,0,0.8)',
+    zIndex: 9998,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  glassBreakAnimation: {
+    width: '300px',
+    height: '300px',
+    position: 'relative' as const,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  thirdSongCard: {
+    background: 'rgba(40, 20, 0, 0.7)',
+    borderRadius: '12px',
+    padding: '1.2rem',
+    margin: '1rem 0',
+    boxShadow: '0 2px 8px 0 #ff0000, 0 0 20px rgba(255, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1.5rem',
+    width: '400px',
+    height: '120px',
+    animation: 'thirdSongAppear 0.8s ease-out',
+  },
 };
 
 function getRandomSong(songs: any[]) {
   return songs[Math.floor(Math.random() * songs.length)];
+}
+
+// ฟังก์ชันสำหรับแปลง level เป็นรูปแบบ x หรือ x+
+function formatLevel(level: number): string {
+  const integerPart = Math.floor(level);
+  const decimalPart = level - integerPart;
+  
+  if (decimalPart === 0) {
+    return integerPart.toString();
+  } else if (decimalPart > 0.6) {
+    return `${integerPart}+`;
+  } else {
+    return integerPart.toString();
+  }
 }
 
 const HigurashiDan: React.FC = () => {
@@ -165,6 +220,8 @@ const HigurashiDan: React.FC = () => {
   const [toriiDialogText, setToriiDialogText] = useState('');
   const [toriiBreak, setToriiBreak] = useState(false);
   const [showFinishQuestion, setShowFinishQuestion] = useState(false);
+  const [showGlassBreak, setShowGlassBreak] = useState(false);
+  const [showThirdSong, setShowThirdSong] = useState(false);
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -179,10 +236,15 @@ const HigurashiDan: React.FC = () => {
       setSelectedSongs([selectedSongs[0], song2]);
       setStep(2);
     } else if (step === 2) {
-      // เพลงที่ 3 จาก dan3 (มีเพลงเดียว)
-      const song3 = higurashiDan3Songs[0];
-      setSelectedSongs([selectedSongs[0], selectedSongs[1], song3]);
-      setStep(3);
+      // เพลงที่ 3 จาก dan3 - เริ่มอนิเมชันกระจกแตก
+      setShowGlassBreak(true);
+      setTimeout(() => {
+        const song3 = higurashiDan3Songs[0];
+        setSelectedSongs([selectedSongs[0], selectedSongs[1], song3]);
+        setShowGlassBreak(false);
+        setShowThirdSong(true);
+        setStep(3);
+      }, 2000); // รอ 2 วินาทีให้อนิเมชันกระจกแตกเล่นจบ
     }
   };
 
@@ -200,6 +262,8 @@ const HigurashiDan: React.FC = () => {
     setShowBossModal(false);
     setShowBossDownload(false);
     setShowFinishQuestion(false);
+    setShowGlassBreak(false);
+    setShowThirdSong(false);
   };
 
   // Typewriter & dialog change effect
@@ -260,11 +324,11 @@ const HigurashiDan: React.FC = () => {
       <div style={styles.container}>
         <h1 style={styles.header}>Higurashi 段位認定</h1>
         {selectedSongs.map((song, idx) => (
-          <div key={song.id} style={styles.songCard}>
+          <div key={song.id} style={idx === 2 && showThirdSong ? styles.thirdSongCard : styles.songCard}>
             <img src={song.image} alt={song.name} style={styles.songImage} />
             <div style={styles.songInfo}>
               <div style={styles.songName}>{`เพลงที่ ${idx + 1}: ${song.name}`}</div>
-              <div style={styles.songLevel}>Level: {song.level}</div>
+              <div style={styles.songLevel}>Level: {formatLevel(song.level)}</div>
               <div style={styles.songDetail}>Artist: {song.artist}</div>
               <div style={styles.songDetail}>Chart by: {song.chartDesigner}</div>
               <button
@@ -287,6 +351,15 @@ const HigurashiDan: React.FC = () => {
         <button style={{...styles.nextButton, background: 'rgba(255,107,107,0.8)', marginTop: 16}} onClick={handleReset}>
           Reset
         </button>
+
+      {/* Glass Break Animation */}
+      {showGlassBreak && (
+        <div style={styles.glassBreakOverlay}>
+          <div style={styles.glassBreakAnimation}>
+            <GlassBreakEffect />
+          </div>
+        </div>
+      )}
 
       {/* Boss Modal Popup */}
       {showBossModal && (
@@ -313,7 +386,7 @@ const HigurashiDan: React.FC = () => {
                 <button
                   style={styles.downloadButton}
                   onClick={() => {
-                    window.open('/public/songs/all/higurashi/Lament-rain.jpg', '_blank');
+                    window.open('/songs/all/higurashi/Lament-rain.jpg', '_blank');
                   }}
                 >
                   Download Boss Song
@@ -454,4 +527,119 @@ const BossAudioPlayer: React.FC<{ src: string }> = ({ src }) => {
     }
   }, [src]);
   return <audio ref={audioRef} src={src} autoPlay style={{display: 'none'}} />;
+};
+
+// Component สำหรับอนิเมชันกระจกแตก
+const GlassBreakEffect: React.FC = () => {
+  return (
+    <div style={{position: 'relative', width: '100%', height: '100%'}}>
+      {/* Glass pieces */}
+      <div style={{
+        position: 'absolute',
+        top: '20%',
+        left: '20%',
+        width: '60%',
+        height: '60%',
+        border: '3px solid #fff',
+        borderRadius: '50%',
+        animation: 'glassBreak 2s ease-out forwards',
+        boxShadow: '0 0 20px rgba(255,255,255,0.8)',
+      }} />
+      
+      {/* Crack lines */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '0',
+        width: '100%',
+        height: '2px',
+        background: 'linear-gradient(90deg, transparent, #fff, transparent)',
+        animation: 'crackLine 0.5s ease-out 0.3s forwards',
+        transform: 'translateY(-50%)',
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '50%',
+        width: '2px',
+        height: '100%',
+        background: 'linear-gradient(180deg, transparent, #fff, transparent)',
+        animation: 'crackLine 0.5s ease-out 0.5s forwards',
+        transform: 'translateX(-50%)',
+      }} />
+      
+      {/* Glass shards */}
+      {[...Array(8)].map((_, i) => (
+        <div key={i} style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '20px',
+          height: '20px',
+          background: 'rgba(255,255,255,0.9)',
+          clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+          animation: `glassShard 1.5s ease-out ${0.8 + i * 0.1}s forwards`,
+          transform: 'translate(-50%, -50%)',
+        }} />
+      ))}
+      
+      {/* CSS Keyframes */}
+      <style>{`
+        @keyframes glassBreak {
+          0% { 
+            opacity: 1; 
+            transform: scale(1) rotate(0deg);
+            box-shadow: 0 0 20px rgba(255,255,255,0.8);
+          }
+          50% { 
+            opacity: 0.8; 
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 40px rgba(255,255,255,1);
+          }
+          100% { 
+            opacity: 0; 
+            transform: scale(0.5) rotate(360deg);
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+          }
+        }
+        @keyframes crackLine {
+          0% { 
+            opacity: 0; 
+            transform: scaleX(0);
+          }
+          100% { 
+            opacity: 1; 
+            transform: scaleX(1);
+          }
+        }
+        @keyframes glassShard {
+          0% { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1) rotate(0deg);
+          }
+          100% { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(0.1) rotate(720deg) translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px);
+          }
+        }
+        @keyframes thirdSongAppear {
+          0% { 
+            opacity: 0; 
+            transform: scale(0.5) rotateY(90deg);
+            box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+          }
+          50% { 
+            opacity: 0.7; 
+            transform: scale(1.1) rotateY(45deg);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+          }
+          100% { 
+            opacity: 1; 
+            transform: scale(1) rotateY(0deg);
+            box-shadow: 0 2px 8px 0 #ff0000, 0 0 20px rgba(255, 0, 0, 0.5);
+          }
+        }
+      `}</style>
+    </div>
+  );
 }; 
