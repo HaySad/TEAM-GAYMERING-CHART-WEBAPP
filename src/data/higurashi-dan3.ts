@@ -16,6 +16,6 @@ export const higurashiDan3Songs: Song[] = [
     image: '/songs/higurashi/Analogy/bg.jpg',
     artist: 'Ayane',
     chartDesigner: 'Rika vs Satoko',
-    downloadUrl: 'https://drive.google.com/uc?export=download&id=1FUYWjhTbp6AY79EnleBgIYjx4f2XQ2i7',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=10Ac9FLaMPLCzf_R0KxIjo-G1XqtzIX2g',
   },
 ]; 

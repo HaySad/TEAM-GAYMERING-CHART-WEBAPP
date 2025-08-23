@@ -43,16 +43,16 @@ function StarBackground() {
   );
 }
 
-const planets = [
-  { name: 'Mercury', color: '#b1b1b1', size: 12, orbit: 50 },
-  { name: 'Venus', color: '#e6c97b', size: 18, orbit: 80 },
-  { name: 'Earth', color: '#4e8cff', size: 20, orbit: 110 },
-  { name: 'Mars', color: '#d14b2a', size: 16, orbit: 140 },
-  { name: 'Jupiter', color: '#e3b97b', size: 32, orbit: 180 },
-  { name: 'Saturn', color: '#e6d47b', size: 28, orbit: 220 },
-  { name: 'Uranus', color: '#7be6e6', size: 22, orbit: 260 },
-  { name: 'Neptune', color: '#4b7be6', size: 22, orbit: 300 },
-];
+// const planets = [
+//   { name: 'Mercury', color: '#b1b1b1', size: 12, orbit: 50 },
+//   { name: 'Venus', color: '#e6c97b', size: 18, orbit: 80 },
+//   { name: 'Earth', color: '#4e8cff', size: 20, orbit: 110 },
+//   { name: 'Mars', color: '#d14b2a', size: 16, orbit: 140 },
+//   { name: 'Jupiter', color: '#e3b97b', size: 32, orbit: 180 },
+//   { name: 'Saturn', color: '#e6d47b', size: 28, orbit: 220 },
+//   { name: 'Uranus', color: '#7be6e6', size: 22, orbit: 260 },
+//   { name: 'Neptune', color: '#4b7be6', size: 22, orbit: 300 },
+// ];
 
 const SolarSystem: React.FC = () => {
   const navigate = useNavigate();
