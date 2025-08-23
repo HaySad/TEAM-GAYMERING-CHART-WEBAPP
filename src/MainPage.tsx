@@ -38,7 +38,7 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
 
   // ตั้งค่าตัวแปรนี้เพื่อควบคุมล็อค/ปลดล็อคปุ่ม Higurashi
-  const isHigurashiLocked = true; // เปลี่ยนเป็น false เพื่อปลดล็อค
+  const isHigurashiLocked = false; // เปลี่ยนเป็น false เพื่อปลดล็อค
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = '/placeholder.png';

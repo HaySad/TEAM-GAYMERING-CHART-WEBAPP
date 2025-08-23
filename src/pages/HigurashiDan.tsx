@@ -386,7 +386,7 @@ const HigurashiDan: React.FC = () => {
                 <button
                   style={styles.downloadButton}
                   onClick={() => {
-                    window.open('/songs/all/higurashi/Lament-rain.jpg', '_blank');
+                    window.open('https://drive.google.com/uc?export=download&id=1TrUghhOgHClDK0nqp4Mmb-UEDKinYwSZ', '_blank');
                   }}
                 >
                   Download Boss Song

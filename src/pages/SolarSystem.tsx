@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // สร้างฟังก์ชันสุ่มระอองดาว (star background) แบบเคลื่อนไหวตลอดเวลา
 function StarBackground() {
@@ -54,10 +55,12 @@ const planets = [
 ];
 
 const SolarSystem: React.FC = () => {
+  const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [dialogs, setDialogs] = useState<any[]>([]);
   const [dialogIndex, setDialogIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState(''); // สำหรับ typewriter
+  const [showCustomBackground, setShowCustomBackground] = useState(false); // สำหรับเปลี่ยนพื้นหลัง
 
   useEffect(() => {
     setShowDialog(true);
@@ -94,10 +97,17 @@ const SolarSystem: React.FC = () => {
       setDisplayedText(dialogs[dialogIndex].text);
       return;
     }
+    
+    // ตรวจสอบว่าถึง intro-5 แล้วหรือยัง เพื่อเปลี่ยนพื้นหลัง
+    if (dialogs[dialogIndex].id === 'intro-5') {
+      setShowCustomBackground(true);
+    }
+    
     if (dialogIndex < dialogs.length - 1) {
       setDialogIndex(dialogIndex + 1);
     } else {
-      setShowDialog(false);
+      // หลังจากเล่น dialog เสร็จแล้ว ให้กลับไปหน้าหลัก
+      navigate('/');
     }
   };
 
@@ -106,7 +116,9 @@ const SolarSystem: React.FC = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'radial-gradient(ellipse at center, #222 0%, #111 100%)',
+      background: showCustomBackground 
+        ? `url('songs/art/IMG_0682.PNG') center center / cover no-repeat`
+        : 'radial-gradient(ellipse at center, #222 0%, #111 100%)',
       color: '#fff',
       display: 'flex',
       alignItems: 'center',
@@ -114,65 +126,9 @@ const SolarSystem: React.FC = () => {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* ระอองดาวเคลื่อนไหวตลอดเวลา */}
-      <StarBackground />
-      {/* Solar System */}
-      {!showDialog && (
-        <div style={{
-          position: 'relative',
-          width: 1200,
-          height: 400,
-          margin: '0 auto',
-          background: 'rgba(0,0,0,0.1)'
-        }}>
-          {/* Sun */}
-          <div style={{
-            position: 'absolute',
-            left: 40,
-            top: '50%',
-            width: 60,
-            height: 60,
-            background: 'radial-gradient(circle, #ffe066 60%, #ffae00 100%)',
-            borderRadius: '50%',
-            transform: 'translateY(-50%)',
-            boxShadow: '0 0 60px 20px #ffe06688',
-            zIndex: 2
-          }}>
-            <span style={{
-              position: 'absolute', left: '50%', top: '110%', transform: 'translateX(-50%)', color: '#ffe066', fontWeight: 'bold'
-            }}>Sun</span>
-          </div>
-          {/* Planets */}
-          {planets.map((planet, idx) => (
-            <div key={planet.name} style={{
-              position: 'absolute',
-              left: 120 + idx * 75, // ระยะห่างแต่ละดวง
-              top: '50%',
-              width: planet.size,
-              height: planet.size,
-              borderRadius: '50%',
-              background: `radial-gradient(circle at 30% 30%, #fff8 0%, ${planet.color} 60%, #000 100%)`,
-              transform: 'translateY(-50%)',
-              boxShadow: `0 0 16px 2px ${planet.color}88, 0 8px 24px 0 #000a`,
-              zIndex: 2
-            }}>
-              <span style={{
-                position: 'absolute', left: '50%', top: '120%', transform: 'translateX(-50%)', fontSize: 12, color: '#fff'
-              }}>{planet.name}</span>
-            </div>
-          ))}
-          {/* เส้นวงโคจรแนวนอน */}
-          <div style={{
-            position: 'absolute',
-            left: 70,
-            top: '50%',
-            width: 600,
-            height: 0,
-            borderTop: '2px dashed #444',
-            zIndex: 1
-          }} />
-        </div>
-      )}
+      {/* ระอองดาวเคลื่อนไหวตลอดเวลา - แสดงเฉพาะเมื่อไม่ใช้พื้นหลังพิเศษ */}
+      {!showCustomBackground && <StarBackground />}
+      {/* ไม่แสดง Solar System อีกต่อไป เนื่องจากจะกลับไปหน้าหลักหลังจาก dialog เสร็จ */}
       {/* Dialog */}
       {showDialog && dialogData && (
         <div

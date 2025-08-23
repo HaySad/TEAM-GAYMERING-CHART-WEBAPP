@@ -16,6 +16,6 @@ export const higurashiDanBossSongs: Song[] = [
     image: 'public/songs/all/lament-rain/bg.jpg',
     artist: 'Ashrount vs. 打打だいず',
     chartDesigner: '??????? Vs ???',
-    downloadUrl: 'https://example.com/boss-song.mp3',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=1TrUghhOgHClDK0nqp4Mmb-UEDKinYwSZ',
   },
 ]; 

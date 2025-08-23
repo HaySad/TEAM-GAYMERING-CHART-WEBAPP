@@ -1,37 +1,59 @@
 [
   {
     "id": "intro-1",
-    "characterId": "scientist",
-    "characterName": "Scientist",
-    "avatar": "/images/characters/scientist.png",
-    "text": "ตวรจพบสภาวะผิดปกติของสสารและแรงโน้มถวงรอบๆ บริเวณโดยรอบ"
+    "characterId": "???",
+    "characterName": "???",
+    "avatar": "/images/characters/???",
+    "text": "วิวบริเวณนี้ช่วงดูดีแล้วเงียบเหงาดีนะ"
   },
   {
     "id": "intro-2",
     "characterId": "???",
     "characterName": "???",
-    "avatar": "/images/characters/bob.png",
-    "text": "ยานกำลังถูกดึงเข้าสู่สภาวะอนันต์ ตรวจพบความผิดปกติของการความเร่งระหว่างตัวยาน"
+    "avatar": "/images/characters/???",
+    "text": "แสงสุริยะ อันริบหรี่ ณ ปลายเขตเดน ช่างเหงาหัวใจเสียเหลือเกิน"
   },
   {
     "id": "intro-3",
     "characterId": "???",
     "characterName": "???",
-    "avatar": "/images/characters/bob.png",
-    "text": "ตอนนี้ความเร่งของตัวยานกำลังเข้าใกล้ 5% ของความเร็วแสง หากปล่อยไว้ยานจะสูญเสียเกราะ ป้องกันและถูกทำลาย"
-  },
-  {
-    "id": "intro-3",
-    "characterId": "scientist",
-    "characterName": "Scientist",
-    "avatar": "/images/characters/scientist.png",
-    "text": "เราจะสละยานกัน Alice "
+    "avatar": "/images/characters/???",
+    "text": "อ้าว เจ้าผู้ผ่าน ประตูแห่งเทพเจ้า Higurashi Dan"
   },
   {
     "id": "intro-4",
-    "characterId": "",
-    "characterName": "",
-    "avatar": "/images/characters/bob.png",
-    "text": "Alice และ Scientist กำลังเตรียมตัวสละยาน "
+    "characterId": "???",
+    "characterName": "???",
+    "avatar": "/images/characters/???",
+    "text": "คงแปลกใจละสิ ทำไมถึงมาอยู่ที่นี่ อวกาศอันมืดมิดนี้ได้"
+  },
+  {
+    "id": "intro-5",
+    "characterId": "Neptune",
+    "characterName": "Neptune",
+    "avatar": "/images/characters/Neptune.png",
+    "text": "ข้ามีนามว่า Neptune เป็นทั้งผู้ดูแล และผู้สังเกตการของที่นี้"
+  },
+  {
+    "id": "intro-6",
+    "characterId": "Neptune",
+    "characterName": "Neptune",
+    "avatar": "/images/characters/Neptune.png",
+    "text": "เจ้าคงพบข้าเป็นคนแรก แต่ไม่เป็นไร"
+  },
+  {
+    "id": "intro-7",
+    "characterId": "Neptune",
+    "characterName": "Neptune",
+    "avatar": "/images/characters/Neptune.png",
+    "text": "ไว้เดี๋ยวข้ายจะพาเจ้ากลับไปยังโลกเอง เมื่อเวลาพาสมควร"
+  },
+  {
+    "id": "intro-8",
+    "characterId": "Neptune",
+    "characterName": "Neptune",
+    "avatar": "/images/characters/Neptune.png",
+    "text": "ยิ่นดีต้อนระบบสู่ระบบสุริยะนะ เจ้าเด็กน้อย"
   }
+
 ] 
