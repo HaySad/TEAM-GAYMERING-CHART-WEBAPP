@@ -14,6 +14,7 @@ import EventHorizon from './pages/EventHorizon';
 import WorldMap from './components/WorldMap';
 import HigurashiDan from './pages/HigurashiDan';
 import SolarSystem from './pages/SolarSystem';
+import VisualNovelExample from './pages/VisualNovelExample';
 import './App.css';
 
 // Loading component
@@ -99,6 +100,11 @@ const AppRoutes: React.FC = () => {
         <Route path="/solar-system" element={
           <ProtectedRoute>
             <SolarSystem />
+          </ProtectedRoute>
+        } />
+        <Route path="/visual-novel" element={
+          <ProtectedRoute>
+            <VisualNovelExample />
           </ProtectedRoute>
         } />
         <Route path="/profile" element={

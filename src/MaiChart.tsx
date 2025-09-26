@@ -102,6 +102,7 @@ const MaiChart: React.FC = () => {
           <div style={styles.navLinks}>
             <a href="/discord-competition-4" style={styles.navLink}>Discord Competition</a>
             <a href="/mai-chart" style={{...styles.navLink, color: '#4ECDC4'}}>Mai Chart</a>
+            <a href="/visual-novel" style={styles.navLink}>Solar Eclipse</a>
           </div>
           <div style={styles.userInfo}>
             {user ? (

@@ -1,0 +1,227 @@
+[
+  {
+    "id": "start",
+    "characterName": "",
+    "text": "นานมาแล้วมนุษยชาติ ได้เริ่มออกเดินทางบุกเบิกอวกาศ เพื่อค้นหาบ้านแห่งใหม่",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-1",
+    "delay": 30
+  },
+  {
+    "id": "intro-1",
+    "characterName": "",
+    "text": "ยามเมื่อระบบสุริยะแห่งนี้ไม่สามารถอยู่อาศัยได้จากการขยายใหญ่ของดวงอาทิตย์ และทรัพยากรที่หมดลง",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-2",
+    "delay": 30
+  },
+  {
+    "id": "intro-2",
+    "characterName": "",
+    "text": "แต่เมื่อมนุษย์ได้พบสัญญาอาร์ติแฟกต์ วัตถุลำค่าที่มีความสามารถพิเศษที่แตกต่างกัน",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-3",
+    "delay": 30
+  },
+  {
+    "id": "intro-3",
+    "characterName": "",
+    "text": "ภายในระบบสุริยะ จำนวน 8 สัญญาอาร์ติแฟกต์ ซึ่งเป็นคลื่นที่ไม่เคยพบเจอมาก่อน",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-4",
+    "delay": 30
+  },
+  {
+    "id": "intro-4",
+    "characterName": "",
+    "text": "ทางกองทัพแห่งสหพันธรัฐกำหนดให้มนุษย์กลุ่มหนึ่ง เดินทางกลับไปสู่บ้านเก่า",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-5",
+    "delay": 30
+  },
+  {
+    "id": "intro-5",
+    "characterName": "",
+    "text": "เพื่อสำรวจและ สืบหาถึงสัญญาอาร์ติแฟกต์ที่มีแห่งที่มาจากระบบสุริยะ ซึ่งเป็นไปไม่ได้ที่จะมีการค้นพบสัญญาเหล่านี้",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "intro-6",
+    "delay": 30
+  },
+  {
+    "id": "intro-6",
+    "characterName": "",
+    "text": "คุณคือคนที่กำลังจะได้ออกเดินทางในครั้งนี้ และคุณก็กำลังจะไปขึ้นยานสาย !!!",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "choice1",
+    "delay": 30
+  },
+  {
+    "id": "choice1",
+    "characterName": "กับตัน",
+    "text": "นี้เธอมาทำงานสายนะ สิบตรีอริสส์",
+    "background": "/songs/art/IMG_0682.PNG",
+    "choices": [
+      {
+        "text": "ขออภัยค่ะ",
+        "nextId": "good"
+      },
+      {
+        "text": "คือว่าพอดีรถติดก็เลยมาสายค่ะ",
+        "nextId": "bad"
+      },
+      {
+        "text": ". . .",
+        "nextId": "good"
+      }
+    ]
+  },
+  {
+    "id": "good",
+    "characterName": "กับตัน",
+    "text": "รีบไป เข้าแถวเช็คชื่อกับคนอื่นได้แล้ว !",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "move-1"
+  },
+  {
+    "id": "bad",
+    "characterName": "กับต้น",
+    "characterAvatar": "/images/characters/Neptune.png",
+    "text": "มันไม่ใช่เรื่องที่เอามาพูด ไปวิดพื้น 100 รอบก่อนขึ้นยาน",
+    "background": "/songs/1-1/bg.jpg",
+    "choices": [
+      {
+        "text": "ได้ค่ะ",
+        "nextId": "bad-2"
+      },
+      {
+        "text": "รับทราบค่ะ ท่าน",
+        "nextId": "bad-2"
+      }
+    ]
+  },
+  {
+    "id": "forest_kind",
+    "characterName": "เทพธิดาป่า",
+    "characterAvatar": "/images/characters/Neptune.png",
+    "text": "เจ้ามีใจใสดี ข้าจะช่วยเจ้าหาทางกลับ และให้ของขวัญนี้แก่เจ้า ✨",
+    "background": "/songs/1-1/bg.jpg",
+    "nextId": "good_ending"
+  },
+  {
+    "id": "forest_brave",
+    "characterName": "เทพธิดาป่า",
+    "characterAvatar": "/images/characters/Neptune.png",
+    "text": "ความกล้าหาญของเจ้าน่าชื่นชม แต่ป่านี้มีอันตราย... เจ้าแน่ใจหรือ?",
+    "background": "/songs/1-1/bg.jpg",
+    "choices": [
+      {
+        "text": "ใช่ ผมพร้อมแล้ว! 💪",
+        "nextId": "adventure_path"
+      },
+      {
+        "text": "ขอคิดใหม่... 🤔",
+        "nextId": "forest_kind"
+      }
+    ]
+  },
+  {
+    "id": "city",
+    "characterName": "ผู้บรรยาย",
+    "text": "เธอเดินทางไปยังเมืองใหญ่ ผู้คนพลุกพล่าน เสียงโครกครามของการค้าขาย",
+    "background": "/songs/2-1/bg.jpg",
+    "nextId": "city_market"
+  },
+  {
+    "id": "city_market",
+    "characterName": "พ่อค้า",
+    "text": "ยินดีต้อนรับสู่เมืองของเรา! มีอะไรให้ช่วยไหม?",
+    "background": "/songs/2-1/bg.jpg",
+    "choices": [
+      {
+        "text": "หาที่พัก 🏨",
+        "nextId": "inn"
+      },
+      {
+        "text": "ซื้อของ 🛍️",
+        "nextId": "shop"
+      },
+      {
+        "text": "ถามข่าวสาร 📰",
+        "nextId": "news"
+      }
+    ]
+  },
+  {
+    "id": "stay",
+    "characterName": "หญิงสาวลึกลับ",
+    "characterAvatar": "/images/characters/Neptune.png",
+    "text": "การรอคอยก็มีประโยชน์เหมือนกัน บางครั้งคำตอบที่เราหาจะมาหาเราเอง...",
+    "background": "/songs/art/IMG_0682.PNG",
+    "autoNext": true,
+    "autoNextDelay": 3000,
+    "nextId": "wisdom_ending"
+  },
+  {
+    "id": "inn",
+    "characterName": "เจ้าของโรงแรม",
+    "text": "ห้องพักสบายๆ มีให้เลือกเยอะ! ราคาถูกด้วย",
+    "background": "/songs/3-1/bg.png",
+    "nextId": "rest_ending"
+  },
+  {
+    "id": "shop",
+    "characterName": "พ่อค้า",
+    "text": "ของดีๆ มีเยอะแยะ! ดาบวิเศษ เกราะป้องกัน หรือ microphone ลึกลับ?",
+    "background": "/songs/2-1/bg.jpg",
+    "nextId": "merchant_ending"
+  },
+  {
+    "id": "news",
+    "characterName": "พ่อค้า",
+    "text": "เอ่อ... เมื่อเร็วๆ นี้มีเสียงแปลกๆ มาจากป่าใหญ่ ใครไปมักไม่กลับ...",
+    "background": "/songs/2-1/bg.jpg",
+    "nextId": "mystery_ending"
+  },
+  {
+    "id": "adventure_path",
+    "characterName": "ผู้บรรยาย",
+    "text": "การผจญภัยที่แท้จริงเพิ่งจะเริ่มต้น... (ตอนต่อไปจะมีเร็วๆ นี้!)",
+    "background": "/songs/4-1/bg.png",
+    "nextId": "END"
+  },
+  {
+    "id": "good_ending",
+    "characterName": "ผู้บรรยาย",
+    "text": "เธอได้รับพลังพิเศษจากเทพธิดา และกลับบ้านอย่างปลอดภัย - Good Ending! 🌟",
+    "background": "/songs/1-1/bg.jpg",
+    "nextId": "END"
+  },
+  {
+    "id": "wisdom_ending",
+    "characterName": "ผู้บรรยาย",
+    "text": "บางครั้งความอดทนคือปัญญา เธอได้เรียนรู้บทเรียนที่สำคัญ - Wisdom Ending! 🧠",
+    "background": "/songs/art/IMG_0682.PNG",
+    "nextId": "END"
+  },
+  {
+    "id": "rest_ending",
+    "characterName": "ผู้บรรยาย",
+    "text": "เธอได้พักผ่อนและฟื้นฟูพลัง พร้อมสำหรับการผจญภัยครั้งต่อไป - Rest Ending! 😴",
+    "background": "/songs/3-1/bg.png",
+    "nextId": "END"
+  },
+  {
+    "id": "merchant_ending",
+    "characterName": "ผู้บรรยาย",
+    "text": "เธอได้อุปกรณ์ดีๆ และกลายเป็นนักผจญภัยที่แกร่งขึ้น - Merchant Ending! 🗡️",
+    "background": "/songs/2-1/bg.jpg",
+    "nextId": "END"
+  },
+  {
+    "id": "mystery_ending",
+    "characterName": "ผู้บรรยาย",
+    "text": "เธอได้ยินข่าวลึกลับ และอาจจะมีการผจญภัยครั้งใหม่รออยู่... - Mystery Ending! 🔍",
+    "background": "/songs/2-1/bg.jpg",
+    "nextId": "END"
+  }
+]
